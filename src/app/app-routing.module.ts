@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ReportPageComponent } from './report-page/report-page.component';
+import { ClientListPageComponent } from './client-list-page/client-list-page.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: '/report', pathMatch: 'full' },
+  { path: 'report', component: ReportPageComponent },
+  { path: 'clients', component: ClientListPageComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -11,11 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { ReportPageComponent } from './report-page/report-page.component';
+import { ClientListPageComponent } from './client-list-page/client-list-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    ReportPageComponent,
+    ClientListPageComponent
   ],
   imports: [
     BrowserModule,
