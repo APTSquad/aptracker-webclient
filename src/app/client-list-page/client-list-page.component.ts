@@ -4,7 +4,6 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
 export interface UserData {
-  id: string;
   client: string;
   projects: string;
   article: string;
@@ -40,7 +39,7 @@ const ARTICLES: string[] = [
 })
 export class ClientListPageComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'client', 'project', 'article'];
+  displayedColumns: string[] = ['client', 'project', 'article'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -48,7 +47,7 @@ export class ClientListPageComponent implements OnInit {
 
   constructor() {
     // Create 50 users
-    const users = Array.from({length: 50}, (_, k) => createNewUser(k + 1));
+    const users = Array.from({length: 50}, (_, k) => createNewUser());
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(users);
@@ -69,12 +68,11 @@ export class ClientListPageComponent implements OnInit {
 }
 
 /** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
+function createNewUser(): UserData {
   const name = CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))] + ' ' +
   CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))].charAt(0) + '.';
 
   return {
-    id: id.toString(),
     client: name,
     projects: PROJECTS[Math.round(Math.random() * (PROJECTS.length - 1))],
     article: ARTICLES[Math.round(Math.random() * (ARTICLES.length - 1))]

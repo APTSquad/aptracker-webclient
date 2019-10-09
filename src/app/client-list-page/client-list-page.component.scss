@@ -11,10 +11,15 @@ table {
   
   .mat-form-field {
     font-size: 14px;
-    width: 100%;
+    //width: 100%;
+    float: right;
+    border-bottom-color: lightblue;
   }
   
   td, th {
     width: 25%;
   }
-  
+
+  .mat-table-sticky {
+    border-bottom: 2px solid #757575;
+  }
