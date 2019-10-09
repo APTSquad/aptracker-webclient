@@ -1,4 +1,4 @@
-.docs-navbar-header {
+.aptracker-navbar-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -15,28 +15,28 @@
   flex-grow: 1;
 }
 
-.docs-angular-logo {
+.aptracker-angular-logo {
   height: 26px;
   margin: 0 4px 3px 0;
   vertical-align: middle;
 }
 
-.docs-github-logo {
+.aptracker-github-logo {
   height: 21px;
   margin: 0 7px 2px 0;
   vertical-align: middle;
 }
 
-.docs-navbar-link {
+.aptracker-navbar-link {
   text-decoration: inherit;
   flex: 1;
 }
 
-.docs-navbar {
+.aptracker-navbar {
   display: none;
 }
 
-.docs-navbar-show-small {
+.aptracker-navbar-show-small {
   display: none;
 }
 
@@ -45,19 +45,19 @@
   * Moves content two rows instead of one.
   */
 @media (max-width: 720px) {
-  .docs-navbar-hide-small {
+  .aptracker-navbar-hide-small {
     display: none;
   }
 
-  .docs-navbar-show-small {
+  .aptracker-navbar-show-small {
     display: block;
   }
 
-  .docs-navbar {
+  .aptracker-navbar {
     display: flex;
   }
 
-  .docs-navbar--github-logo {
+  .aptracker-navbar--github-logo {
     margin: 0;
   }
 }

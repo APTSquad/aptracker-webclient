@@ -6,7 +6,7 @@
 
 
 // Styles for the docs app that are based on the current theme.
-@mixin material-docs-app-theme($theme) {
+@mixin aptracker-app-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
@@ -14,11 +14,11 @@
   $foreground: map-get($theme, foreground);
   $next-theme: mat-palette($mat-red);
 
-  .docs-app-background {
+  .aptracker-app-background {
     background: mat-color($background, background);
   }
 
-  .docs-primary-header {
+  .aptracker-primary-header {
     background: mat-color($primary);
 
     h1 {
@@ -26,7 +26,7 @@
     }
   }
 
-  .docs-footer {
+  .aptracker-footer {
     background: mat-color($primary);
     color: mat-color($primary, default-contrast);
   }

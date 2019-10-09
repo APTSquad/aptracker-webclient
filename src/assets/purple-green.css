@@ -1472,15 +1472,15 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 .mat-simple-snackbar-action {
   color: inherit; }
 
-.docs-app-background {
+.aptracker-app-background {
   background: #303030; }
 
-.docs-primary-header {
+.aptracker-primary-header {
   background: #9c27b0; }
-  .docs-primary-header h1 {
+  .aptracker-primary-header h1 {
     color: white; }
 
-.docs-footer {
+.aptracker-footer {
   background: #9c27b0;
   color: white; }
 
@@ -1489,5 +1489,5 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 
 app-navbar {
   color: white; }
-  app-navbar .docs-navbar, app-navbar .docs-navbar-header {
+  app-navbar .aptracker-navbar, app-navbar .aptracker-navbar-header {
     background: #9c27b0; }
