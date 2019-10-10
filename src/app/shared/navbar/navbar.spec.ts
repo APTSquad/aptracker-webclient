@@ -7,7 +7,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { NavbarComponent } from './navbar.component';
+import { NavbarComponent } from './navbar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ThemePickerModule } from '../theme-picker';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -21,9 +23,11 @@ describe('NavbarComponent', () => {
         LayoutModule,
         MatButtonModule,
         MatIconModule,
+        RouterTestingModule,
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
+        ThemePickerModule
       ]
     }).compileComponents();
   }));

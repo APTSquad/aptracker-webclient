@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatIconModule, MatListModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 export interface UserData {
   client: string;
@@ -20,45 +21,45 @@ const CLIENT_NAMES: string[] = [
 ];
 
 const ARTICLES: string[] = [
-  'From its medieval origins to the digital', 
+  'From its medieval origins to the digital',
   'aying out print, graphic or web designs. ',
-   'unknown typesetter in the 15th century ', 
-   'scrambled parts of Ciceros De Finibus Bonorum', 
-   'Lorem ipsum dolor sit amet, consectetur', 
-   'The purpose of lorem ipsum is to create', 
-   'The passage experienced a surge ', 
-   'Latin derived from', 
-   'Until recently, the prevailing view', 
-   'Um, not so fast',
+  'unknown typesetter in the 15th century ',
+  'scrambled parts of Ciceros De Finibus Bonorum',
+  'Lorem ipsum dolor sit amet, consectetur',
+  'The purpose of lorem ipsum is to create',
+  'The passage experienced a surge ',
+  'Latin derived from',
+  'Until recently, the prevailing view',
+  'Um, not so fast',
 ];
 
 @Component({
   selector: 'app-client-list-page',
-  templateUrl: './client-list-page.component.html',
-  styleUrls: ['./client-list-page.component.scss']
+  templateUrl: './client-list-page.html',
+  styleUrls: ['./client-list-page.scss']
 })
 export class ClientListPageComponent implements OnInit {
 
   displayedColumns: string[] = ['client', 'project', 'article'];
   dataSource: MatTableDataSource<UserData>;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor() {
     // Create 50 users
-    const users = Array.from({length: 50}, (_, k) => createNewUser());
+    const users = Array.from({ length: 50 }, (_) => createNewUser());
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(users);
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter (filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -68,9 +69,9 @@ export class ClientListPageComponent implements OnInit {
 }
 
 /** Builds and returns a new User. */
-function createNewUser(): UserData {
+function createNewUser (): UserData {
   const name = CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))] + ' ' +
-  CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))].charAt(0) + '.';
+    CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))].charAt(0) + '.';
 
   return {
     client: name,
@@ -79,3 +80,17 @@ function createNewUser(): UserData {
   };
 
 }
+
+@NgModule({
+  imports: [
+    MatIconModule,
+    MatListModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule
+  ],
+  exports: [ClientListPageComponent],
+  declarations: [ClientListPageComponent],
+})
+export class ClientListPageModule { }

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClientListPageComponent } from './client-list-page.component';
+import { ClientListPageComponent } from './client-list-page';
 
 describe('ClientListPageComponent', () => {
   let component: ClientListPageComponent;
@@ -8,9 +8,9 @@ describe('ClientListPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClientListPageComponent ]
+      declarations: [ClientListPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

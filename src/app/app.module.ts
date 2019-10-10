@@ -4,10 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ReportPageComponent } from './report-page/report-page.component';
-import { ClientListPageComponent } from './client-list-page/client-list-page.component';
+import { ReportPageComponent } from './pages/report-page/report-page.component';
+import { ClientListPageComponent, ClientListPageModule } from './pages/client-list-page/client-list-page';
+import { ThemePickerModule } from './shared/theme-picker';
+import { NavBarModule } from './shared/navbar/navbar';
 
 //Angular material modules 
 import {
@@ -19,32 +20,21 @@ import {
   MatListModule,
   MatFormFieldModule,
   MatInputModule,
-  MatPaginatorModule 
- } from '@angular/material';
+  MatPaginatorModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     ReportPageComponent,
-    ClientListPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-
-    //material modules
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatPaginatorModule ,
-    MatInputModule
+    NavBarModule,
+    ClientListPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

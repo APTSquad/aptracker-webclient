@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ReportPageComponent } from './report-page/report-page.component';
-import { ClientListPageComponent } from './client-list-page/client-list-page.component';
+import { ReportPageComponent } from './pages/report-page/report-page.component';
+import { ClientListPageComponent } from './pages/client-list-page/client-list-page';
 
 
 const routes: Routes = [
