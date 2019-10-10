@@ -5,34 +5,36 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { ReportPageComponent } from './pages/report-page/report-page.component';
-import { ClientListPageComponent } from './pages/client-list-page/client-list-page.component';
+import { ClientListPageComponent, ClientListPageModule } from './pages/client-list-page/client-list-page';
 import { ThemePickerModule } from './shared/theme-picker';
 import { NavBarModule } from './shared/navbar/navbar';
+
+//Angular material modules 
+import {
+  MatTableModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatPaginatorModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     ReportPageComponent,
-    ClientListPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    ThemePickerModule,
-    NavBarModule
+    NavBarModule,
+    ClientListPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

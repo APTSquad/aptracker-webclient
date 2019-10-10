@@ -2,7 +2,7 @@ import { Component, NgModule } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { NAV_SECTIONS, NAV_LINKS, ROLE_ADMIN } from '../configuration/pages'
+import { NAV_SECTIONS, NAV_LINKS, ROLE_ADMIN } from '../configuration/pages';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
