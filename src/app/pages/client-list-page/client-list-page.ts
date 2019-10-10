@@ -54,12 +54,12 @@ export class ClientListPageComponent implements OnInit {
     this.dataSource = new MatTableDataSource(users);
   }
 
-  ngOnInit () {
+  ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter (filterValue: string) {
+  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -69,7 +69,7 @@ export class ClientListPageComponent implements OnInit {
 }
 
 /** Builds and returns a new User. */
-function createNewUser (): UserData {
+function createNewUser(): UserData {
   const name = CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))] + ' ' +
     CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))].charAt(0) + '.';
 

@@ -3,14 +3,14 @@ export interface NavLinkInfo {
     location: string;
 }
 
-export const ROLE_DEVELOPER = "DEVELOPER";
-export const ROLE_MANAGER = "MANAGER";
-export const ROLE_ADMIN = "ADMIN";
+export const ROLE_DEVELOPER = 'DEVELOPER';
+export const ROLE_MANAGER = 'MANAGER';
+export const ROLE_ADMIN = 'ADMIN';
 
-export const PAGE_REPORT = "REPORT";
-export const PAGE_PAST_REPORTS = "PAST_REPORTS";
-export const PAGE_CLIENTS = "CLIENTS";
-export const PAGE_MANAGER_REPORTS = "MANAGER_REPORTS";
+export const PAGE_REPORT = 'REPORT';
+export const PAGE_PAST_REPORTS = 'PAST_REPORTS';
+export const PAGE_CLIENTS = 'CLIENTS';
+export const PAGE_MANAGER_REPORTS = 'MANAGER_REPORTS';
 
 export const NAV_LINKS: { [key: string]: NavLinkInfo } = {
     [PAGE_REPORT]: {
@@ -23,7 +23,7 @@ export const NAV_LINKS: { [key: string]: NavLinkInfo } = {
         name: 'Клиенты', location: '/clients'
     },
 
-}
+};
 
 export const NAV_SECTIONS: { [key: string]: Array<string> } = {
     [ROLE_DEVELOPER]: [PAGE_REPORT, PAGE_PAST_REPORTS],

@@ -6,22 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReportPageComponent } from './pages/report-page/report-page.component';
-import { ClientListPageComponent, ClientListPageModule } from './pages/client-list-page/client-list-page';
-import { ThemePickerModule } from './shared/theme-picker';
+import { ClientListPageModule } from './pages/client-list-page/client-list-page';
 import { NavBarModule } from './shared/navbar/navbar';
 
-//Angular material modules 
-import {
-  MatTableModule,
-  MatToolbarModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule
-} from '@angular/material';
 
 @NgModule({
   declarations: [

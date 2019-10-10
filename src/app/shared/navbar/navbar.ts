@@ -1,7 +1,4 @@
 import { Component, NgModule } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { NAV_SECTIONS, NAV_LINKS, ROLE_ADMIN } from '../configuration/pages';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
@@ -15,15 +12,15 @@ import { ThemePickerModule } from '../theme-picker';
   styleUrls: ['./navbar.scss']
 })
 export class NavbarComponent {
-  get navSection () {
+  get navSection() {
     return NAV_SECTIONS[this.currentSection];
   }
 
-  get navLinks () {
+  get navLinks() {
     return NAV_LINKS;
   }
 
-  get currentSection () {
+  get currentSection() {
     return ROLE_ADMIN;
   }
 }
