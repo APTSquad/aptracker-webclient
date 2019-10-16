@@ -1,25 +1,55 @@
+ @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 .card-table{
-    padding-left: 5px;
-    padding-top: 5px;
-    padding-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+table {
+  width: 100%;
 }
 
-table {
-    width: 100%;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    //width: 100%;`
-    float: right;
-    border-bottom-color: lightblue;
-  }
-  
-  td, th {
-    width: 25%;
-  }
+tr.example-detail-row {
+  height: 0;
+}
 
-  .mat-table-sticky {
-    border-bottom: 2px solid #757575;
-  }
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #777;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+// .example-element-diagram {
+//   min-width: 80px;
+//   border: 2px solid black;
+//   padding: 8px;
+//   font-weight: lighter;
+//   margin: 8px 0;
+//   height: 104px;
+// }
+
+.example-element-project {
+  //font-weight: bold;
+  font-size: 20px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
