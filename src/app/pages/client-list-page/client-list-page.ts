@@ -2,7 +2,12 @@ import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatIconModule, MatListModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+  MatIconModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule
+} from '@angular/material';
 
 export interface UserData {
   client: string;
