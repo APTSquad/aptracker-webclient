@@ -1,3 +1,6 @@
+<div class="aptracker-primary-header">
+    <h1>Управление клиентами</h1>
+</div>
 <div class="card-table">
     <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -7,7 +10,7 @@
         <table mat-table [dataSource]="dataSource" matSort>
 
             <!-- client name Column -->
-            <ng-container matColumnDef="client" >
+            <ng-container matColumnDef="client">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                 <td mat-cell *matCellDef="let row"> {{row.client}} </td>
             </ng-container>
@@ -24,7 +27,7 @@
                 <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.article}} </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true " ></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true "></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
