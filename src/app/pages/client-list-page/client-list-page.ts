@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {CommonModule} from '@angular/common';
 import {
   MatIconModule,
+  MatButtonModule,
   MatListModule,
   MatFormFieldModule,
   MatInputModule
@@ -26,33 +27,38 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 })
 export class ClientListPageComponent implements OnInit {
 
-  dataSource = ELEMENT_DATA;
+  //dataSource = ELEMENT_DATA;
 
   columnsToDisplay = ['No','name'];
   expandedElement: PeriodicElement | null;
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
-  // dataSource: MatTableDataSource<UserData>;
 
-  // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor() {
 
   }
 
   ngOnInit() {
-    //this.dataSource.paginator = this.paginator;
-    //this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-//   applyFilter(filterValue: string) {
-//     this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-//     if (this.dataSource.paginator) {
-//       this.dataSource.paginator.firstPage();
-//     }
-//   }
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
  }
+
+
+
 
 
 export interface PeriodicElement {
@@ -149,6 +155,78 @@ const ELEMENT_DATA: PeriodicElement[] = [
       ' Hydrogen is a chemical element with project'
     ]
     
+  }, {
+    No: 11,
+    name: 'Nitrogen',
+    projects: [
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project'
+    ]
+    
+  }, {
+    No: 12,
+    name: 'Oxygen',
+    projects: [
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project'
+    ]
+    
+  }, {
+    No: 13,
+    name: 'Fluorine',
+    projects: [
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project'
+    ]
+    
+  }, {
+    No: 14,
+    name: 'Neon',
+    projects: [
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project'
+    ]
+    
+  }, {
+    No: 15,
+    name: 'Nitrogen',
+    projects: [
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project'
+    ]
+    
+  }, {
+    No: 16,
+    name: 'Oxygen',
+    projects: [
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project'
+    ]
+    
+  }, {
+    No: 17,
+    name: 'Fluorine',
+    projects: [
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project'
+    ]
+    
+  }, {
+    No: 18,
+    name: 'Neon',
+    projects: [
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project',
+      ' Hydrogen is a chemical element with project'
+    ]
+    
   },
 ];
 
@@ -161,7 +239,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
     MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    MatButtonModule
   ],
   exports: [ClientListPageComponent],
   declarations: [ClientListPageComponent],
