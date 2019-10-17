@@ -11,6 +11,9 @@
 
 table {
   width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: 500px;
 }
 
 tr.example-detail-row {
@@ -34,6 +37,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: flex;
 }
 
+
+
+
 // .example-element-diagram {
 //   min-width: 80px;
 //   border: 2px solid black;
@@ -53,7 +59,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 .mat-mini-fab{
   //padding:10px;
   float: right;
-  
+  top: 15px;
 }
  
 

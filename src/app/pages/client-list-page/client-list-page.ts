@@ -29,7 +29,7 @@ export class ClientListPageComponent implements OnInit {
 
   //dataSource = ELEMENT_DATA;
 
-  columnsToDisplay = ['No','name'];
+  columnsToDisplay = ['id','name','Update'];
   expandedElement: PeriodicElement | null;
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
@@ -62,7 +62,7 @@ export class ClientListPageComponent implements OnInit {
 
 
 export interface PeriodicElement {
-  No:number;
+  id:number;
   name: string;
   projects:string[];
   //description: string;
@@ -70,7 +70,7 @@ export interface PeriodicElement {
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
-    No: 1,
+    id: 1,
     name: 'Hydrogen',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -79,7 +79,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 2,
+    id: 2,
     name: 'Helium',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -87,7 +87,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
       ' Hydrogen is a chemical element with project'
     ]
   }, {
-    No: 3,
+    id: 3,
     name: 'Lithium',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -95,7 +95,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
       ' Hydrogen is a chemical element with project'
     ]
   }, {
-    No: 4,
+    id: 4,
     name: 'Beryllium',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -103,7 +103,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
       ' Hydrogen is a chemical element with project'
     ]
   }, {
-    No: 5,
+    id: 5,
     name: 'Boron',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -111,7 +111,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
       ' Hydrogen is a chemical element with project'
     ]
   }, {
-    No: 6,
+    id: 6,
     name: 'Carbon',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -120,7 +120,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 7,
+    id: 7,
     name: 'Nitrogen',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -129,7 +129,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 8,
+    id: 8,
     name: 'Oxygen',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -138,7 +138,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 9,
+    id: 9,
     name: 'Fluorine',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -147,7 +147,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 10,
+    id: 10,
     name: 'Neon',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -156,7 +156,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 11,
+    id: 11,
     name: 'Nitrogen',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -165,7 +165,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 12,
+    id: 12,
     name: 'Oxygen',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -174,7 +174,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 13,
+    id: 13,
     name: 'Fluorine',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -183,7 +183,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 14,
+    id: 14,
     name: 'Neon',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -192,7 +192,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 15,
+    id: 15,
     name: 'Nitrogen',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -201,7 +201,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 16,
+    id: 16,
     name: 'Oxygen',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -210,7 +210,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 17,
+    id: 17,
     name: 'Fluorine',
     projects: [
       ' Hydrogen is a chemical element with project',
@@ -219,7 +219,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]
     
   }, {
-    No: 18,
+    id: 18,
     name: 'Neon',
     projects: [
       ' Hydrogen is a chemical element with project',
