@@ -13,8 +13,75 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$primary: mat-palette($mat-indigo);
-$accent:  mat-palette($mat-pink, A200, A100, A400);
+
+$aptracker-primary: (
+  50: #6200ee,
+  100: #6200ee,
+  200: #6200ee,
+  300: #6200ee,
+  400: #6200ee,
+  500: #6200ee,
+  600: #6200ee,
+  700: #6200ee,
+  800: #6200ee,
+  900: #6200ee,
+  A100: #6200ee,
+  A200: #6200ee,
+  A400: #6200ee,
+  A700: #6200ee,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$aptracker-accent: (
+  50: #03DAC6,
+  100: #03DAC6,
+  200: #03DAC6,
+  300: #03DAC6,
+  400: #03DAC6,
+  500: #03DAC6,
+  600: #03DAC6,
+  700: #03DAC6,
+  800: #03DAC6,
+  900: #03DAC6,
+  A100: #03DAC6,
+  A200: #03DAC6,
+  A400: #03DAC6,
+  A700: #03DAC6,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$primary: mat-palette($aptracker-primary);
+$accent: mat-palette($aptracker-accent);
 
 // The warn palette is optional (defaults to red).
 $warn: mat-palette($mat-red);
