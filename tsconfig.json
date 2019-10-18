@@ -1,16 +1,53 @@
+// {
+//   "compileOnSave": false,
+//   "compilerOptions": {
+//     "baseUrl": "./",
+//     "outDir": "../dist/out-tsc",
+//     "sourceMap": true,
+//     "declaration": false,
+//     "downlevelIteration": true,
+//     "experimentalDecorators": true,
+//     "module": "esnext",
+//     "moduleResolution": "node",
+//     "importHelpers": true,
+//     "target": "es2015",
+//     "typeRoots": [
+//       "node_modules/@types"
+//     ],
+//     "lib": [
+//       "es2018",
+//       "dom"
+//     ],
+//     "noImplicitAny": true,
+//     "noImplicitReturns": true,
+//     "noImplicitThis": true,
+//     "noFallthroughCasesInSwitch": true,
+//     "strictNullChecks": true
+//   },
+//   "exclude": [
+//     "src/assets"
+//   ],
+//   "angularCompilerOptions": {
+//     "fullTemplateTypeCheck": true,
+//     "strictInjectionParameters": true
+//   }
+// }
+
 {
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "../dist/out-tsc",
+    "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "module": "esnext",
+    "module": "es2015",
     "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "types": [
+      "node"
+    ],
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -19,16 +56,8 @@
       "dom"
     ],
     "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noFallthroughCasesInSwitch": true,
-    "strictNullChecks": true
-  },
-  "exclude": [
-    "src/assets"
-  ],
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "alwaysStrict": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   }
 }
