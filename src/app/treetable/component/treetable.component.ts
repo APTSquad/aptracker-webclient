@@ -51,6 +51,7 @@ export class TreetableComponent<T> implements OnInit {
     const treeTableTree = this.searchableTree.map(st => this.converterService.toTreeTableTree(st));
     this.treeTable = flatMap(treeTableTree, this.treeService.flatten);
     this.dataSource = this.generateDataSource();
+    console.log(this.dataSource);
   }
 
   extractNodeProps(tree: Node<T> & { value: { [k: string]: any } }): string[] {

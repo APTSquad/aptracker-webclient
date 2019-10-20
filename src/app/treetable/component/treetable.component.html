@@ -9,14 +9,22 @@
         <div *ngIf="isFirst">
           <div class="value-cell">
             <div [innerHTML]="formatIndentation(element)"></div>
-            <mat-icon [ngStyle]="{'visibility': element.children.length ? 'visible' : 'hidden'}" (click)="onNodeClick(element)">
+            <!-- <mat-icon [ngStyle]="{'visibility': element.children.length ? 'visible' : 'hidden'}" (click)="onNodeClick(element)">
               {{element.isExpanded ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}
-            </mat-icon>
+            </mat-icon> -->
             <div>{{element.value[column]}}</div>
           </div>
         </div>
         <div *ngIf="!isFirst">
-          {{element.value[column]}}
+          <div *ngIf="element.value.isProj; else notproj">
+            <span [ngStyle]="{'visibility': element.children.length ? 'visible' : 'hidden'}" (click)="onNodeClick(element)">
+              показать статьи
+            </span>
+          </div>
+          <ng-template #notproj>
+            <input type="number" min="0">
+          </ng-template>
+
         </div>
       </td>
     </ng-container>
