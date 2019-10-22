@@ -17,12 +17,16 @@
         </div>
         <div *ngIf="!isFirst">
           <div *ngIf="element.value.isProj; else notproj">
-            <span [ngStyle]="{'visibility': element.children.length ? 'visible' : 'hidden'}" (click)="onNodeClick(element)">
+            <span [ngStyle]="{'visibility': element.children.length ? 'visible' : 'hidden'}"
+              (click)="onNodeClick(element)">
               показать статьи
             </span>
           </div>
           <ng-template #notproj>
-            <input type="number" min="0">
+            <mat-form-field appearance="outline">
+              <mat-label>Часов</mat-label>
+              <input matInput placeholder="count" value="0">
+            </mat-form-field>
           </ng-template>
 
         </div>
@@ -31,6 +35,7 @@
   </div>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row [ngClass]="{'highlight-on-hover': options.highlightRowOnHover}" *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row [ngClass]="{'highlight-on-hover': options.highlightRowOnHover}"
+    *matRowDef="let row; columns: displayedColumns;"></tr>
 
 </table>

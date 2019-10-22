@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { TreetableComponent } from './component/treetable.component';
-export { Node, Options} from './models';
+import { MatInputModule, MatFormFieldModule } from '@angular/material';
+export { Node, Options } from './models';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,9 @@ export { Node, Options} from './models';
   imports: [
     CommonModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   exports: [
     TreetableComponent
