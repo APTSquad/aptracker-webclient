@@ -2,61 +2,43 @@ import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
 import {
   MatIconModule,
+  MatButtonModule,
   MatListModule,
   MatFormFieldModule,
   MatInputModule
 } from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
-export interface UserData {
-  client: string;
-  projects: string;
-  article: string;
-}
-
-/** Constants used to fill up our data base. */
-const PROJECTS: string[] = [
-  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-  'aqua', 'blue', 'navy', 'black', 'gray'
-];
-const CLIENT_NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-];
-
-const ARTICLES: string[] = [
-  'From its medieval origins to the digital',
-  'aying out print, graphic or web designs. ',
-  'unknown typesetter in the 15th century ',
-  'scrambled parts of Ciceros De Finibus Bonorum',
-  'Lorem ipsum dolor sit amet, consectetur',
-  'The purpose of lorem ipsum is to create',
-  'The passage experienced a surge ',
-  'Latin derived from',
-  'Until recently, the prevailing view',
-  'Um, not so fast',
-];
 
 @Component({
   selector: 'app-client-list-page',
   templateUrl: './client-list-page.html',
-  styleUrls: ['./client-list-page.scss']
+  styleUrls: ['./client-list-page.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class ClientListPageComponent implements OnInit {
 
-  displayedColumns: string[] = ['client', 'project', 'article'];
-  dataSource: MatTableDataSource<UserData>;
+  // dataSource = ELEMENT_DATA;
+
+  columnsToDisplay = ['id', 'name', 'Update'];
+  expandedElement: PeriodicElement | null;
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  projcolumnsToDisplay = ['id', 'name', 'Update', 'add'];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor() {
-    // Create 50 users
-    const users = Array.from({ length: 50 }, (_) => createNewUser());
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
   }
 
   ngOnInit() {
@@ -71,20 +53,343 @@ export class ClientListPageComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
-
-/** Builds and returns a new User. */
-function createNewUser(): UserData {
-  const name = CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))] + ' ' +
-    CLIENT_NAMES[Math.round(Math.random() * (CLIENT_NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    client: name,
-    projects: PROJECTS[Math.round(Math.random() * (PROJECTS.length - 1))],
-    article: ARTICLES[Math.round(Math.random() * (ARTICLES.length - 1))]
-  };
 
 }
+
+export interface PeriodicElement {
+  id: number;
+  name: string;
+  projects: Array<PD>;
+
+}
+export interface PD {
+  id: number;
+  name: string;
+}
+
+// const PROJECT_DATA =[
+//       {
+//         id: 1,
+//         name:' Hydrogen is a chemical',
+//
+//       }
+// ]
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {
+    id: 1,
+    name: 'Hydrogen',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is lorem ipsumm'
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a fisic, chemical'
+
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical, fonse'
+      }
+    ]
+  }, {
+    id: 2,
+    name: 'Helium',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 3,
+    name: 'Lithium',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 4,
+    name: 'Beryllium',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 5,
+    name: 'Boron',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 6,
+    name: 'Carbon',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+
+  }, {
+    id: 7,
+    name: 'Nitrogen',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+
+  }, {
+    id: 8,
+    name: 'Oxygen',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+
+  }, {
+    id: 9,
+    name: 'Fluorine',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 10,
+    name: 'Neon',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 11,
+    name: 'Nitrogen',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 12,
+    name: 'Oxygen',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 13,
+    name: 'Fluorine',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 14,
+    name: 'Neon',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 15,
+    name: 'Nitrogen',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 16,
+    name: 'Oxygen',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 17,
+    name: 'Fluorine',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+  }, {
+    id: 18,
+    name: 'Neon',
+    projects: [
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      },
+      {
+        id: 1,
+        name: ' Hydrogen is a chemical',
+      }
+    ]
+
+  },
+];
+
 
 @NgModule({
   imports: [
@@ -93,7 +398,9 @@ function createNewUser(): UserData {
     MatTableModule,
     MatFormFieldModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    CommonModule,
+    MatButtonModule
   ],
   exports: [ClientListPageComponent],
   declarations: [ClientListPageComponent],
