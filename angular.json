@@ -38,7 +38,10 @@
             ],
             "styles": [
               {
-                "input": "src/main.scss"
+                "input": "src/styles.scss"
+              },
+              {
+                "input": "src/highlightjs/material-light.scss"
               },
               {
                 "inject": false,
@@ -71,6 +74,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "commonChunk": false,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -120,12 +124,23 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src",
+                "output": "/"
+              }
             ],
             "styles": [
               {
-                "input": "src/main.scss"
+                "input": "src/styles.scss"
+              },
+              {
+                "input": "src/highlightjs/material-light.scss"
               },
               {
                 "inject": false,

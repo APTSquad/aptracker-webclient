@@ -1478,7 +1478,8 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 .aptracker-primary-header {
   background: #e91e63; }
   .aptracker-primary-header h1 {
-    color: white; }
+    color: white;
+    font-size: 22px; }
 
 .aptracker-footer {
   background: #e91e63;
