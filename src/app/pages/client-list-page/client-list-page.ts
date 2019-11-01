@@ -1,9 +1,10 @@
 
-import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
+import { Component, OnInit, ViewChild, NgModule,ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import {
   MatIconModule,
   MatButtonModule,
@@ -14,36 +15,34 @@ import {
   MatCardModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-//import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
   selector: 'app-client-list-page',
   templateUrl: './client-list-page.html',
   styleUrls: ['./client-list-page.scss'],
-  // animations: [
-  //   trigger('detailExpand', [
-  //     state('collapsed', style({ height: '0px', minHeight: '0' })),
-  //     state('expanded', style({ height: '*' })),
-  //     transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-  //   ]),
-  // ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientListPageComponent implements OnInit {
 
-  ClientsData: string[] = [
-    'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia', 
-    'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
-  ]
+  // ClientsData: string[] = [
+  //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia', 
+  //   'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
+  //   'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
+  //   'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
+  //   'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
+  // ]
 
+  // ArticlesData: string[] = [
+  //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia',  'Asher', 'Olivia'
+  // ]
+  
 
-  //columnsToDisplay = ['id', 'name', 'Update'];
-  //expandedElement: PeriodicElement | null;
-  //dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  // projcolumnsToDisplay = ['id', 'name', 'Update'];
+  //  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  //  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild(MatSort, { static: true }) sort: MatSort;
+  isShowp = false;
+  isShowa = false;
 
   constructor() {
 
@@ -54,16 +53,103 @@ export class ClientListPageComponent implements OnInit {
     // this.dataSource.sort = this.sort;
   }
 
-  // applyFilter(filterValue: string) {
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
+  Displayproj(){
+    this.isShowp = !this.isShowp;
+  }
+  Displayart(){
+    this.isShowa = !this.isShowa;
+  }
 
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
+  applyFilter(filterValue: string) {
+    //  this.ClientsData.filter = filterValue.trim().toLowerCase();
 
+    //  if (this.ClientsData.paginator) {
+    //    this.ClientsData.paginator.firstPage();
+    //  }
+  }
+
+
+   ClientData:Client[] =[
+    {
+      name:'Boots',
+      activeNum:5,
+    },
+    {
+      name:'Charlotte',
+      activeNum:3,
+    },
+    {
+      name: 'Clogs',
+      activeNum:2,
+    },
+    {
+      name:'Boots',
+      activeNum:6,
+    },
+    {
+      name:'Charlotte',
+      activeNum:7,
+    },
+    {
+      name:'Charlotte',
+      activeNum:4,
+    },
+    {
+      name:'Boots',
+      activeNum:8,
+    },
+    {
+      name:'Boots',
+      activeNum:3,
+    },
+    {
+      name:'Charlotte',
+      activeNum:7,
+    },
+    {
+      name:'Atticus',
+      activeNum:9,
+    },
+  ]
+
+  ArticleData:Client[]=[
+      {
+        name:'Boots',
+        activeNum:5,
+      },
+      {
+        name:'Charlotte',
+        activeNum:10,
+      },
+      {
+        name: 'Clogs',
+        activeNum:2,
+      },
+      {
+        name:'Boots',
+        activeNum:15,
+      },
+      {
+        name:'Charlotte',
+        activeNum:11,
+      },
+      {
+        name:'Charlotte',
+        activeNum:12,
+      },
+      {
+        name:'Boots',
+        activeNum:18,
+      },
+      
+    
+  ]
 }
 
+interface Client{
+  name:string;
+  activeNum:number;
+}
 
 
 
@@ -79,7 +165,8 @@ export class ClientListPageComponent implements OnInit {
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ScrollingModule
   ],
   exports: [ClientListPageComponent],
   declarations: [ClientListPageComponent],
