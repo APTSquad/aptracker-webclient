@@ -1,0 +1,9 @@
+.rp-card {
+   margin: 20px;
+}
+
+
+@media (min-width: 401px) {
+    .rp-card {max-width: 400px; margin: 20px auto;} 
+} 
+

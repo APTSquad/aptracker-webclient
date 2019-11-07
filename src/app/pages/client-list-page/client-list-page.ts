@@ -8,7 +8,8 @@ import {
   MatButtonModule,
   MatListModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatCardModule
 } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -393,6 +394,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 @NgModule({
   imports: [
+    MatCardModule,
     MatIconModule,
     MatListModule,
     MatTableModule,

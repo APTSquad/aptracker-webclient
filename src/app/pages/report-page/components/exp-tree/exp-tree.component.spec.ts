@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReportPageComponent } from './report-page';
+import { ExpTreeComponent } from './exp-tree';
 
-describe('ReportPageComponent', () => {
-  let component: ReportPageComponent;
-  let fixture: ComponentFixture<ReportPageComponent>;
+describe('ExpTreeComponent', () => {
+  let component: ExpTreeComponent;
+  let fixture: ComponentFixture<ExpTreeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ReportPageComponent]
+      declarations: [ExpTreeComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReportPageComponent);
+    fixture = TestBed.createComponent(ExpTreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

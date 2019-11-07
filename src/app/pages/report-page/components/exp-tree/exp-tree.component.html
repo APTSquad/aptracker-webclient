@@ -1,0 +1,39 @@
+<mat-tree #tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <!-- This is the tree node template for leaf nodes -->
+    <!-- <mat-tree-node *matTreeNodeDef="let node" [matTreeNodePadding]="0.2">
+      use a disabled button to provide padding for tree leaf 
+        <button mat-icon-button disabled></button>
+        <div class="data"
+            style="display: flex; justify-content:space-between; width: 100%; align-items: baseline; flex-wrap: wrap;">
+            {{node.name}}
+            <mat-form-field appearance="outline" style="width: 60px; padding-left: 20px;ß">
+                <input matInput placeholder="0.00">
+            </mat-form-field>
+        </div>
+
+    </mat-tree-node> -->
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node *matTreeNodeDef="let node;" matTreeNodePadding matTreeNodePaddingIndent="10">
+        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name"
+            style="vertical-align:middle;">
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+        </button>
+        {{node.name}}
+
+
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: isArticle" matTreeNodePadding matTreeNodePaddingIndent="5">
+        <button mat-icon-button disabled></button>
+        <div class="data"
+            style="display: flex; justify-content:space-between; width: 100%; align-items: baseline; flex-wrap: wrap;">
+            {{node.name}}
+            <mat-form-field style="width: 50px; padding-left: 5px;" floatLabel="never">
+                <input matInput placeholder="0.00">
+            </mat-form-field>
+        </div>
+
+    </mat-tree-node>
+</mat-tree>
