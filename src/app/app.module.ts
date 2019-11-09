@@ -8,6 +8,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReportPageComponent } from './pages/report-page/report-page.component';
 import { ClientListPageModule } from './pages/client-list-page/client-list-page';
 import { NavBarModule } from './shared/navbar/navbar';
+import { UsersManagementPageModule } from './pages/users-management-page/users-management-page';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,13 +19,15 @@ import { NavBarModule } from './shared/navbar/navbar';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
     NavBarModule,
-    ClientListPageModule
+    ClientListPageModule,
+    UsersManagementPageModule
   ],
-  providers: [],
+  providers: [HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
