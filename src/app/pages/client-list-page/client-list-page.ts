@@ -1,6 +1,6 @@
 
 import { ClientService } from './../../services/clientService';
-import { Client } from "./../../model/Client";
+import { client } from "./../../model/Client";
 
 import { Component, OnInit, ViewChild, NgModule,ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -33,7 +33,7 @@ import {FormControl,FormsModule,ReactiveFormsModule} from '@angular/forms';
 })
 export class ClientListPageComponent implements OnInit {
 
-  clients: Client[];
+  clients: client[];
   // ArticlesData: string[] = [
   //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia',  'Asher', 'Olivia'
   // ]
