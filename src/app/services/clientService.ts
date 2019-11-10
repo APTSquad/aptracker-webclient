@@ -1,4 +1,4 @@
-import { client } from "../model/Client";
+import { client } from "../model/client";
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ClientService {
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    getClients() {
+  getClients() {
     return this.http.get<any>('assets/clientData/ClientData.json')
       .toPromise()
       .then(res => <client[]>res.data)
       .then(data => { return data; });
-    }
+  }
 }

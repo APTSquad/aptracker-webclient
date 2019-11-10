@@ -1,12 +1,12 @@
 
 import { ClientService } from './../../services/clientService';
-import { client } from "./../../model/Client";
+import { client } from "./../../model/client";
 
-import { Component, OnInit, ViewChild, NgModule,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, NgModule, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import {
   MatIconModule,
   MatButtonModule,
@@ -17,10 +17,10 @@ import {
   MatCardModule,
   MatAutocompleteModule,
   MatOptionModule
-  
+
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {FormControl,FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -37,15 +37,15 @@ export class ClientListPageComponent implements OnInit {
   // ArticlesData: string[] = [
   //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia',  'Asher', 'Olivia'
   // ]
-  
+
 
   //  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   //  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-    myControl = new FormControl();
-    options: string[] = ['One', 'Two', 'Three'];
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
 
-    isShowinput = false;
+  isShowinput = false;
 
 
   constructor(private clientService: ClientService) {
@@ -58,7 +58,7 @@ export class ClientListPageComponent implements OnInit {
     // this.dataSource.sort = this.sort;
   }
 
-  showInput(){
+  showInput() {
     this.isShowinput = !this.isShowinput;
   }
 
@@ -101,8 +101,8 @@ export class ClientListPageComponent implements OnInit {
 //         name:'Boots',
 //         activeNum:18,
 //       },
-      
-    
+
+
 //   ]
 // }
 
@@ -132,7 +132,7 @@ export class ClientListPageComponent implements OnInit {
     ReactiveFormsModule
   ],
   exports: [ClientListPageComponent],
-  providers:[ClientService],
+  providers: [ClientService],
   declarations: [ClientListPageComponent],
 })
 export class ClientListPageModule { }
