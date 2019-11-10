@@ -1390,3 +1390,6 @@ app-navbar {
   color: white; }
   app-navbar .aptracker-navbar, app-navbar .aptracker-navbar-header {
     background: #3f51b5; }
+
+.active-user {
+  background-color: #ff4081; }
