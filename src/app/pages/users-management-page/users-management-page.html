@@ -1,45 +1,66 @@
-<div class="aptracker-primary-header">
-    <h1>Управление пользователями</h1>
+<div class="aptracker-primary-header-users mat-elevation-z3">
+    <div class="aptracker-primary-header-label"
+        style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
+        <h1>Управление пользователями</h1>
+        <div class="aptracker-users-search">
+            <mat-form-field>
+                <mat-label>Поиск</mat-label>
+                <input matInput placeholder="Имя, адрес...">
+            </mat-form-field>
+        </div>
+
+    </div>
+
+
+</div>
+<div class="example-sidenav-content" style="position: absolute; top: 80px; bottom: 0px; left:0; right: 300px;">
+    <mat-list>
+        <mat-list-item *ngFor="let user of users" matRipple [class.active-user]="user == selectedUser"
+            (click)="selectedUser = user">
+            <h4 mat-line>{{user.name}}</h4>
+            <div mat-line> {{user.login}}</div>
+        </mat-list-item>
+    </mat-list>
 </div>
 
 
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened="true" position="end" *ngIf="selectedUser != null"
-        style="position: fixed; top: 56px;">
-        <p>Пользователь {{selectedUser.name}}</p>
-        <p>
-            <mat-form-field appearance="fill">
-                <mat-label>Имя пользователя</mat-label>
-                <input matInput placeholder="Placeholder" [(ngModel)]="selectedUser.name">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance="fill">
-                <mat-label>Ставка</mat-label>
-                <input matInput placeholder="Placeholder">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
-                    [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of options" [value]="option">
-                        {{option}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-        </p>
+
+<mat-drawer-container class="example-container mat-elevation-z2"
+    style="position: fixed; top: 56px; z-index: 10; right: 0; bottom: 0; width: 300px;">
+
+    <mat-drawer #drawer class="example-sidenav mat-elevation-z2" mode="side" opened="true" position="end"
+        style="width: 300px;">
+        <div class="user-info" *ngIf="selectedUser != null">
+            Пользователь {{selectedUser.name}}
+            <p>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Имя пользователя</mat-label>
+                    <input matInput placeholder="Placeholder" [(ngModel)]="selectedUser.name">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Ставка</mat-label>
+                    <input matInput placeholder="Placeholder">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="example-full-width" appearance="fill" style="width: 100%;">
+                    <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
+                        [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of options" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </p>
+        </div>
+        <div class="select-info" *ngIf="selectedUser == null"
+            style="display: flex; flex-direction: column; align-items: stretch; justify-content: center; width: 100%; height: 100%; text-align: center;">
+
+            <div>Выберите пользователя из списка</div>
+
+        </div>
     </mat-drawer>
-
-    <div class="example-sidenav-content">
-        <mat-list>
-            <mat-list-item *ngFor="let user of users" matRipple [class.active-user]="user == selectedUser"
-                (click)="selectedUser = user">
-                <h4 mat-line>{{user.name}}</h4>
-                <div mat-line> {{user.login}}</div>
-            </mat-list-item>
-        </mat-list>
-    </div>
-
 </mat-drawer-container>
