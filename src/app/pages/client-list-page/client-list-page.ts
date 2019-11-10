@@ -1,8 +1,10 @@
 
+import { ClientService } from './../../services/clientService';
+import { Client } from "./../../model/Client";
+
 import { Component, OnInit, ViewChild, NgModule,ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {
@@ -12,9 +14,15 @@ import {
   MatFormFieldModule,
   MatMenuModule,
   MatInputModule,
-  MatCardModule
+  MatCardModule,
+  MatAutocompleteModule,
+  MatOptionModule
+  
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {FormControl,FormsModule,ReactiveFormsModule} from '@angular/forms';
+
+
 
 
 @Component({
@@ -25,14 +33,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 })
 export class ClientListPageComponent implements OnInit {
 
-  // ClientsData: string[] = [
-  //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia', 
-  //   'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
-  //   'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
-  //   'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
-  //   'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 
-  // ]
-
+  clients: Client[];
   // ArticlesData: string[] = [
   //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia',  'Asher', 'Olivia'
   // ]
@@ -41,23 +42,24 @@ export class ClientListPageComponent implements OnInit {
   //  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   //  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  isShowp = false;
-  isShowa = false;
+    myControl = new FormControl();
+    options: string[] = ['One', 'Two', 'Three'];
 
-  constructor() {
+    isShowinput = false;
+
+
+  constructor(private clientService: ClientService) {
 
   }
 
   ngOnInit() {
+    this.clientService.getClients().then(client => this.clients = client);
     // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
   }
 
-  Displayproj(){
-    this.isShowp = !this.isShowp;
-  }
-  Displayart(){
-    this.isShowa = !this.isShowa;
+  showInput(){
+    this.isShowinput = !this.isShowinput;
   }
 
   applyFilter(filterValue: string) {
@@ -68,88 +70,46 @@ export class ClientListPageComponent implements OnInit {
     //  }
   }
 
+}
 
-   ClientData:Client[] =[
-    {
-      name:'Boots',
-      activeNum:5,
-    },
-    {
-      name:'Charlotte',
-      activeNum:3,
-    },
-    {
-      name: 'Clogs',
-      activeNum:2,
-    },
-    {
-      name:'Boots',
-      activeNum:6,
-    },
-    {
-      name:'Charlotte',
-      activeNum:7,
-    },
-    {
-      name:'Charlotte',
-      activeNum:4,
-    },
-    {
-      name:'Boots',
-      activeNum:8,
-    },
-    {
-      name:'Boots',
-      activeNum:3,
-    },
-    {
-      name:'Charlotte',
-      activeNum:7,
-    },
-    {
-      name:'Atticus',
-      activeNum:9,
-    },
-  ]
-
-  ArticleData:Client[]=[
-      {
-        name:'Boots',
-        activeNum:5,
-      },
-      {
-        name:'Charlotte',
-        activeNum:10,
-      },
-      {
-        name: 'Clogs',
-        activeNum:2,
-      },
-      {
-        name:'Boots',
-        activeNum:15,
-      },
-      {
-        name:'Charlotte',
-        activeNum:11,
-      },
-      {
-        name:'Charlotte',
-        activeNum:12,
-      },
-      {
-        name:'Boots',
-        activeNum:18,
-      },
+//   ArticleData:Client[]=[
+//       {
+//         name:'Boots',
+//         activeNum:5,
+//       },
+//       {
+//         name:'Charlotte',
+//         activeNum:10,
+//       },
+//       {
+//         name: 'Clogs',
+//         activeNum:2,
+//       },
+//       {
+//         name:'Boots',
+//         activeNum:15,
+//       },
+//       {
+//         name:'Charlotte',
+//         activeNum:11,
+//       },
+//       {
+//         name:'Charlotte',
+//         activeNum:12,
+//       },
+//       {
+//         name:'Boots',
+//         activeNum:18,
+//       },
       
     
-  ]
-}
+//   ]
+// }
 
-interface Client{
-  name:string;
-  activeNum:number;
-}
+// interface Client{
+//   name:string;
+//   activeNum:number;
+// }
 
 
 
@@ -157,7 +117,6 @@ interface Client{
   imports: [
     MatIconModule,
     MatListModule,
-    MatTableModule,
     MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
@@ -166,9 +125,14 @@ interface Client{
     MatCardModule,
     MatMenuModule,
     FlexLayoutModule,
-    ScrollingModule
+    ScrollingModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [ClientListPageComponent],
+  providers:[ClientService],
   declarations: [ClientListPageComponent],
 })
 export class ClientListPageModule { }

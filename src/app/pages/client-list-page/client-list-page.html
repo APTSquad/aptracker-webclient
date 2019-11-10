@@ -8,9 +8,6 @@
  fxLayoutAlign="space-around center" 
  class="container"
  >
-    <!-- style="height: 100%" -->
-
-
     <!--clients-->
     <div fxFlex="30">
         <mat-card>
@@ -18,33 +15,20 @@
                 <mat-card-title>CLIENTS</mat-card-title>
             </mat-card-header>
 
-            <mat-form-field>
+            <mat-form-field class="adjust-form">
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
-            <!-- <cdk-virtual-scroll-viewport itemSize="100" class="example-viewport"> -->
-            <mat-list class="scrollbar" dense >
-                <mat-list-item *ngFor="let client of ClientData" >
-                    <span mat-line id="header-li"> {{ client.name }} </span>
-                    <span mat-line> Active project: {{ client.activeNum }} </span>
-                    <button mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon class="mat-24">more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                            <mat-icon>edit</mat-icon>
-                            <span>Update</span>
-                        </button>
-                        <button mat-menu-item (click)=Displayproj()>
-                            <mat-icon>folder</mat-icon>
-                            <span>Project</span>
-                        </button>
-                    </mat-menu>
-                    <mat-divider></mat-divider>
-                </mat-list-item>
 
-            </mat-list>
-            <!-- </cdk-virtual-scroll-viewport> -->
+            <mat-action-list class="scrollbar" dense >
+                <button mat-list-item *ngFor="let client of clients" id="active-li" >
+                    <span  mat-line id="header-li"> {{ client.name }} </span>
+                    <span mat-line>  project: {{ client.project }} </span>
+                    <span mat-line>  profile: {{ client.profile }} </span>
+                    <mat-divider></mat-divider>
+                </button >
+
+            </mat-action-list>
 
             <br>
             <button mat-stroked-button color="primary">
@@ -54,82 +38,109 @@
         <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
     </div>
 
-    <!--Projects-->
-    <div fxFlex="30" *ngIf="isShowp">
+<div fxFlex="30">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>CLIENTS</mat-card-title>
+            </mat-card-header>
+<!--  -->
+            <form class="input-client">
+                <mat-form-field id="input-size">
+                    <input matInput placeholder="Name" value="client">
+                </mat-form-field>
+                <mat-form-field id="input-size">
+                    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of options" [value]="option">
+                                {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+            <span>
+                <p>Projects: Active projects name</p>
+                <h4 align="center">Projects</h4>
+            </span>
+
+            <div class="search-add-section">
+                <mat-form-field id="input-size" *ngIf="isShowinput">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+                <button mat-icon-button (click)=showInput() *ngIf="!isShowinput"> <mat-icon>search</mat-icon></button>
+                <button mat-icon-button  color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+            <mat-action-list class="scrollbar" dense >
+                <button mat-list-item *ngFor="let client of clients" id="active-li" >
+                    <span  mat-line id="header-li"> {{ client.name }} </span>
+                    <span mat-line>  Article: {{ client.project }} </span>
+                    <span mat-line>  profile: {{ client.profile }} </span>
+                    <mat-divider></mat-divider>
+                </button >
+
+            </mat-action-list>
+
+            <br>
+            <!-- <button mat-stroked-button color="primary">
+                Add client
+            </button> -->
+        </mat-card>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+    </div>
+    <div fxFlex="30">
         <mat-card>
             <mat-card-header>
                 <mat-card-title>PROJECTS</mat-card-title>
             </mat-card-header>
+<!--  -->
+            <form class="input-client">
+                <mat-form-field id="input-size">
+                    <input matInput placeholder="Name" value="client">
+                </mat-form-field>
+                <mat-form-field id="input-size">
+                    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of options" [value]="option">
+                                {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+            <span>
+                <p>Article: Active article name</p>
+                <h4 align="center">Articles</h4>
+            </span>
 
-            <mat-form-field >
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            <div class="add-section">
+                <!-- <mat-form-field id="input-size" *ngIf="isShowinput">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
                     <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
+                </mat-form-field>
+                <button mat-icon-button (click)=showInput() *ngIf="!isShowinput"> <mat-icon>search</mat-icon></button> -->
+                <button mat-icon-button  color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
 
-            <mat-list class="scrollbar" dense>
-                <mat-list-item *ngFor="let client of ClientData">
-                    <span mat-line id="header-li"> {{ client.name }} </span>
-                    <span mat-line> Active article: {{ client.activeNum }} </span>
-                    <button mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon class="mat-24">more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                            <mat-icon>edit</mat-icon>
-                            <span>Update</span>
-                        </button>
-                        <button mat-menu-item (click)=Displayart()>
-                            <mat-icon>folder</mat-icon>
-                            <span>Articles</span>
-                        </button>
-                    </mat-menu>
+            <mat-action-list class="scrollbar" dense >
+                <button mat-list-item *ngFor="let client of clients" id="active-li" >
+                    <span  mat-line id="header-li"> {{ client.name }} </span>
+                    <span mat-line>  Article: {{ client.project }} </span>
+                    <span mat-line>  profile: {{ client.profile }} </span>
                     <mat-divider></mat-divider>
-                </mat-list-item>
-            </mat-list>
+                </button >
+
+            </mat-action-list>
+
             <br>
-            <button mat-stroked-button color="primary">
-                Add Project
-            </button>
+            <!-- <button mat-stroked-button color="primary">
+                Add client
+            </button> -->
         </mat-card>
-    </div>
-
-    <!--Article-->
-    <div fxFlex="30" *ngIf="isShowa">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>ARTICLE</mat-card-title>
-            </mat-card-header>
-
-            <!-- <mat-form-field >
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-                    <mat-icon matSuffix>search</mat-icon>
-                </mat-form-field> -->
-
-            <mat-list dense>
-                <mat-list-item *ngFor="let article of ArticleData">
-                    <span mat-line id="header-li"> {{ article.name }} </span>
-                    <span mat-line> Total of hours: {{ article.activeNum }} </span>
-                    <button mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon class="mat-24">more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                            <mat-icon>edit</mat-icon>
-                            <span>Update</span>
-                        </button>
-                        <!-- <button mat-menu-item (click) = toggleDisplay()>
-                            <mat-icon>folder</mat-icon>
-                            <span>Articles</span>
-                        </button> -->
-                    </mat-menu>
-                    <mat-divider></mat-divider>
-                </mat-list-item>
-            </mat-list>
-            <br>
-            <button mat-stroked-button color="primary">
-                Add article
-            </button>
-        </mat-card>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
     </div>
 
 </div>

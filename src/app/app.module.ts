@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClient,HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +9,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReportPageComponent } from './pages/report-page/report-page.component';
 import { ClientListPageModule } from './pages/client-list-page/client-list-page';
 import { NavBarModule } from './shared/navbar/navbar';
+
 
 
 @NgModule({
@@ -21,9 +23,10 @@ import { NavBarModule } from './shared/navbar/navbar';
     BrowserAnimationsModule,
     LayoutModule,
     NavBarModule,
-    ClientListPageModule
+    ClientListPageModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
