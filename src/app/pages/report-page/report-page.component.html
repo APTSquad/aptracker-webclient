@@ -1,1 +1,29 @@
-<p>report-page works!</p>
+<div class="card">
+  <h1>Отчет</h1>
+  <!-- Клиенты - список -->
+  <mat-list class="main-list">
+    <ng-container *ngFor="let item of items">
+      <mat-list-item>{{item.name}}</mat-list-item>
+      <!-- Проекты - список -->
+      <mat-list style="margin-left: 30px;">
+          <div *ngFor="let project of item.projects">
+            <mat-list-item>
+              {{project.name}}
+            </mat-list-item>
+            <!-- Затраты - список -->
+            <mat-list style="margin-left: 30px;">
+              <div *ngFor="let expense of project.expenses">
+                <mat-list-item class="expense-element"style="word-wrap: break-word;" >
+                  <span style="width:75%;">{{expense.name}}</span>
+                  <mat-form-field style="; width: 25%; margin-right: 0; margin-left: auto; width: 5em;">
+                      <input type="number" class="form-control" matInput name="value" placeholder="{{expense.name}}" (change)="xxx()"
+                              formControlName="value" step="0.10">
+                  </mat-form-field>
+                </mat-list-item>
+              </div>
+            </mat-list>
+          </div>  
+        </mat-list>
+    </ng-container>
+  </mat-list>
+</div>
