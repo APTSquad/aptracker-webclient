@@ -1,6 +1,6 @@
 
-import { ClientService } from './../../services/clientService';
-import { client } from "./../../model/client";
+import { ClientService } from '../../services/clientService';
+import { client } from "../../model/client";
 
 import { Component, OnInit, ViewChild, NgModule, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -26,9 +26,9 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-client-list-page',
-  templateUrl: './client-list-page.html',
-  styleUrls: ['./client-list-page.scss'],
+  selector: 'app-hierarchy-page',
+  templateUrl: './hierarchy-page.html',
+  styleUrls: ['./hierarchy-page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientListPageComponent implements OnInit {
