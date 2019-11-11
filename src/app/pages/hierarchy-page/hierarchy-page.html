@@ -50,7 +50,7 @@
                     </mat-form-field>
                 </form>
                 <span>
-                    <p>Projects: Active projects name</p>
+                    <p>Some client info</p>
                     <h6 align="center">Проекты</h6>
                     <mat-divider></mat-divider>
                 </span>
@@ -107,7 +107,7 @@
                     </mat-form-field>
                 </form>
                 <span>
-                    <p>Article: Active article name</p>
+                    <p>Some project info</p>
                     <h6 align="center">Статьи</h6>
                     <mat-divider></mat-divider>
                 </span>
@@ -126,7 +126,6 @@
                 <mat-action-list class="scrollbar" dense>
                     <button mat-list-item *ngFor="let client of clients" id="active-li">
                         <span mat-line id="header-li"> {{ client.name }} </span>
-                        <span mat-line> Article: {{ client.project }} </span>
                         <!-- <span mat-line>  profile: {{ client.profile }} </span> -->
                         <mat-divider></mat-divider>
                     </button>
