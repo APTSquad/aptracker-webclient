@@ -13,13 +13,14 @@
                 </mat-form-field>
 
                 <mat-action-list class="scrollbar" dense>
-                    <button mat-list-item *ngFor="let client of clients" id="active-li">
+                    <button mat-list-item *ngFor="let client of clients" id="active-li"
+                        (click)="selectedClient = client; selectedProject = null"
+                        [class.selected-item]="client == selectedClient">
                         <span mat-line id="header-li"> {{ client.name }} </span>
                         <span mat-line> project: {{ client.project }} </span>
                         <span mat-line> profile: {{ client.profile }} </span>
                         <mat-divider></mat-divider>
                     </button>
-
                 </mat-action-list>
 
                 <br>
@@ -30,7 +31,7 @@
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
 
-        <div fxFlex="30">
+        <div fxFlex="30" *ngIf="selectedClient != null">
             <mat-card style="height: 100%; box-sizing:border-box;">
                 <mat-card-header>
                     <mat-card-title>Клиент</mat-card-title>
@@ -38,7 +39,7 @@
                 <!--  -->
                 <form class="input-client">
                     <mat-form-field id="input-size">
-                        <input matInput placeholder="Name" value="client">
+                        <input matInput placeholder="Name" value="client" [(ngModel)]="selectedClient.name" name="name">
                     </mat-form-field>
                     <mat-form-field id="input-size">
                         <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
@@ -69,7 +70,8 @@
                 </div>
 
                 <mat-action-list class="scrollbar" dense>
-                    <button mat-list-item *ngFor="let client of clients" id="active-li">
+                    <button mat-list-item *ngFor="let client of clients" id="active-li"
+                        (click)="selectedProject = client" [class.selected-item]="client == selectedProject">
                         <span mat-line id="header-li"> {{ client.name }} </span>
                         <span mat-line> Article: {{ client.project }} </span>
                         <span mat-line> profile: {{ client.profile }} </span>
@@ -85,7 +87,7 @@
             </mat-card>
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
-        <div fxFlex="30">
+        <div fxFlex="30" *ngIf="selectedProject != null">
             <mat-card style="height: 100%; box-sizing:border-box;">
                 <mat-card-header>
                     <mat-card-title>Проект</mat-card-title>
@@ -93,7 +95,8 @@
                 <!--  -->
                 <form class="input-client">
                     <mat-form-field id="input-size">
-                        <input matInput placeholder="Name" value="client">
+                        <input matInput placeholder="Name" value="client" [(ngModel)]="selectedProject.name"
+                            name="name">
                     </mat-form-field>
                     <mat-form-field id="input-size">
                         <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"

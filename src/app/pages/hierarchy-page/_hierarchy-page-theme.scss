@@ -5,7 +5,7 @@
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-    button#active-li:focus{
-        background:mat-color($accent);
+    .selected-item{
+        background: mat-color($accent) !important;
     }
 }

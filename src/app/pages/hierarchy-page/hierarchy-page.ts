@@ -1,6 +1,6 @@
 
 import { ClientService } from '../../services/clientService';
-import { client } from "../../model/client";
+import { Client } from "../../model/client";
 
 import { Component, OnInit, ViewChild, NgModule, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -33,7 +33,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class ClientListPageComponent implements OnInit {
 
-  clients: client[];
+  clients: Client[];
   // ArticlesData: string[] = [
   //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia',  'Asher', 'Olivia'
   // ]
@@ -44,6 +44,8 @@ export class ClientListPageComponent implements OnInit {
 
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
+  selectedClient: any = null;
+  selectedProject: any = null;
 
   isShowinput = false;
 
@@ -119,6 +121,7 @@ export class ClientListPageComponent implements OnInit {
     MatListModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    ReactiveFormsModule,
     MatInputModule,
     CommonModule,
     MatButtonModule,

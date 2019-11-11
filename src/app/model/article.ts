@@ -1,8 +1,8 @@
 import { Project } from './project';
 import { Bag } from './bag';
 
-export interface Client {
+export interface Article {
     name: string;
-    projects: Project[];
+    project: Project;
     bag: Bag;
 }
