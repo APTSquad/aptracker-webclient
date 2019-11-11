@@ -124,8 +124,8 @@
                 </div>
 
                 <mat-action-list class="scrollbar" dense>
-                    <button mat-list-item *ngFor="let client of clients" id="active-li">
-                        <span mat-line id="header-li"> {{ client.name }} </span>
+                    <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li">
+                        <span mat-line id="header-li"> {{ article.name }} </span>
                         <!-- <span mat-line>  profile: {{ client.profile }} </span> -->
                         <mat-divider></mat-divider>
                     </button>
