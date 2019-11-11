@@ -1,6 +1,6 @@
 
 import { ClientService } from '../../services/clientService';
-import { Client } from "../../model/client";
+import { Client } from '../../model/client';
 
 import { Component, OnInit, ViewChild, NgModule, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -16,7 +16,8 @@ import {
   MatInputModule,
   MatCardModule,
   MatAutocompleteModule,
-  MatOptionModule
+  MatOptionModule,
+  MatRippleModule
 
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -29,11 +30,12 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   selector: 'app-hierarchy-page',
   templateUrl: './hierarchy-page.html',
   styleUrls: ['./hierarchy-page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientListPageComponent implements OnInit {
 
   clients: Client[];
+  pepa: string;
   // ArticlesData: string[] = [
   //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia',  'Asher', 'Olivia'
   // ]
@@ -55,22 +57,18 @@ export class ClientListPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.clientService.getClients().then(client => this.clients = client);
+    this.clientService.getClients().then(data => {
+      this.clients = data;
+    });
     // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
+
   }
 
   showInput() {
     this.isShowinput = !this.isShowinput;
   }
 
-  applyFilter(filterValue: string) {
-    //  this.ClientsData.filter = filterValue.trim().toLowerCase();
-
-    //  if (this.ClientsData.paginator) {
-    //    this.ClientsData.paginator.firstPage();
-    //  }
-  }
 
 }
 
@@ -122,6 +120,7 @@ export class ClientListPageComponent implements OnInit {
     MatFormFieldModule,
     MatPaginatorModule,
     ReactiveFormsModule,
+    MatRippleModule,
     MatInputModule,
     CommonModule,
     MatButtonModule,

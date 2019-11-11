@@ -3,6 +3,6 @@ import { Bag } from './bag';
 
 export interface Article {
     name: string;
-    project: Project;
-    bag: Bag;
+    project?: Project;
+    bag?: Bag;
 }

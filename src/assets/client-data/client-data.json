@@ -1,0 +1,19 @@
+[
+    {
+        "name": "ICL",
+        "project": "Active",
+        "bag": {
+            "name": "Jhon Monte"
+        },
+        "projects": [
+            {
+                "name": "Project 1",
+                "articles": [
+                    {
+                        "name": "PEPP"
+                    }
+                ]
+            }
+        ]
+    }
+]

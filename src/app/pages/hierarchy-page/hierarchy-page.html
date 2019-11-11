@@ -2,7 +2,7 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around stretch" class="container" fxFill>
         <!--clients-->
         <div fxFlex="30">
-            <mat-card >
+            <mat-card>
                 <mat-card-header>
                     <mat-card-title>Клиенты</mat-card-title>
                 </mat-card-header>
@@ -12,16 +12,14 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
 
-                <mat-action-list class="scrollbar" dense>
-                    <button mat-list-item *ngFor="let client of clients" id="active-li"
+                <mat-list class="scrollbar" dense>
+                    <mat-list-item matRipple *ngFor="let client of clients"
                         (click)="selectedClient = client; selectedProject = null"
                         [class.selected-item]="client == selectedClient">
                         <span mat-line id="header-li"> {{ client.name }} </span>
-                        <span mat-line> project: {{ client.project }} </span>
-                        <span mat-line> profile: {{ client.profile }} </span>
                         <mat-divider></mat-divider>
-                    </button>
-                </mat-action-list>
+                    </mat-list-item>
+                </mat-list>
 
                 <br>
                 <button mat-stroked-button color="primary">
@@ -70,16 +68,15 @@
                     </button>
                 </div>
 
-                <mat-action-list class="scrollbar" dense>
-                    <button mat-list-item *ngFor="let client of clients" id="active-li"
-                        (click)="selectedProject = client" [class.selected-item]="client == selectedProject">
-                        <span mat-line id="header-li"> {{ client.name }} </span>
-                        <span mat-line> Article: {{ client.project }} </span>
-                        <span mat-line> profile: {{ client.profile }} </span>
-                        <mat-divider></mat-divider>
-                    </button>
+                <mat-list class="scrollbar" dense>
+                    <mat-list-item matRipple *ngFor="let project of selectedClient.projects"
+                        (click)="selectedProject = project" [class.selected-item]="project == selectedProject">
+                        <span mat-line id="header-li"> {{ project.name }} </span>
 
-                </mat-action-list>
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+
+                </mat-list>
 
                 <br>
                 <!-- <button mat-stroked-button color="primary">
