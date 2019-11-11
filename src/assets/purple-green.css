@@ -1492,3 +1492,6 @@ app-navbar {
   color: white; }
   app-navbar .aptracker-navbar, app-navbar .aptracker-navbar-header {
     background: #9c27b0; }
+
+button#active-li:focus {
+  background: #69f0ae; }
