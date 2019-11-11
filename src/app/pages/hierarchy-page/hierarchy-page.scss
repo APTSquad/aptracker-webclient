@@ -12,6 +12,20 @@
      
  }
  
+ .mat-card{
+     height: 100%; 
+     box-sizing:border-box;
+     display:flex;
+     flex-direction:column;
+     
+ }
+
+ .mat-card-header {
+     display: flex;
+     justify-content: center;
+     margin: auto;
+ }
+
  .mat-card-header {
      display: flex;
      justify-content: center;
@@ -29,7 +43,7 @@
 }
 
 .scrollbar {
-   max-height: 400px;
+   //max-height: 400px;
     overflow: auto;
     
   }
