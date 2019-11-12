@@ -72,44 +72,6 @@ export class ClientListPageComponent implements OnInit {
 
 }
 
-//   ArticleData:Client[]=[
-//       {
-//         name:'Boots',
-//         activeNum:5,
-//       },
-//       {
-//         name:'Charlotte',
-//         activeNum:10,
-//       },
-//       {
-//         name: 'Clogs',
-//         activeNum:2,
-//       },
-//       {
-//         name:'Boots',
-//         activeNum:15,
-//       },
-//       {
-//         name:'Charlotte',
-//         activeNum:11,
-//       },
-//       {
-//         name:'Charlotte',
-//         activeNum:12,
-//       },
-//       {
-//         name:'Boots',
-//         activeNum:18,
-//       },
-
-
-//   ]
-// }
-
-// interface Client{
-//   name:string;
-//   activeNum:number;
-// }
 
 
 
