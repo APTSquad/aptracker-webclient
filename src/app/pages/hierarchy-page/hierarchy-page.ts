@@ -2,9 +2,8 @@
 import { ClientService } from '../../services/clientService';
 import { Client } from '../../model/client';
 
-import { Component, OnInit, ViewChild, NgModule, ChangeDetectionStrategy } from '@angular/core';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, NgModule } from '@angular/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {
@@ -32,7 +31,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./hierarchy-page.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClientListPageComponent implements OnInit {
+export class HierarchyPageComponent implements OnInit {
 
   clients: Client[];
   pepa: string;
@@ -69,14 +68,12 @@ export class ClientListPageComponent implements OnInit {
     this.isShowinput = !this.isShowinput;
   }
 
-  applyFilter(value: string) {
+  applyFilter() {
 
   }
 
 
 }
-
-
 
 
 @NgModule({
@@ -99,8 +96,8 @@ export class ClientListPageComponent implements OnInit {
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [ClientListPageComponent],
+  exports: [HierarchyPageComponent],
   providers: [ClientService],
-  declarations: [ClientListPageComponent],
+  declarations: [HierarchyPageComponent],
 })
-export class ClientListPageModule { }
+export class HierarchyPageModule { }

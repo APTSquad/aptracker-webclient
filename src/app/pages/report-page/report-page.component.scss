@@ -56,7 +56,7 @@ mat-list {
 //   margin: 0 !important;
 // }
 
-::ng-deep .mat-form-field-infix {
+.special-field .mat-form-field-infix {
   border-top: 0.2375em solid transparent;
   padding: 0 !important;
 }

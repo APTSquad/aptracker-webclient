@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
@@ -7,7 +7,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 @Component({
   selector: 'app-report-page',
   templateUrl: './report-page.component.html',
-  styleUrls: ['./report-page.component.scss']
+  styleUrls: ['./report-page.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ReportPageComponent implements OnInit {
   items = DATA;
