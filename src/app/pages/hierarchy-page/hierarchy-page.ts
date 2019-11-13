@@ -69,6 +69,10 @@ export class ClientListPageComponent implements OnInit {
     this.isShowinput = !this.isShowinput;
   }
 
+  applyFilter(value: string) {
+
+  }
+
 
 }
 
