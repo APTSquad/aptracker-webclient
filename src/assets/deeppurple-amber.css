@@ -1393,3 +1393,6 @@ app-navbar {
 
 .selected-item {
   background: #ffd740 !important; }
+
+.active-user {
+  background-color: #ffd740; }
