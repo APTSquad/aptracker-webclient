@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClientListPageComponent } from './client-list-page';
+import { UsersManagementPageComponent } from './users-management-page';
 import {
   MatFormFieldModule,
   MatTableModule,
@@ -11,8 +11,8 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ClientListPageComponent', () => {
-  let component: ClientListPageComponent;
-  let fixture: ComponentFixture<ClientListPageComponent>;
+  let component: UsersManagementPageComponent;
+  let fixture: ComponentFixture<UsersManagementPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,13 +24,13 @@ describe('ClientListPageComponent', () => {
         MatIconModule,
         BrowserAnimationsModule
       ],
-      declarations: [ClientListPageComponent]
+      declarations: [UsersManagementPageComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClientListPageComponent);
+    fixture = TestBed.createComponent(UsersManagementPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

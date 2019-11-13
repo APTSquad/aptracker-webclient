@@ -1,6 +1,7 @@
 @import '../node_modules/@angular/material/theming';
 
 @import './app/shared/navbar/navbar-theme';
+@import './app/pages/hierarchy-page/hierarchy-page-theme';
 
 
 // Styles for the docs app that are based on the current theme.
@@ -37,6 +38,7 @@
   }
 
   @include nav-bar-theme($theme);
+  @include hierarchy-page-theme($theme);
 }
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss

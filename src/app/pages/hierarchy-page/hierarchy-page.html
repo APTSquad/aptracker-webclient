@@ -1,0 +1,145 @@
+<div class="absolute-wrapper">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around stretch" class="container" fxFill>
+        <!--clients-->
+        <div fxFlex="30">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Клиенты</mat-card-title>
+                </mat-card-header>
+
+                <mat-form-field class="adjust-form">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <mat-list class="scrollbar" dense>
+                    <mat-list-item matRipple *ngFor="let client of clients"
+                        (click)="selectedClient = client; selectedProject = null"
+                        [class.selected-item]="client == selectedClient">
+                        <span mat-line id="header-li"> {{ client.name }} </span>
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+
+                <br>
+                
+                <button mat-stroked-button color="primary">
+                    Добавить клиента
+                </button>
+            </mat-card>
+            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+        </div>
+
+        <div fxFlex="30" *ngIf="selectedClient != null">
+            <mat-card style="height: 100%; box-sizing:border-box;">
+                <mat-card-header>
+                    <mat-card-title>Клиент</mat-card-title>
+                </mat-card-header>
+                <!--  -->
+                <form class="input-client">
+                    <mat-form-field id="input-size">
+                        <input matInput placeholder="Name" value="client" [(ngModel)]="selectedClient.name" name="name">
+                    </mat-form-field>
+                    <mat-form-field id="input-size">
+                        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of options" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+                <span>
+                    <p>Some client info</p>
+                    <h6 align="center">Проекты</h6>
+                    <mat-divider></mat-divider>
+                </span>
+
+                <div class="search-add-section">
+                    <mat-form-field id="input-size" *ngIf="isShowinput">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+
+                <mat-list class="scrollbar" dense>
+                    <mat-list-item matRipple *ngFor="let project of selectedClient.projects"
+                        (click)="selectedProject = project" [class.selected-item]="project == selectedProject">
+                        <span mat-line id="header-li"> {{ project.name }} </span>
+
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+
+                </mat-list>
+
+                <br>
+                <!-- <button mat-stroked-button color="primary">
+                Add client
+            </button> -->
+            </mat-card>
+            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+        </div>
+        <div fxFlex="30" *ngIf="selectedProject != null">
+            <mat-card style="height: 100%; box-sizing:border-box;">
+                <mat-card-header>
+                    <mat-card-title>Проект</mat-card-title>
+                </mat-card-header>
+                <!--  -->
+                <form class="input-client">
+                    <mat-form-field id="input-size">
+                        <input matInput placeholder="Name" value="client" [(ngModel)]="selectedProject.name"
+                            name="name">
+                    </mat-form-field>
+                    <mat-form-field id="input-size">
+                        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of options" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+                <span>
+                    <p>Some project info</p>
+                    <h6 align="center">Статьи</h6>
+                    <mat-divider></mat-divider>
+                </span>
+
+                <div class="add-section">
+                    <!-- <mat-form-field id="input-size" *ngIf="isShowinput">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+                <button mat-icon-button (click)=showInput() *ngIf="!isShowinput"> <mat-icon>search</mat-icon></button> -->
+                    <button mat-icon-button color="primary">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+
+                <mat-action-list class="scrollbar" dense>
+                    <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li">
+                        <span mat-line id="header-li"> {{ article.name }} </span>
+                        <!-- <span mat-line>  profile: {{ client.profile }} </span> -->
+                        <mat-divider></mat-divider>
+                    </button>
+
+                </mat-action-list>
+
+                <br>
+                <!-- <button mat-stroked-button color="primary">
+                Add client
+            </button> -->
+            </mat-card>
+            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+        </div>
+
+    </div>
+</div>
