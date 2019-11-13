@@ -2,6 +2,7 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-report-page',
@@ -74,7 +75,8 @@ const DATA = [
   imports: [
     CommonModule,
     MatListModule,
-    MatInputModule
+    MatInputModule,
+    FlexLayoutModule
   ],
   exports: [ReportPageComponent],
   declarations: [ReportPageComponent],
