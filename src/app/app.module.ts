@@ -1,15 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReportPageModule } from './pages/report-page/report-page.component';
-import { ClientListPageModule } from './pages/client-list-page/client-list-page';
+import { ClientListPageModule } from './pages/hierarchy-page/hierarchy-page';
 import { NavBarModule } from './shared/navbar/navbar';
 import { UsersManagementPageModule } from './pages/users-management-page/users-management-page';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     NavBarModule,
     ReportPageModule,
     ClientListPageModule,
-    UsersManagementPageModule
+    UsersManagementPageModule,
+    HttpClientModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

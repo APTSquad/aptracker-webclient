@@ -1391,5 +1391,5 @@ app-navbar {
   app-navbar .aptracker-navbar, app-navbar .aptracker-navbar-header {
     background: #673ab7; }
 
-.active-user {
-  background-color: #ffd740; }
+.selected-item {
+  background: #ffd740 !important; }
