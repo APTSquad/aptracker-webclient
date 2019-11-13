@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClientListPageComponent } from './hierarchy-page';
+import { HierarchyPageComponent } from './hierarchy-page';
 import {
   MatFormFieldModule,
   MatTableModule,
@@ -11,8 +11,8 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ClientListPageComponent', () => {
-  let component: ClientListPageComponent;
-  let fixture: ComponentFixture<ClientListPageComponent>;
+  let component: HierarchyPageComponent;
+  let fixture: ComponentFixture<HierarchyPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,13 +24,13 @@ describe('ClientListPageComponent', () => {
         MatIconModule,
         BrowserAnimationsModule
       ],
-      declarations: [ClientListPageComponent]
+      declarations: [HierarchyPageComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClientListPageComponent);
+    fixture = TestBed.createComponent(HierarchyPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

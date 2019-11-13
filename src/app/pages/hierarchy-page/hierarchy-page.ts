@@ -32,7 +32,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./hierarchy-page.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClientListPageComponent implements OnInit {
+export class HierarchyPageComponent implements OnInit {
 
   clients: Client[];
   pepa: string;
@@ -99,8 +99,8 @@ export class ClientListPageComponent implements OnInit {
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [ClientListPageComponent],
+  exports: [HierarchyPageComponent],
   providers: [ClientService],
-  declarations: [ClientListPageComponent],
+  declarations: [HierarchyPageComponent],
 })
-export class ClientListPageModule { }
+export class HierarchyPageModule { }
