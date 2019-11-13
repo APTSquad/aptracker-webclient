@@ -1,9 +1,13 @@
  @import '@angular/material/prebuilt-themes/indigo-pink.css';
  .mat-stroked-button {
+    margin:0 auto;
      display: block;
-     margin: auto;
+     //position: fixed;
+    //bottom: 2%; 
+
+   
  }
- 
+
  .adjust-form {
      display: flex;
      justify-content: center;
@@ -13,10 +17,11 @@
  }
  
  .mat-card{
-     height: 100%; 
+     //height: 100%; 
      box-sizing:border-box;
-     display:flex;
-     flex-direction:column;
+     //display:flex;
+     //flex-direction:column;
+     
      
  }
 
@@ -26,15 +31,9 @@
      margin: auto;
  }
 
- .mat-card-header {
-     display: flex;
-     justify-content: center;
-     margin: auto;
- }
  
 
  .container {
-     
      margin-top: 0px;
      margin-bottom: 0px;
      height: 100%;
@@ -85,10 +84,7 @@ span {
         font-size: 16px;
         font-family:"Helvetica Neue Light",sans-serif;
     }
-    h4{
-        border-bottom: 1px solid;
-    }
-    
+ 
 }
 
 button .mat-icon{
