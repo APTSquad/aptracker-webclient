@@ -26,6 +26,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HierarchyDialogType } from './dialog-type';
+import {FilterPipe} from '../../Pipes/Filter.pipe';
 
 
 
@@ -42,7 +43,7 @@ export class HierarchyPageComponent implements OnInit {
 
 
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  options: string[] = [this.getRandomBag(), this.getRandomBag(), this.getRandomBag()];
   selectedClient: any = null;
   selectedProject: any = null;
 
@@ -50,6 +51,10 @@ export class HierarchyPageComponent implements OnInit {
   dialogType: HierarchyDialogType;
 
   name: string;
+
+  searchText: string;
+  searchProject: string;
+
 
   constructor(private clientService: HierarchyService, public dialog: MatDialog) {
 
@@ -68,26 +73,7 @@ export class HierarchyPageComponent implements OnInit {
     this.isShowinput = !this.isShowinput;
   }
 
-  // showClientDialog(){
-  //   this.isArticleDialog = false;
-  //   this.isProjectDialog = false;
-
-  //     this.isClientDialog = true;
-  //     this.openDialog()
-  // }
-  // showArticleDialog(){
-  //   if(!this.isClientDialog) this.isClientDialog = false;
-  //   if(!this.isProjectDialog) this.isProjectDialog = false;
-  //  this.isArticleDialog = true;
-  //  this.openDialog()
-  // }
-  // showProjectDialog(){
-  //   if(!this.isClientDialog) this.isClientDialog = false;
-  //   if(!this.isArticleDialog) this.isArticleDialog = false;
-  //   this.isProjectDialog = true;
-  //   this.openDialog()
-  // }
-  showProjectDialog() {
+    showProjectDialog() {
     this.dialogType = HierarchyDialogType.Project;
     this.openDialog();
   }
@@ -121,6 +107,7 @@ export class HierarchyPageComponent implements OnInit {
   applyFilter(value: string) {
 
   }
+
 
   openDialog(): void {
     const dialogRef = this.dialog.open(HierarchyDialog, {
@@ -183,7 +170,7 @@ export class HierarchyDialog {
   ],
   exports: [HierarchyPageComponent],
   providers: [HierarchyService],
-  declarations: [HierarchyPageComponent, HierarchyDialog],
+  declarations: [HierarchyPageComponent, HierarchyDialog, FilterPipe],
   entryComponents: [HierarchyDialog]
 })
 export class HierarchyPageModule { }

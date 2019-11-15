@@ -46,7 +46,7 @@
 }
 
 .scrollbar {
-   //max-height: 400px;
+   max-height: 600px;
     overflow: auto;
     
   }
@@ -64,10 +64,10 @@
     
 }
 
-#header-li{
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 1%;
+.header-li{
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    margin-bottom: 1% !important;
     font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
@@ -79,8 +79,8 @@
     justify-content: space-between;
 }
 
-#input-size{
-     font-size: 14px;
+.input-size{
+     font-size: 14px !important;
 }
 
 span {
