@@ -68,7 +68,7 @@ export class HierarchyPageComponent implements OnInit {
     this.isShowinput = !this.isShowinput;
   }
 
-  applyFilter() {
+  applyFilter(value: string) {
 
   }
 
