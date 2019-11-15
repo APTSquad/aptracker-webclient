@@ -6,6 +6,7 @@ import { Component, OnInit, NgModule, Inject } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import * as faker from 'faker';
 import {
   MatIconModule,
   MatButtonModule,
@@ -101,6 +102,22 @@ export class HierarchyPageComponent implements OnInit {
     this.openDialog();
   }
 
+  getRandomBag() {
+    return faker.address.city();
+  }
+
+  getRandomClient() {
+    return faker.company.companyName();
+  }
+
+  getRandomProject() {
+    return faker.commerce.productName();
+  }
+
+  getRandomArticle() {
+    return faker.commerce.productAdjective();
+  }
+
   applyFilter(value: string) {
 
   }
@@ -133,7 +150,7 @@ export class HierarchyDialog {
 
   constructor(
     public dialogRef: MatDialogRef<HierarchyDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { DialogType: HierarchyDialogType }) {
+    @Inject(MAT_DIALOG_DATA) public data: { DialogType: HierarchyDialogType, name: any }) {
   }
   dialogTypes = HierarchyDialogType;
 
