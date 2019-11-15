@@ -2,7 +2,7 @@
 import { ClientService } from '../../services/clientService';
 import { Client } from '../../model/client';
 
-import { Component, OnInit, NgModule,Inject } from '@angular/core';
+import { Component, OnInit, NgModule, Inject } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -24,6 +24,7 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HierarchyDialogType } from './dialog-type';
 
 
 
@@ -45,12 +46,11 @@ export class HierarchyPageComponent implements OnInit {
   selectedProject: any = null;
 
   isShowinput = false;
-  isProjectDialog = false;
-  isArticleDialog = false;
-  isClientDialog = false;
+  dialogType: HierarchyDialogType;
+
   name: string;
 
-  constructor(private clientService: ClientService,public dialog: MatDialog) {
+  constructor(private clientService: ClientService, public dialog: MatDialog) {
 
   }
 
@@ -86,22 +86,38 @@ export class HierarchyPageComponent implements OnInit {
   //   this.isProjectDialog = true;
   //   this.openDialog()
   // }
-  
+  showProjectDialog() {
+    this.dialogType = HierarchyDialogType.Project;
+    this.openDialog();
+  }
 
-  applyFilter() {
+  showArticleDialog() {
+    this.dialogType = HierarchyDialogType.Article;
+    this.openDialog();
+  }
+
+  showClientDialog() {
+    this.dialogType = HierarchyDialogType.Client;
+    this.openDialog();
+  }
+
+  applyFilter(value: string) {
 
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(HierarchyDialog, {
       width: '450px',
-      data: {name: this.name}
+      data: {
+        name: this.name,
+        DialogType: this.dialogType
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.name = result;
-      
+
     });
 
   }
@@ -117,14 +133,13 @@ export class HierarchyDialog {
 
   constructor(
     public dialogRef: MatDialogRef<HierarchyDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: Client) {}
+    @Inject(MAT_DIALOG_DATA) public data: { DialogType: HierarchyDialogType }) {
+  }
+  dialogTypes = HierarchyDialogType;
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
- 
-
 }
 
 
@@ -151,7 +166,7 @@ export class HierarchyDialog {
   ],
   exports: [HierarchyPageComponent],
   providers: [ClientService],
-  declarations: [HierarchyPageComponent,HierarchyDialog],
-  entryComponents:[HierarchyDialog]
+  declarations: [HierarchyPageComponent, HierarchyDialog],
+  entryComponents: [HierarchyDialog]
 })
 export class HierarchyPageModule { }
