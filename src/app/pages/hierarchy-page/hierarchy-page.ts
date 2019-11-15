@@ -1,5 +1,5 @@
 
-import { ClientService } from '../../services/clientService';
+import { HierarchyService } from '../../services/clientService';
 import { Client } from '../../model/client';
 
 import { Component, OnInit, NgModule, Inject } from '@angular/core';
@@ -50,7 +50,7 @@ export class HierarchyPageComponent implements OnInit {
 
   name: string;
 
-  constructor(private clientService: ClientService, public dialog: MatDialog) {
+  constructor(private clientService: HierarchyService, public dialog: MatDialog) {
 
   }
 
@@ -165,7 +165,7 @@ export class HierarchyDialog {
     MatDialogModule
   ],
   exports: [HierarchyPageComponent],
-  providers: [ClientService],
+  providers: [HierarchyService],
   declarations: [HierarchyPageComponent, HierarchyDialog],
   entryComponents: [HierarchyDialog]
 })

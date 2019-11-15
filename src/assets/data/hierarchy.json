@@ -1,0 +1,898 @@
+[
+    {
+        "name": "ICL",
+        "bag": {
+            "name": "BAG 1"
+        },
+        "projects": [
+            {
+                "name": "Project ICL-1",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-2",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-3",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-4",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-5",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-6",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-7",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-8",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-9",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-10",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-11",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            },
+            {
+                "name": "Project ICL-11",
+                "articles": [
+                    {
+                        "name": "ICL-1"
+                    },
+                    {
+                        "name": "ICL-2"
+                    },
+                    {
+                        "name": "ICL-3"
+                    },
+                    {
+                        "name": "ICL-4"
+                    },
+                    {
+                        "name": "ICL-5"
+                    },
+                    {
+                        "name": "ICL-6"
+                    },
+                    {
+                        "name": "ICL-7"
+                    },
+                    {
+                        "name": "ICL-8"
+                    },
+                    {
+                        "name": "ICL-9"
+                    },
+                    {
+                        "name": "ICL-10"
+                    },
+                    {
+                        "name": "ICL-11"
+                    },
+                    {
+                        "name": "ICL-12"
+                    },
+                    {
+                        "name": "ICL-13"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "DCL",
+        "bag": {
+            "name": "BAG 2"
+        },
+        "projects": [
+            {
+                "name": "Project DCL-1",
+                "articles": [
+                    {
+                        "name": "DCL-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project DCL-2",
+                "articles": [
+                    {
+                        "name": "DCL-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "BANG",
+        "bag": {
+            "name": "BAG 3"
+        },
+        "projects": [
+            {
+                "name": "Project BANG-1",
+                "articles": [
+                    {
+                        "name": "BANG-1"
+                    }
+                ]
+            },
+            {
+                "name": "Project BANG-2",
+                "articles": [
+                    {
+                        "name": "BANG-2"
+                    }
+                ]
+            }
+        ]
+    }
+]
