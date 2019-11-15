@@ -23,7 +23,7 @@
 
                 <br>
                 
-                <button mat-stroked-button color="primary">
+                <button mat-stroked-button color="primary" (click)="openDialog()" >
                     Добавить клиента
                 </button>
             </mat-card>
@@ -64,8 +64,8 @@
                     <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
                         <mat-icon>search</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary">
-                        <mat-icon>add</mat-icon>
+                    <button mat-icon-button color="primary" (click)="showProjectDialog()">
+                        <mat-icon >add</mat-icon>
                     </button>
                 </div>
 
@@ -119,7 +119,7 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
                 <button mat-icon-button (click)=showInput() *ngIf="!isShowinput"> <mat-icon>search</mat-icon></button> -->
-                    <button mat-icon-button color="primary">
+                    <button mat-icon-button color="primary" (click)="showArticleDialog()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
