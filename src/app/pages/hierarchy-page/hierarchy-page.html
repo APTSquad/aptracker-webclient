@@ -12,11 +12,7 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
 
-<<<<<<< HEAD
-                <mat-list  class="scrollbar-first-card"  dense>
-=======
                 <mat-list style="max-height: 750px;" class="scrollbar" dense>
->>>>>>> 1f6b519be494ac32b8733b92c33116d2b877522f
                     <mat-list-item matRipple *ngFor="let client of clients | filter: searchClient"
                         (click)="selectedClient = client; selectedProject = null"
                         [class.selected-item]="client == selectedClient">
