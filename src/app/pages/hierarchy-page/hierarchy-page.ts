@@ -1,12 +1,11 @@
 
-import { HierarchyService } from '../../services/clientService';
+import { HierarchyService } from '../../services/HierarchyService';
 import { Client } from '../../model/client';
 
 import { Component, OnInit, NgModule, Inject } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import * as faker from 'faker';
 import {
   MatIconModule,
   MatButtonModule,
@@ -26,7 +25,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HierarchyDialogType } from './dialog-type';
-import {FilterPipe} from '../../Pipes/Filter.pipe';
+import { FilterPipe } from '../../Pipes/Filter.pipe';
 
 
 
@@ -43,7 +42,7 @@ export class HierarchyPageComponent implements OnInit {
 
 
   myControl = new FormControl();
-  options: string[] = [this.getRandomBag(), this.getRandomBag(), this.getRandomBag()];
+  options: string[] = ['123', '345', '123214'];
   selectedClient: any = null;
   selectedProject: any = null;
 
@@ -54,6 +53,7 @@ export class HierarchyPageComponent implements OnInit {
 
   searchText: string;
   searchProject: string;
+  searchClient: string;
 
 
   constructor(private clientService: HierarchyService, public dialog: MatDialog) {
@@ -73,7 +73,7 @@ export class HierarchyPageComponent implements OnInit {
     this.isShowinput = !this.isShowinput;
   }
 
-    showProjectDialog() {
+  showProjectDialog() {
     this.dialogType = HierarchyDialogType.Project;
     this.openDialog();
   }
@@ -88,23 +88,8 @@ export class HierarchyPageComponent implements OnInit {
     this.openDialog();
   }
 
-  getRandomBag() {
-    return faker.address.city();
-  }
 
-  getRandomClient() {
-    return faker.company.companyName();
-  }
-
-  getRandomProject() {
-    return faker.commerce.productName();
-  }
-
-  getRandomArticle() {
-    return faker.commerce.productAdjective();
-  }
-
-  applyFilter(value: string) {
+  applyFilter() {
 
   }
 

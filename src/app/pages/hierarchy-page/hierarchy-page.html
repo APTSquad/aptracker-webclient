@@ -12,12 +12,16 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
 
+<<<<<<< HEAD
                 <mat-list  class="scrollbar-first-card"  dense>
+=======
+                <mat-list style="max-height: 750px;" class="scrollbar" dense>
+>>>>>>> 1f6b519be494ac32b8733b92c33116d2b877522f
                     <mat-list-item matRipple *ngFor="let client of clients | filter: searchClient"
                         (click)="selectedClient = client; selectedProject = null"
                         [class.selected-item]="client == selectedClient">
                         <span mat-line class="header-li"> {{ client.name  }} </span>
-                        <span mat-line>Портфель: {{ getRandomBag() }} </span>
+                        <span mat-line>Портфель: {{ client.bag.name }} </span>
                         <mat-divider></mat-divider>
                     </mat-list-item>
                 </mat-list>
@@ -60,7 +64,7 @@
 
                 <div class="search-add-section">
                     <mat-form-field class="input-size" *ngIf="isShowinput">
-                        <input matInput type="text"  placeholder="Filter"  [(ngModel)]="searchProject">
+                        <input matInput type="text" placeholder="Filter" [(ngModel)]="searchProject">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
                     <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
@@ -71,12 +75,12 @@
                     </button>
                 </div>
 
-                <mat-list class="scrollbar"  dense>
+                <mat-list class="scrollbar" dense>
                     <mat-list-item matRipple *ngFor="let project of selectedClient.projects | filter: searchProject"
                         (click)="selectedProject = project" [class.selected-item]="project == selectedProject">
-                        <span mat-line class="header-li"> {{ getRandomProject() }} </span>
+                        <span mat-line class="header-li"> {{ project.name }} </span>
                         <span mat-line>Портфель:
-                            {{getRandomBag()}}</span>
+                            {{project.bag.name}}</span>
                         <mat-divider></mat-divider>
                     </mat-list-item>
 
@@ -129,8 +133,8 @@
 
                 <mat-action-list class="scrollbar" dense>
                     <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li">
-                        <span mat-line class="header-li"> {{ getRandomArticle() }} </span>
-                        <span mat-line>Портфель: {{ getRandomBag() }}
+                        <span mat-line class="header-li"> {{ article.name }} </span>
+                        <span mat-line>Портфель: {{ article.bag.name }}
                         </span>
                         <!-- <span mat-line>  profile: {{ client.profile }} </span> -->
                         <mat-divider></mat-divider>
