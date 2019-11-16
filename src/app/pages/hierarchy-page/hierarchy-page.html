@@ -1,4 +1,4 @@
-<div class="absolute-wrapper" >
+<div class="absolute-wrapper">
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around stretch" class="container" fxFill>
         <!--clients-->
         <div fxFlex="30">
@@ -12,7 +12,7 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
 
-                <mat-list  class="scrollbar-first-card" dense>
+                <mat-list class="scrollbar-first-card" dense>
                     <mat-list-item matRipple *ngFor="let client of clients | filter: searchClient"
                         (click)="selectedClient = client; selectedProject = null"
                         [class.selected-item]="client == selectedClient">

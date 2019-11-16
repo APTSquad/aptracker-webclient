@@ -111,7 +111,6 @@ export class HierarchyPageComponent implements OnInit {
 
 }
 
-
 @Component({
   selector: 'hierarchy-dialog',
   templateUrl: 'hierarchy-dialog.html',
