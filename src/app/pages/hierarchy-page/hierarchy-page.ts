@@ -64,8 +64,6 @@ export class HierarchyPageComponent implements OnInit {
     this.clientService.getClients().then(data => {
       this.clients = data;
     });
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
 
   }
 
