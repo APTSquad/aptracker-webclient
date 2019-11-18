@@ -2,13 +2,13 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around stretch" class="container" fxFill>
         <!--clients-->
         <div fxFlex="30">
-            <mat-card>
+            <mat-card [ngStyle]="{'height': searchClient ? 'unset' : '100%' }">
                 <mat-card-header>
                     <mat-card-title>Клиенты</mat-card-title>
                 </mat-card-header>
 
-                <mat-form-field class="adjust-form">
-                    <input matInput type="text" placeholder="Фильтр" [(ngModel)]="searchClient">
+                <mat-form-field class="adjust-form" >
+                    <input matInput type="text" placeholder="Фильтр" [(ngModel)]="searchClient" >
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
 
@@ -32,7 +32,7 @@
         </div>
 
         <div fxFlex="30" *ngIf="selectedClient != null">
-            <mat-card style="height: 100%; box-sizing:border-box;">
+            <mat-card [ngStyle]="{'height': searchProject ? 'unset' : '100%' }">
                 <mat-card-header>
                     <mat-card-title>Клиент</mat-card-title>
                 </mat-card-header>
@@ -90,7 +90,7 @@
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
         <div fxFlex="30" *ngIf="selectedProject != null">
-            <mat-card style="height: 100%; box-sizing:border-box;">
+            <mat-card >
                 <mat-card-header>
                     <mat-card-title>Проект</mat-card-title>
                 </mat-card-header>
