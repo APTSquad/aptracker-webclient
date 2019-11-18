@@ -55,8 +55,6 @@ export class HierarchyPageComponent implements OnInit {
   searchProject: string;
   searchClient: string;
 
-  filtering = false;
-  DispFilt() {this.filtering = !this.filtering; }
 
   constructor(private clientService: HierarchyService, public dialog: MatDialog) {
 
