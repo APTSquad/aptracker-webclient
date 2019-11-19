@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 
 
 @Injectable()
-export class ClientService {
+export class HierarchyService {
 
   constructor(private http: HttpClient) { }
 
   getClients() {
-    return this.http.get<Client[]>('assets/client-data/client-data.json')
+    return this.http.get<Client[]>('assets/data/hierarchy.json')
       .toPromise()
       // .then(res => <any[]>res.data)
       .then(data => { return data; });

@@ -1,0 +1,61 @@
+<div *ngIf="data.DialogType == dialogTypes.Client">
+  <h1 mat-dialog-title>Client</h1>
+  <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <p>New Client</p>
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Project" [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Bag" [(ngModel)]="data.name">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Create</button>
+  </div>
+</div>
+
+
+<div *ngIf="data.DialogType == dialogTypes.Project">
+  <h1 mat-dialog-title>Projects</h1>
+  <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <p>New Project</p>
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Article" [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Bag" [(ngModel)]="data.name">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Create</button>
+  </div>
+</div>
+
+
+<div *ngIf="data.DialogType == dialogTypes.Article">
+  <h1 mat-dialog-title>Article</h1>
+  <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <p>New Article</p>
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="data.name">
+    </mat-form-field>
+    <!-- <mat-form-field>
+    <input matInput placeholder="Article" [(ngModel)]="data.name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Bag" [(ngModel)]="data.name">
+  </mat-form-field> -->
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Create</button>
+  </div>
+</div>
