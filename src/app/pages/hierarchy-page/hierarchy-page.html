@@ -1,7 +1,7 @@
 <div class="absolute-wrapper">
-    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around stretch" class="container" fxFill>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly stretch" class="container" fxFill>
         <!--clients-->
-        <div fxFlex="30">
+        <div fxFlex="32">
             <mat-card [ngStyle]="{'height': searchClient ? 'unset' : '100%' }">
                 <mat-card-header>
                     <mat-card-title>Клиенты</mat-card-title>
@@ -12,7 +12,7 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
 
-                <mat-list class="scrollbar-first-card" dense>
+                <mat-list class="scrollbar" dense>
                     <mat-list-item matRipple *ngFor="let client of clients | filter: searchClient"
                         (click)="selectedClient = client; selectedProject = null"
                         [class.selected-item]="client == selectedClient">
@@ -31,7 +31,7 @@
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
 
-        <div fxFlex="30" *ngIf="selectedClient != null">
+        <div fxFlex="32" *ngIf="selectedClient != null">
             <mat-card [ngStyle]="{'height': searchProject ? 'unset' : '100%' }">
                 <mat-card-header>
                     <mat-card-title>Клиент</mat-card-title>
@@ -89,7 +89,7 @@
             </mat-card>
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
-        <div fxFlex="30" *ngIf="selectedProject != null">
+        <div fxFlex="32" *ngIf="selectedProject != null">
             <mat-card >
                 <mat-card-header>
                     <mat-card-title>Проект</mat-card-title>
