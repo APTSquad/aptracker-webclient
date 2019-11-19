@@ -13,8 +13,8 @@ import {
   MatAutocompleteModule
 } from '@angular/material';
 import { UsersManagementService } from './users-management-service';
-import { User } from './user';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { User } from 'src/app/model';
 
 
 @Component({
