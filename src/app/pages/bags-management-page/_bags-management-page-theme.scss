@@ -1,0 +1,12 @@
+@mixin users-management-page-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .active-user {
+    background-color: mat-color($accent);
+  }
+
+}

@@ -10,6 +10,7 @@ import { ReportPageModule } from './pages/report-page/report-page.component';
 import { HierarchyPageModule } from './pages/hierarchy-page/hierarchy-page';
 import { NavBarModule } from './shared/navbar/navbar';
 import { UsersManagementPageModule } from './pages/users-management-page/users-management-page';
+import { BagsManagementPageModule, BagsManagementPageComponent } from './pages/bags-management-page/bags-management-page';
 
 
 
@@ -26,7 +27,9 @@ import { UsersManagementPageModule } from './pages/users-management-page/users-m
     NavBarModule,
     ReportPageModule,
     HierarchyPageModule,
+    BagsManagementPageModule,
     UsersManagementPageModule,
+
     HttpClientModule
   ],
   providers: [HttpClient],
