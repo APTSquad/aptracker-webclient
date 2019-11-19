@@ -87,11 +87,6 @@ export class HierarchyPageComponent implements OnInit {
   }
 
 
-  applyFilter() {
-
-  }
-
-
   openDialog(): void {
     const dialogRef = this.dialog.open(HierarchyDialog, {
       width: '450px',
