@@ -26,6 +26,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HierarchyDialogType } from './dialog-type';
 import { FilterPipe } from '../../Pipes/Filter.pipe';
+import { HierarchyDialogComponent } from 'src/app/shared/selection-dialog/selection-dialog';
 
 
 
@@ -69,6 +70,21 @@ export class HierarchyPageComponent implements OnInit {
 
   showInput() {
     this.isShowinput = !this.isShowinput;
+  }
+
+  selectBag() {
+    const dialogRef = this.dialog.open(HierarchyDialogComponent, {
+      width: '450px',
+      data: {
+        header: 'Заголовок',
+        items: [{ name: 'Вариант 1' }, { name: 'Вариант 2' }]
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+    });
   }
 
   showProjectDialog() {

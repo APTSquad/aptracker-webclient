@@ -51,6 +51,9 @@
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
+                    <button mat-icon-button (click)="selectBag()" aria-label="Example icon-button with a heart icon">
+                        <mat-icon>navigate_next</mat-icon>
+                    </button>
                 </form>
                 <span>
                     <p>Some client info</p>
@@ -63,7 +66,7 @@
                         <input matInput type="text" placeholder="Filter" [(ngModel)]="searchProject">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
-                    <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
+                    <button mat-icon-button (click)="showInput()" *ngIf="!isShowinput">
                         <mat-icon>search</mat-icon>
                     </button>
                     <button mat-icon-button color="primary" (click)="showProjectDialog()">

@@ -11,6 +11,7 @@ import { HierarchyPageModule } from './pages/hierarchy-page/hierarchy-page';
 import { NavBarModule } from './shared/navbar/navbar';
 import { UsersManagementPageModule } from './pages/users-management-page/users-management-page';
 import { BagsManagementPageModule, BagsManagementPageComponent } from './pages/bags-management-page/bags-management-page';
+import { HierarchyDialogModule } from './shared/selection-dialog/selection-dialog';
 
 
 
@@ -29,7 +30,7 @@ import { BagsManagementPageModule, BagsManagementPageComponent } from './pages/b
     HierarchyPageModule,
     BagsManagementPageModule,
     UsersManagementPageModule,
-
+    HierarchyDialogModule,
     HttpClientModule
   ],
   providers: [HttpClient],
