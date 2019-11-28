@@ -13,7 +13,6 @@ import { UsersManagementPageModule } from './pages/users-management-page/users-m
 import { BagsManagementPageModule, BagsManagementPageComponent } from './pages/bags-management-page/bags-management-page';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +29,7 @@ import { BagsManagementPageModule, BagsManagementPageComponent } from './pages/b
     BagsManagementPageModule,
     UsersManagementPageModule,
 
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
