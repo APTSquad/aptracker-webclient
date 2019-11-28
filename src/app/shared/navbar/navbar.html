@@ -5,6 +5,9 @@
   <a mat-button class="aptracker-navbar-hide-small aptracker-button" *ngFor="let key of navSection"
     [routerLink]="navLinks[key].location">{{navLinks[key].name}}</a>
   <div class="flex-spacer"></div>
+  <div class="user-block" *ngIf="isLoggedIn">{{userName}} <button mat-raised-button color="accent"
+      (click)="logOut()">Выйти</button>
+  </div>
   <app-theme-picker>
   </app-theme-picker>
 </nav>

@@ -1,0 +1,1 @@
+export const SCOPES: string[] = ['user.read', 'offline_access', 'openid', 'profile', 'api://f2fee166-e82f-4861-a752-83a1c561115d/access_as_user'];
