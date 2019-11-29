@@ -18,7 +18,7 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <button mat-raised-button (click)="openThatPanel()">Add</button>
+      <button mat-raised-button>Add</button>
     </form>  
   </div>
   
@@ -43,7 +43,7 @@
                     floatLabel="never">
                   <!-- <label class="pure-material-textfield-outlined"> -->
                     <input matInput #expenseTime name="time" ngModel pattern="(?:[01]|2(?![4-9])){1}\d{1}:[0-5]{1}[0]{1}"
-                      class="form-control" placeholder="затрата" (input)="input()"/>
+                      class="form-control" placeholder="ЧЧ:ММ" (input)="input()"/>
                   <!-- </label> -->
                   </mat-form-field>
                 </div>
