@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isIframe: boolean;
   constructor(private broadcastService: BroadcastService,
     private authService: MsalService, private http: HttpClient,
-    private router: Router, private id: IdentityService) {
+    private router: Router, public identity: IdentityService) {
     this.isIframe = window !== window.parent && !window.opener;
     /*if (this.authService.getUser()) {
       this.loggedIn = true;
