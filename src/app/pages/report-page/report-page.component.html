@@ -1,31 +1,59 @@
-<div class="card">
-  <h1>Отчет</h1>
+<mat-card class="report-card">
+  <mat-progress-bar mode="determinate" value="{{percent}}"></mat-progress-bar>
 
-  <mat-list class="main-list">
-    <!-- Клиенты - список -->
+  <h1> Отчет </h1>
+
+  <div class="add-section">
+    <form>
+      <mat-form-field>
+        <input type="text" placeholder="Поиск" aria-label="Number" matInput [formControl]="myControl"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let item of items" [value]="item.name">
+            {{item.name}}
+            (
+            <ng-container *ngFor="let project of item.projects">
+              {{project.name}}
+            </ng-container>
+            )
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-raised-button>Добавить</button>
+    </form>
+  </div>
+
+
+  <mat-list class="main-list" style="padding: 0">
     <ng-container *ngFor="let item of items">
-      <mat-list-item>{{item.name}}</mat-list-item>
-      <mat-list class="nested-list">
-        <!-- Проекты - список -->
-        <div *ngFor="let project of item.projects">
-          <mat-list-item>{{project.name}}</mat-list-item>
-          <mat-list class="nested-list">
-            <!-- Затраты - список -->
-            <div *ngFor="let expense of project.expenses">
-              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
-                <span fxFlex="80%">
-                  {{expense.name}}
-                </span>
-                <!-- floatLabel="never" -->
-                <mat-form-field fxFlex="20%" style="width: 100px;" appearance="outline" class="special-field">
-                  <input type="number" class="form-control" matInput name="value" placeholder="" formControlName="value"
-                    step="10">
-                </mat-form-field>
-              </div>
-            </div>
-          </mat-list>
-        </div>
-      </mat-list>
+      <ng-container *ngIf="item.selected === true">
+        <mat-list-item> {{item.name}} </mat-list-item>
+        <mat-list class="nested-list">
+          <ng-container *ngFor="let project of item.projects">
+            <mat-list-item> {{project.name}} </mat-list-item>
+            <mat-list class="nested-list">
+              <ng-container *ngFor="let expense of project.expenses">
+                <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
+
+                  <span fxFlex="80%" style="word-wrap:break-word; padding-top: 6px;">
+                    {{expense.name}}
+                  </span>
+
+                  <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
+                    floatLabel="never">
+                    <!-- <label class="pure-material-textfield-outlined"> -->
+                    <input matInput #expenseTime name="time" ngModel
+                      pattern="(?:[01]|2(?![4-9])){1}\d{1}:[0-5]{1}[0]{1}" class="form-control" placeholder="ЧЧ:ММ"
+                      (input)="input()" />
+                    <!-- </label> -->
+                  </mat-form-field>
+                </div>
+
+              </ng-container>
+            </mat-list>
+          </ng-container>
+        </mat-list>
+      </ng-container>
     </ng-container>
   </mat-list>
-</div>
+</mat-card>

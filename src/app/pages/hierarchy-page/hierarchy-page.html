@@ -1,47 +1,49 @@
 <div class="absolute-wrapper">
-    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around stretch" class="container" fxFill>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly stretch" class="container" fxFill>
         <!--clients-->
-        <div fxFlex="30">
-            <mat-card>
+        <div fxFlex="32">
+            <mat-card [ngStyle]="{'height': searchClient ? 'unset' : '100%' }">
                 <mat-card-header>
                     <mat-card-title>Клиенты</mat-card-title>
                 </mat-card-header>
 
                 <mat-form-field class="adjust-form">
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    <input matInput type="text" placeholder="Фильтр" [(ngModel)]="searchClient">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
 
                 <mat-list class="scrollbar" dense>
-                    <mat-list-item matRipple *ngFor="let client of clients"
+                    <mat-list-item matRipple *ngFor="let client of clients | filter: searchClient"
                         (click)="selectedClient = client; selectedProject = null"
                         [class.selected-item]="client == selectedClient">
-                        <span mat-line id="header-li"> {{ client.name }} </span>
+                        <span mat-line class="header-li"> {{ client.name  }} </span>
+                        <span mat-line>Портфель: {{ client.bag.name }} </span>
                         <mat-divider></mat-divider>
                     </mat-list-item>
                 </mat-list>
 
                 <br>
-                
-                <button mat-stroked-button color="primary">
+
+                <button mat-stroked-button color="primary" (click)="showClientDialog()">
                     Добавить клиента
                 </button>
             </mat-card>
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
 
-        <div fxFlex="30" *ngIf="selectedClient != null">
-            <mat-card style="height: 100%; box-sizing:border-box;">
+        <div fxFlex="32" *ngIf="selectedClient != null">
+            <mat-card [ngStyle]="{'height': searchProject ? 'unset' : '100%' }">
                 <mat-card-header>
                     <mat-card-title>Клиент</mat-card-title>
                 </mat-card-header>
                 <!--  -->
                 <form class="input-client">
-                    <mat-form-field id="input-size">
-                        <input matInput placeholder="Name" value="client" [(ngModel)]="selectedClient.name" name="name">
+                    <mat-form-field class="input-size">
+                        <input matInput placeholder="Название" value="client" [(ngModel)]="selectedClient.name"
+                            name="name">
                     </mat-form-field>
-                    <mat-form-field id="input-size">
-                        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+                    <mat-form-field class="input-size">
+                        <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
                             [matAutocomplete]="auto">
                         <mat-autocomplete #auto="matAutocomplete">
                             <mat-option *ngFor="let option of options" [value]="option">
@@ -52,28 +54,29 @@
                 </form>
                 <span>
                     <p>Some client info</p>
-                    <h6 align="center">Проекты</h6>
+                    <h5 align="center">Проекты</h5>
                     <mat-divider></mat-divider>
                 </span>
 
                 <div class="search-add-section">
-                    <mat-form-field id="input-size" *ngIf="isShowinput">
-                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    <mat-form-field class="input-size" *ngIf="isShowinput">
+                        <input matInput type="text" placeholder="Filter" [(ngModel)]="searchProject">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
                     <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
                         <mat-icon>search</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary">
+                    <button mat-icon-button color="primary" (click)="showProjectDialog()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
 
                 <mat-list class="scrollbar" dense>
-                    <mat-list-item matRipple *ngFor="let project of selectedClient.projects"
+                    <mat-list-item matRipple *ngFor="let project of selectedClient.projects | filter: searchProject"
                         (click)="selectedProject = project" [class.selected-item]="project == selectedProject">
-                        <span mat-line id="header-li"> {{ project.name }} </span>
-
+                        <span mat-line class="header-li"> {{ project.name }} </span>
+                        <span mat-line>Портфель:
+                            {{project.bag.name}}</span>
                         <mat-divider></mat-divider>
                     </mat-list-item>
 
@@ -86,19 +89,19 @@
             </mat-card>
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
-        <div fxFlex="30" *ngIf="selectedProject != null">
-            <mat-card style="height: 100%; box-sizing:border-box;">
+        <div fxFlex="32" *ngIf="selectedProject != null">
+            <mat-card>
                 <mat-card-header>
                     <mat-card-title>Проект</mat-card-title>
                 </mat-card-header>
                 <!--  -->
                 <form class="input-client">
-                    <mat-form-field id="input-size">
-                        <input matInput placeholder="Name" value="client" [(ngModel)]="selectedProject.name"
+                    <mat-form-field class="input-size">
+                        <input matInput placeholder="Название" value="client" [(ngModel)]="selectedProject.name"
                             name="name">
                     </mat-form-field>
-                    <mat-form-field id="input-size">
-                        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+                    <mat-form-field class="input-size">
+                        <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
                             [matAutocomplete]="auto">
                         <mat-autocomplete #auto="matAutocomplete">
                             <mat-option *ngFor="let option of options" [value]="option">
@@ -109,7 +112,7 @@
                 </form>
                 <span>
                     <p>Some project info</p>
-                    <h6 align="center">Статьи</h6>
+                    <h5 align="center">Статьи</h5>
                     <mat-divider></mat-divider>
                 </span>
 
@@ -119,14 +122,16 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
                 <button mat-icon-button (click)=showInput() *ngIf="!isShowinput"> <mat-icon>search</mat-icon></button> -->
-                    <button mat-icon-button color="primary">
+                    <button mat-icon-button color="primary" (click)="showArticleDialog()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
 
                 <mat-action-list class="scrollbar" dense>
                     <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li">
-                        <span mat-line id="header-li"> {{ article.name }} </span>
+                        <span mat-line class="header-li"> {{ article.name }} </span>
+                        <span mat-line>Портфель: {{ article.bag.name }}
+                        </span>
                         <!-- <span mat-line>  profile: {{ client.profile }} </span> -->
                         <mat-divider></mat-divider>
                     </button>

@@ -12,30 +12,28 @@ import {
   MatRippleModule,
   MatAutocompleteModule
 } from '@angular/material';
-import { UsersManagementService } from './users-management-service';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { User } from 'src/app/model';
-import { TextMaskModule } from 'angular2-text-mask';
+import { Bag } from 'src/app/model';
+import { BagsManagementService } from './bags-management-service';
 
 
 @Component({
-  selector: 'app-users-management-page',
-  templateUrl: './users-management-page.html',
-  styleUrls: ['./users-management-page.scss'],
+  selector: 'app-bags-management-page',
+  templateUrl: './bags-management-page.html',
+  styleUrls: ['./bags-management-page.scss'],
 })
-export class UsersManagementPageComponent implements OnInit {
+export class BagsManagementPageComponent implements OnInit {
   myControl = new FormControl();
-  mask = [/\d/, '.', /\d/];
-  selectedUser: User | null = null;
-  options: string[] = ['Портфель 000', 'Портфель 001', 'Портфель 002'];
-  constructor(private service: UsersManagementService) {
+  selectedBag: Bag | null = null;
+  options: string[] = ['Павел', 'Петр'];
+  constructor(private service: BagsManagementService) {
 
   }
 
-  users: User[];
+  bags: Bag[];
 
   ngOnInit(): void {
-    this.service.getUsers().then(users => this.users = users);
+    this.service.getBags().then(bags => this.bags = bags);
   }
 
 }
@@ -54,11 +52,10 @@ export class UsersManagementPageComponent implements OnInit {
     MatButtonModule,
     MatSidenavModule,
     MatRippleModule,
-    MatAutocompleteModule,
-    TextMaskModule
+    MatAutocompleteModule
   ],
-  providers: [UsersManagementService],
-  exports: [UsersManagementPageComponent],
-  declarations: [UsersManagementPageComponent],
+  providers: [BagsManagementService],
+  exports: [BagsManagementPageComponent],
+  declarations: [BagsManagementPageComponent],
 })
-export class UsersManagementPageModule { }
+export class BagsManagementPageModule { }

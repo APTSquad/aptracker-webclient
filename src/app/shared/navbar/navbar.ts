@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { ThemePickerModule } from '../theme-picker';
+import { IdentityService } from '../services/identity-service/identity-service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,16 +13,30 @@ import { ThemePickerModule } from '../theme-picker';
   styleUrls: ['./navbar.scss']
 })
 export class NavbarComponent {
+  constructor(private identity: IdentityService) { }
   get navSection() {
     return NAV_SECTIONS[this.currentSection];
   }
+
+  logOut(): void {
+    this.identity.logOut();
+  }
+
 
   get navLinks() {
     return NAV_LINKS;
   }
 
   get currentSection() {
-    return ROLE_ADMIN;
+    return this.identity.role;
+  }
+
+  get isLoggedIn() {
+    return this.identity.isLoggedIn;
+  }
+
+  get userName() {
+    return this.identity.name;
   }
 }
 

@@ -1,8 +1,8 @@
 
-import { ClientService } from '../../services/clientService';
+import { HierarchyService } from '../../services/HierarchyService';
 import { Client } from '../../model/client';
 
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, Inject } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -16,12 +16,16 @@ import {
   MatCardModule,
   MatAutocompleteModule,
   MatOptionModule,
-  MatRippleModule
-
+  MatRippleModule,
+  MatDialogModule,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HierarchyDialogType } from './dialog-type';
+import { FilterPipe } from '../../Pipes/Filter.pipe';
 
 
 
@@ -35,23 +39,24 @@ export class HierarchyPageComponent implements OnInit {
 
   clients: Client[];
   pepa: string;
-  // ArticlesData: string[] = [
-  //   'Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers','Maia', 'Asher', 'Olivia',  'Asher', 'Olivia'
-  // ]
 
-
-  //  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  //  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  options: string[] = ['123', '345', '123214'];
   selectedClient: any = null;
   selectedProject: any = null;
 
   isShowinput = false;
+  dialogType: HierarchyDialogType;
+
+  name: string;
+
+  searchText: string;
+  searchProject: string;
+  searchClient: string;
 
 
-  constructor(private clientService: ClientService) {
+  constructor(private clientService: HierarchyService, public dialog: MatDialog) {
 
   }
 
@@ -59,8 +64,6 @@ export class HierarchyPageComponent implements OnInit {
     this.clientService.getClients().then(data => {
       this.clients = data;
     });
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
 
   }
 
@@ -68,11 +71,56 @@ export class HierarchyPageComponent implements OnInit {
     this.isShowinput = !this.isShowinput;
   }
 
-  applyFilter() {
+  showProjectDialog() {
+    this.dialogType = HierarchyDialogType.Project;
+    this.openDialog();
+  }
 
+  showArticleDialog() {
+    this.dialogType = HierarchyDialogType.Article;
+    this.openDialog();
+  }
+
+  showClientDialog() {
+    this.dialogType = HierarchyDialogType.Client;
+    this.openDialog();
   }
 
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(HierarchyDialog, {
+      width: '450px',
+      data: {
+        name: this.name,
+        DialogType: this.dialogType
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.name = result;
+
+    });
+
+  }
+
+}
+
+@Component({
+  selector: 'hierarchy-dialog',
+  templateUrl: 'hierarchy-dialog.html',
+})
+export class HierarchyDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<HierarchyDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: { DialogType: HierarchyDialogType, name: any }) {
+  }
+  dialogTypes = HierarchyDialogType;
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
 
 
@@ -94,10 +142,12 @@ export class HierarchyPageComponent implements OnInit {
     MatAutocompleteModule,
     MatOptionModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   exports: [HierarchyPageComponent],
-  providers: [ClientService],
-  declarations: [HierarchyPageComponent],
+  providers: [HierarchyService],
+  declarations: [HierarchyPageComponent, HierarchyDialog, FilterPipe],
+  entryComponents: [HierarchyDialog]
 })
 export class HierarchyPageModule { }

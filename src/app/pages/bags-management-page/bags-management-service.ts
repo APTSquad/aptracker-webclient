@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from 'src/app/model';
+import { Bag } from 'src/app/model';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersManagementService {
+export class BagsManagementService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers() {
-    return this.http.get<User[]>('https://localhost:5001/api/users')
+  getBags() {
+    return this.http.get<Bag[]>('/assets/data/bags.json')
       .toPromise()
       // .then(res => res.data as User[])
       .then(data => {
