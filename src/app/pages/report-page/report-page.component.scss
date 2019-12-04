@@ -3,25 +3,12 @@ app-report-page h1 {
     padding: 25px;
 }
 
-app-report-page mat-card, main {
+app-report-page main {
     position: absolute !important;
     padding: 16px;
     top: 90px;
     left: 0;
     right: 0;
-    height: 100%;
-}
-
-@media (max-width: 1024px) {
-    app-report-page mat-card {
-        width: 99% !important;
-    }
-}
-
-@media (max-width: 600px) {
-    app-report-page .add-form {
-        width: 99% !important;
-    }
 }
 
 app-report-page .main-list {
