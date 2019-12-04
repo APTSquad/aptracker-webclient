@@ -15,6 +15,7 @@ import {
 import { UsersManagementService } from './users-management-service';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { User } from 'src/app/model';
+import { TextMaskModule } from 'angular2-text-mask';
 
 
 @Component({
@@ -24,6 +25,7 @@ import { User } from 'src/app/model';
 })
 export class UsersManagementPageComponent implements OnInit {
   myControl = new FormControl();
+  mask = [/\d/, '.', /\d/];
   selectedUser: User | null = null;
   options: string[] = ['Портфель 000', 'Портфель 001', 'Портфель 002'];
   constructor(private service: UsersManagementService) {
@@ -52,7 +54,8 @@ export class UsersManagementPageComponent implements OnInit {
     MatButtonModule,
     MatSidenavModule,
     MatRippleModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    TextMaskModule
   ],
   providers: [UsersManagementService],
   exports: [UsersManagementPageComponent],

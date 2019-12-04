@@ -2,7 +2,7 @@ export interface NavLinkInfo {
   name: string;
   location: string;
 }
-
+export const ROLE_UNAUTHORIZED = 'GUEST';
 export const ROLE_DEVELOPER = 'DEVELOPER';
 export const ROLE_MANAGER = 'MANAGER';
 export const ROLE_ADMIN = 'ADMIN';
@@ -36,5 +36,6 @@ export const NAV_LINKS: { [key: string]: NavLinkInfo } = {
 export const NAV_SECTIONS: { [key: string]: Array<string> } = {
   [ROLE_DEVELOPER]: [PAGE_REPORT, PAGE_PAST_REPORTS, PAGE_USERS],
   [ROLE_MANAGER]: [PAGE_MANAGER_REPORTS],
-  [ROLE_ADMIN]: [PAGE_REPORT, PAGE_HIERARCHY, PAGE_USERS, PAGE_BAGS]
+  [ROLE_ADMIN]: [PAGE_REPORT, PAGE_HIERARCHY, PAGE_USERS, PAGE_BAGS],
+  [ROLE_UNAUTHORIZED]: []
 };

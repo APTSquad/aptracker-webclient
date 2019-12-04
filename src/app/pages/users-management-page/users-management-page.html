@@ -20,7 +20,7 @@
             <h4 mat-line>{{user.name}}</h4>
 
             <div mat-line>E-mail: {{user.email}}</div>
-            <div mat-line>Ставка: {{user.rate | number:'1.0-1'}}</div>
+            <div mat-line>Ставка: {{user.rate | number:'1.1'}}</div>
         </mat-list-item>
     </mat-list>
 </div>
@@ -43,7 +43,7 @@
             <p>
                 <mat-form-field appearance="fill" style="width: 100%;">
                     <mat-label>Ставка</mat-label>
-                    <input matInput placeholder="Placeholder" [(ngModel)]="selectedUser.rate">
+                    <input matInput [textMask]="{mask: mask}" [(ngModel)]="selectedUser.rate">
                 </mat-form-field>
             </p>
             <p>

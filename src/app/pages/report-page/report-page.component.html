@@ -25,8 +25,7 @@
             <mat-list-item> {{project.name}} </mat-list-item>
             <mat-list class="nested-list">
               <ng-container *ngFor="let expense of project.expenses">
-                <div class="container" fxLayout="row" fxLayout.xs="column"
-                  fxLayoutWrap fxLayoutAlign="left">
+                <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
 
                   <span fxFlex="80%" style="word-wrap:break-word;">
                       {{expense.name}}
@@ -43,7 +42,7 @@
             </mat-list>
           </ng-container>
         </mat-list>
-      </ng-container>    
+      </ng-container>
     </ng-container>
   </mat-list>
 </main>

@@ -28,7 +28,7 @@ export class NavbarComponent {
   }
 
   get currentSection() {
-    return ROLE_ADMIN;
+    return this.identity.role;
   }
 
   get isLoggedIn() {

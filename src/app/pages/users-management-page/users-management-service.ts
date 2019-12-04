@@ -10,7 +10,7 @@ export class UsersManagementService {
   constructor(private http: HttpClient) { }
 
   getUsers() {
-    return this.http.get<User[]>('/assets/data/users.json')
+    return this.http.get<User[]>('https://localhost:5001/api/users')
       .toPromise()
       // .then(res => res.data as User[])
       .then(data => {

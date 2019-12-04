@@ -25,6 +25,7 @@
     "@angular/router": "~8.2.9",
     "@azure/msal-angular": "^0.1.4",
     "@types/faker": "^4.1.7",
+    "angular2-text-mask": "^9.0.0",
     "faker": "^4.1.0",
     "hammerjs": "^2.0.8",
     "ngx-mask": "^8.1.6",
