@@ -3,10 +3,13 @@ app-report-page h1 {
     padding: 25px;
 }
 
-app-report-page mat-card {
-    margin-right: auto;
-    margin-left:  auto;
-    width: 50%;
+app-report-page mat-card, main {
+    position: absolute !important;
+    padding: 16px;
+    top: 90px;
+    left: 0;
+    right: 0;
+    height: 100%;
 }
 
 @media (max-width: 1024px) {
@@ -36,12 +39,16 @@ app-report-page .mat-list-base {
 }
 
 app-report-page .mat-list-item {
-    padding: 6px 0 !important;
+    line-height: 32px;
 }
 
 app-report-page .mat-list-base .mat-list-item, 
 app-report-page .mat-list-base .mat-list-option {
     height: min-content;
+}
+
+app-report-page .container {
+    line-height: 32px;
 }
 
 app-report-page .container .mat-form-field-flex > .mat-form-field-infix {
@@ -66,4 +73,36 @@ app-report-page .add-section {
         margin-left: 10px;
         bottom: 4px;
     }
+}
+
+.aptracker-primary-header-report {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    height: 90px;
+  
+    background-color: white;
+  
+    z-index: 2;
+    padding-left: 20px;
+    padding-right: 20px;
+  
+    .aptracker-primary-header-label {
+        h1 {
+            font-weight: 300;
+            margin: 0;
+            color: black;
+            padding: 28px 8px;
+            font-size: 20px;
+        }
+    }    
+}
+
+app-report-page mat-progress-bar {
+    position: fixed !important;
+    top: 146px;
+    z-index: 1;
+    left: 0;
+    right: 0;
 }

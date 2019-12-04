@@ -7,6 +7,12 @@ import {
   QueryList,
   ElementRef 
 } from '@angular/core';
+import {
+  MatDialogModule,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { MatIconModule, MatButtonModule } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
@@ -16,6 +22,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { HierarchyDialogComponent } from 'src/app/shared/selection-dialog/selection-dialog';
+
+export enum HierarchyDialogType {
+  Client, Article, Project
+}
 
 @Component({
   selector: 'app-report-page',
@@ -24,18 +36,54 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class ReportPageComponent implements OnInit {
+  constructor(public dialog: MatDialog) { }
+
+  public customPatterns = {
+    '0': { pattern: new RegExp('\[0-9\]')},
+    '9': { pattern: new RegExp('\[05\]')}
+  };
   percent: number = 0;
+  time: number = 8;
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   @ViewChildren('expenseTime') expenseTime: QueryList<ElementRef>;
   input() { 
-    this.percent =  this
-                    .expenseTime
-                    .filter(t => t.nativeElement.value)
-                    .length / this.expenseTime.length * 100;
+    this.percent = this
+              .expenseTime
+              .filter(t => t.nativeElement.value)
+              .reduce((x, y) => {
+                return x + parseFloat(y.nativeElement.value);
+              }, 0);
+              
+    this.percent = this.percent * 100 / this.time;
+    console.log(this.percent);
   }
+
+  finish(event: any) {
+    let addable = '';
+    if(event.target.value.length == 1)
+      addable = '.0';
+    else if (event.target.value.length == 2)
+      addable = '0';
+    event.target.value += addable;
+  }
+
+  selectClient() {
+    const dialogRef = this.dialog.open(HierarchyDialogComponent, {
+      width: '450px',
+      data: {
+        header: 'Заголовок',
+        items: [{ name: 'Вариант 1' }, { name: 'Вариант 2' }]
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+    });
+  }
+
   items = DATA;
-  constructor() { }
 
   ngOnInit() {
   }
@@ -56,7 +104,8 @@ const DATA = [
       {
         name: 'Проект2',
         expenses: [
-          {name: 'Затрата 1'}, {name: 'Затрата 2'}, {name: 'Затрата 3'}
+          {name: 'Затрата 1'}, {name: 'Затрата 2'}, {name: 'Затрата 3'},
+          {name: 'Затрата 1'}, {name: 'Затрата 2'}, {name: 'Затрата 3'},
         ]
       },
       {
@@ -93,6 +142,8 @@ const DATA = [
   }
 ];
 
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
+
 @NgModule({
   imports: [
     CommonModule,
@@ -105,7 +156,9 @@ const DATA = [
     MatProgressBarModule,
     MatAutocompleteModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot(options),
+    MatDialogModule
   ],
   exports: [ReportPageComponent],
   declarations: [ReportPageComponent],
