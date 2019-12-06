@@ -31,7 +31,7 @@ export class IdentityService implements OnDestroy {
         http.get('https://localhost:5001/api/todos').subscribe(x => console.log(x));
         http.get('https://localhost:5001/api/identity/me').subscribe(x => console.log(x));
         const user = this.authService.getUser();
-        console.log(user)
+        console.log(user);
         if (user != null) {
             this.loggedIn = true;
         } else {
@@ -39,12 +39,14 @@ export class IdentityService implements OnDestroy {
             this.router.navigate(['login']);
         }
 
+        // tslint:disable-next-line:max-line-length
         this.subscriptionFailure = this.broadcastService.subscribe('msal:loginFailure', (payload) => {
             console.log('login failure ' + JSON.stringify(payload));
             this.loggedIn = false;
             this.router.navigate(['login']);
         });
 
+        // tslint:disable-next-line:max-line-length
         this.subscriptionSuccess = this.broadcastService.subscribe('msal:loginSuccess', (payload) => {
             console.log('login success ' + JSON.stringify(payload));
             this.loggedIn = true;

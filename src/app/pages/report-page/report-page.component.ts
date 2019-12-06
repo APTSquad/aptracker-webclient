@@ -1,11 +1,11 @@
 import {
-  Component, 
-  OnInit, 
-  NgModule, 
+  Component,
+  OnInit,
+  NgModule,
   ViewEncapsulation,
   ViewChildren,
   QueryList,
-  ElementRef 
+  ElementRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule, MatButtonModule } from '@angular/material';
@@ -16,6 +16,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import {CustomCalendarModule} from '../../shared/custom-calendar/custom-calendar';
+
 
 @Component({
   selector: 'app-report-page',
@@ -28,7 +31,7 @@ export class ReportPageComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   @ViewChildren('expenseTime') expenseTime: QueryList<ElementRef>;
-  input() { 
+  input() {
     this.percent =  this
                     .expenseTime
                     .filter(t => t.nativeElement.value)
@@ -105,7 +108,8 @@ const DATA = [
     MatProgressBarModule,
     MatAutocompleteModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CustomCalendarModule
   ],
   exports: [ReportPageComponent],
   declarations: [ReportPageComponent],

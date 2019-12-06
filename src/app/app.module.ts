@@ -15,6 +15,7 @@ import { BagsManagementPageModule } from './pages/bags-management-page/bags-mana
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { LogLevel } from 'msal';
 import { MatButtonModule } from '@angular/material';
+// tslint:disable-next-line:max-line-length
 export const protectedResourceMap: [string, string[]][] = [['https://localhost:5001/api', ['api://f2fee166-e82f-4861-a752-83a1c561115d/access_as_user', 'offline_access']], ['https://graph.microsoft.com/v1.0/me', ['user.read']]];
 
 export function loggerCallback(logLevel: any, message: any, piiEnabled: any) {
