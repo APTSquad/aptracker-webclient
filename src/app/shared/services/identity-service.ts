@@ -2,10 +2,10 @@ import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MsalService, BroadcastService } from '@azure/msal-angular';
 import { Subscription } from 'rxjs';
-import { SCOPES } from '../../configuration/scopes';
+import { SCOPES } from '../configuration/scopes';
 import { HttpClient } from '@angular/common/http';
-import { Roles as Role } from '../../configuration/roles';
-import { ROLE_UNAUTHORIZED, ROLE_ADMIN, ROLE_DEVELOPER } from '../../configuration/pages';
+import { Roles as Role } from '../configuration/roles';
+import { ROLE_UNAUTHORIZED, ROLE_ADMIN, ROLE_DEVELOPER } from '../configuration/pages';
 
 @Injectable({
     providedIn: 'root',
@@ -66,7 +66,7 @@ export class IdentityService implements OnDestroy {
     }
 
     get role() {
-        return ROLE_DEVELOPER;
+        return ROLE_ADMIN;
     }
 
     login(): void {

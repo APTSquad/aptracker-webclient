@@ -12,7 +12,7 @@ import {
   MatRippleModule,
   MatAutocompleteModule
 } from '@angular/material';
-import { UsersManagementService } from './users-management-service';
+import { UsersManagementService } from '../../shared/services/users-service';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { User } from 'src/app/model';
 import { TextMaskModule } from 'angular2-text-mask';

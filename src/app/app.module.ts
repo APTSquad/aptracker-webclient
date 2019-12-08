@@ -24,7 +24,7 @@ export function loggerCallback(logLevel: any, message: any, piiEnabled: any) {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     MsalModule.forRoot({

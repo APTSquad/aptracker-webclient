@@ -1,5 +1,5 @@
 
-import { HierarchyService } from '../../services/HierarchyService';
+import { HierarchyService } from '../../shared/services/hierarchy-service';
 import { Client } from '../../model/client';
 
 import { Component, OnInit, NgModule, Inject } from '@angular/core';
@@ -25,7 +25,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HierarchyDialogType } from './dialog-type';
-import { FilterPipe } from '../../Pipes/Filter.pipe';
+import { FilterPipe } from '../../shared/pipes/filter.pipe';
 
 
 

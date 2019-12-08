@@ -39,15 +39,7 @@
                 </mat-form-field>
             </p>
             <p>
-                <mat-form-field class="example-full-width" appearance="fill" style="width: 100%;">
-                    <mat-label>Ответственный</mat-label>
-                    <input type="text" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of options" [value]="option">
-                            {{option}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
+                Здесь будет выбор ответственного
             </p>
         </div>
         <div class="select-info" *ngIf="selectedBag == null"
@@ -57,7 +49,7 @@
 
         </div>
     </mat-drawer>
-    <button mat-fab style="position: fixed; bottom: 25px; right: 325px; z-index: 9999;">
+    <button mat-fab style="position: fixed; bottom: 25px; right: 325px; z-index: 9999;" (click)="createBagClick()">
         <mat-icon>add</mat-icon>
     </button>
 </mat-drawer-container>
