@@ -18,4 +18,14 @@ export class UsersManagementService {
         return data;
       });
   }
+
+  modifyUser(user: any) {
+    return this.http.put<User[]>('https://localhost:5001/api/users', user)
+      .toPromise()
+      // .then(res => res.data as User[])
+      .then(data => {
+        console.log(data);
+        return data;
+      });
+  }
 }
