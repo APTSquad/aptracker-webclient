@@ -2,15 +2,15 @@
     <h1 mat-dialog-title>Создать портфель</h1>
     <div mat-dialog-content>
         <p>
-            <mat-form-field appearance="outline">
+            <mat-form-field>
                 <mat-label>Название</mat-label>
                 <input matInput formControlName="name" placeholder="Название портфеля">
             </mat-form-field>
         </p>
         <p>
-            <app-select-autocomplete [collection]="users" [formControlRef]="form.controls['responsibleId']"
-                label="Ответственный" placeholderLabel="Поиск по пользователям">
-            </app-select-autocomplete>
+            <ng-select [items]="users" #select dropdownPosition="auto" appendTo="body" bindValue="id" bindLabel="name"
+                placeholder="Ответственный" [virtualScroll]="true" formControlName="responsibleId">
+            </ng-select>
         </p>
 
     </div>

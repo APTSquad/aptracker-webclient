@@ -1,7 +1,8 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
+import { NgSelectModule } from '@ng-select/ng-select';
 import {
   MatIconModule,
   MatButtonModule,
@@ -11,7 +12,8 @@ import {
   MatSidenavModule,
   MatDialogRef,
   MatDialog,
-  MatDialogModule
+  MatDialogModule,
+  MatProgressBarModule
 } from '@angular/material';
 import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Bag, User } from 'src/app/model';
@@ -22,6 +24,7 @@ import { BagCreationDialogModule } from './bag-creation-dialog/bag-creation-dial
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SelectAutocompleteModule } from 'src/app/shared/select-autocomplete/select-autocomplete.module';
+import { SelectAutocompleteComponent } from 'src/app/shared/select-autocomplete/select-autocomplete.component';
 
 
 
@@ -35,6 +38,9 @@ export class BagsManagementPageComponent implements OnInit {
   selectedBag: Bag | null = null;
   form: FormGroup;
   users: any;
+  isLoadingBags: boolean = true;
+
+  @ViewChild('autocomplete', { static: true }) autocomplete: SelectAutocompleteComponent;
 
   private sub: Subscription;
 
@@ -51,7 +57,12 @@ export class BagsManagementPageComponent implements OnInit {
     }
 
     this.form.controls['name'].setValue(bag.name);
-    this.form.controls['responsibleId'].setValue(bag.responsibleId);
+    if (bag.responsible) {
+      this.form.controls['responsibleId'].setValue(bag.responsible.id);
+    } else {
+      this.form.controls['responsibleId'].setValue(null);
+    }
+
 
     this.sub = this.form.valueChanges.pipe(debounceTime(500)).pipe(distinctUntilChanged())
       .subscribe(val => {
@@ -65,7 +76,7 @@ export class BagsManagementPageComponent implements OnInit {
             this.isLoading = false;
           });
         }
-
+        console.log('form changed', val);
       });
 
   }
@@ -89,7 +100,7 @@ export class BagsManagementPageComponent implements OnInit {
   bags: Bag[];
 
   ngOnInit(): void {
-    this.service.getBags().then(bags => this.bags = bags);
+    this.service.getBags().then(bags => { this.bags = bags; this.isLoadingBags = false; });
 
     this.form = this.fb.group({
       name: new FormControl(null, [Validators.minLength(4), Validators.maxLength(15), Validators.required]),
@@ -118,7 +129,9 @@ export class BagsManagementPageComponent implements OnInit {
     MatFormFieldModule,
     FormsModule,
     BagCreationDialogModule,
-    SelectAutocompleteModule
+    SelectAutocompleteModule,
+    NgSelectModule,
+    MatProgressBarModule
   ],
   providers: [BagsManagementService],
   exports: [BagsManagementPageComponent],

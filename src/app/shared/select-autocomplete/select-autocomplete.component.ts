@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject, Subscription } from 'rxjs';
 import { MatSelect } from '@angular/material';
 import { takeUntil, take } from 'rxjs/operators';
+import { User } from 'src/app/model';
 
 @Component({
   selector: 'app-select-autocomplete',
@@ -26,7 +27,7 @@ export class SelectAutocompleteComponent implements OnInit, AfterViewInit, OnDes
     console.log('set data');
     console.log(data);
     this._collection = data;
-    this.updateData();
+    //this.updateData();
   }
 
 
@@ -39,7 +40,7 @@ export class SelectAutocompleteComponent implements OnInit, AfterViewInit, OnDes
 
   filterControl: FormControl = new FormControl();
 
-  filteredData: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  filteredData: ReplaySubject<User[]> = new ReplaySubject<User[]>(1);
 
   private _onDestroy = new Subject<void>();
 
@@ -92,10 +93,18 @@ export class SelectAutocompleteComponent implements OnInit, AfterViewInit, OnDes
   constructor() { }
 
   updateData() {
-    //this.formControlRef.setValue(this.collection[0]);
+    this.formControlRef.setValue(this._collection[0]);
     if (!this._collection) {
       return;
     }
+    this.filteredData.next(this._collection.slice());
+
+
+  }
+
+  ngOnInit() {
+    this.formControlRef.setValue(this._collection[5]);
+
     this.filteredData.next(this._collection.slice());
 
     this.filterControl.valueChanges
@@ -104,10 +113,6 @@ export class SelectAutocompleteComponent implements OnInit, AfterViewInit, OnDes
         console.log('value changed')
         this.filterCollection();
       });
-  }
-
-  ngOnInit() {
-
   }
 
 }

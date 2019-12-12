@@ -13,7 +13,9 @@
 
 
 </div>
-<div class="example-sidenav-content" style="position: absolute; top: 80px; bottom: 0px; left:0; right: 300px;">
+<div class="example-sidenav-content" style="position: absolute; top: 90px; bottom: 0px; left:0; right: 300px;">
+    <mat-progress-bar *ngIf="isLoadingBags" mode="query" style="width: 100%">
+    </mat-progress-bar>
     <mat-list>
         <mat-list-item *ngFor="let bag of bags" matRipple [class.active-user]="bag == selectedBag"
             (click)="onBagSelected(bag)">
@@ -33,13 +35,15 @@
         <div [formGroup]="form" class="user-info" *ngIf="selectedBag != null">
             Портфель {{selectedBag.name}}
             <p>
-                <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-form-field style="width: 100%;">
                     <mat-label>Название портфеля</mat-label>
                     <input matInput formControlName="name">
                 </mat-form-field>
             </p>
             <p>
-
+                <ng-select [items]="users" #select dropdownPosition="auto" bindValue="id" bindLabel="name"
+                    placeholder="Ответственный" [virtualScroll]="true" formControlName="responsibleId">
+                </ng-select>
             </p>
         </div>
         <div class="select-info" *ngIf="selectedBag == null"

@@ -4,6 +4,7 @@ import { BagCreationDialogComponent } from './bag-creation-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatRippleModule, MatAutocompleteModule } from '@angular/material';
 import { SelectAutocompleteModule } from 'src/app/shared/select-autocomplete/select-autocomplete.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SelectAutocompleteModule } from 'src/app/shared/select-autocomplete/sel
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
-    SelectAutocompleteModule
+    SelectAutocompleteModule,
+    NgSelectModule
   ],
   entryComponents: [BagCreationDialogComponent]
 })

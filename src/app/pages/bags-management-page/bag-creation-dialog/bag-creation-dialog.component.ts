@@ -16,8 +16,7 @@ export class BagCreationDialogComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: new FormControl(),
-      responsibleId: new FormControl(),
-      test: new FormControl()
+      responsibleId: new FormControl(null),
     });
 
     this.http.get<User[]>("https://localhost:5001/api/users").toPromise().then(users => {
