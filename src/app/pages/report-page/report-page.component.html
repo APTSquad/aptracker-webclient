@@ -1,29 +1,21 @@
-<mat-card class="report-card">
-  <mat-progress-bar mode="determinate" value="{{percent}}"></mat-progress-bar>
-
-  <h1> Отчет </h1>
-
-  <div class="add-section">
-    <form>
-      <mat-form-field>
-        <input type="text" placeholder="Поиск" aria-label="Number" matInput [formControl]="myControl"
-          [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let item of items" [value]="item.name">
-            {{item.name}}
-            (
-            <ng-container *ngFor="let project of item.projects">
-              {{project.name}}
-            </ng-container>
-            )
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <button mat-raised-button>Добавить</button>
-    </form>
+<div class="aptracker-primary-header-report mat-elevation-z3">
+  <div class="aptracker-primary-header-label"
+      style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
+    <h1>Ежедневный отчет</h1>
+    <button mat-raised-button color="accent">Завершить заполнение</button>
   </div>
+</div>
+<mat-progress-bar mode="determinate" value="{{percent}}"></mat-progress-bar>
 
-
+<main>
+  <span style="display: block;
+    margin-left: auto; margin-right: auto;
+    text-align: center;">
+    {{percent}}%
+  </span>
+  <button (click)="selectClient()" mat-fab style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
+      <mat-icon>add</mat-icon>
+  </button>
   <mat-list class="main-list" style="padding: 0">
     <ng-container *ngFor="let item of items">
       <ng-container *ngIf="item.selected === true">
@@ -35,20 +27,17 @@
               <ng-container *ngFor="let expense of project.expenses">
                 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
 
-                  <span fxFlex="80%" style="word-wrap:break-word; padding-top: 6px;">
-                    {{expense.name}}
+                  <span fxFlex="80%" style="word-wrap:break-word;">
+                      {{expense.name}}
                   </span>
 
                   <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
                     floatLabel="never">
-                    <!-- <label class="pure-material-textfield-outlined"> -->
-                    <input matInput #expenseTime name="time" ngModel
-                      pattern="(?:[01]|2(?![4-9])){1}\d{1}:[0-5]{1}[0]{1}" class="form-control" placeholder="ЧЧ:ММ"
-                      (input)="input()" />
-                    <!-- </label> -->
+                    <input type="text" [patterns]="customPatterns" mask="0.9"
+                      maxlength="3" matInput #expenseTime name="time" ngModel
+                      class="form-control" placeholder="0.0" (input)="input()" (focusout)="finish($event)"/>
                   </mat-form-field>
                 </div>
-
               </ng-container>
             </mat-list>
           </ng-container>
@@ -56,7 +45,11 @@
       </ng-container>
     </ng-container>
   </mat-list>
+<<<<<<< HEAD
 </mat-card>
 <div>
   <app-custom-calendar></app-custom-calendar>
 </div>
+=======
+</main>
+>>>>>>> master

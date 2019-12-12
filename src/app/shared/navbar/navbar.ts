@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { ThemePickerModule } from '../theme-picker';
-import { IdentityService } from '../services/identity-service/identity-service';
+import { IdentityService } from '../services/identity-service';
 
 @Component({
   selector: 'app-navbar',
