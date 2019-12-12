@@ -73,7 +73,7 @@ export class UsersManagementPageComponent implements OnInit {
           const rate = Number(val.rate) / 100;
 
           this.isLoading = true;
-          this.userService.modifyUser({ id: this.selectedUser!.id, name, rate }).then(() => {
+          this.userService.modifyUser({ id: this.selectedUser!.id, name, rate }).subscribe(() => {
             this.selectedUser!.name = name;
             this.selectedUser!.rate = rate;
             this.isLoading = false;
