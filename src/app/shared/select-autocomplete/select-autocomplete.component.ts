@@ -29,6 +29,8 @@ export class SelectAutocompleteComponent implements OnInit, AfterViewInit, OnDes
     this.updateData();
   }
 
+
+
   @Input()
   private labelField: string = 'name';
 
@@ -91,7 +93,7 @@ export class SelectAutocompleteComponent implements OnInit, AfterViewInit, OnDes
 
   updateData() {
     //this.formControlRef.setValue(this.collection[0]);
-    if (this._collection == null) {
+    if (!this._collection) {
       return;
     }
     this.filteredData.next(this._collection.slice());

@@ -13,12 +13,15 @@ import {
   MatDialog,
   MatDialogModule
 } from '@angular/material';
-import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Bag } from 'src/app/model';
+import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Bag, User } from 'src/app/model';
 import { BagsManagementService } from '../../shared/services/bags-service';
 import { BagCreationDialogComponent } from './bag-creation-dialog/bag-creation-dialog.component';
-import { filter } from 'rxjs/operators';
+import { filter, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BagCreationDialogModule } from './bag-creation-dialog/bag-creation-dialog.module';
+import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { SelectAutocompleteModule } from 'src/app/shared/select-autocomplete/select-autocomplete.module';
 
 
 
@@ -30,20 +33,49 @@ import { BagCreationDialogModule } from './bag-creation-dialog/bag-creation-dial
 export class BagsManagementPageComponent implements OnInit {
   myControl = new FormControl();
   selectedBag: Bag | null = null;
-  options: string[] = ['Павел', 'Петр'];
+  form: FormGroup;
+  users: any;
 
-  bagCreateDialogRef: MatDialogRef<BagCreationDialogComponent>;
+  private sub: Subscription;
 
-  constructor(private service: BagsManagementService, private dialog: MatDialog) {
+  isLoading: boolean;
+
+  constructor(private service: BagsManagementService, private dialog: MatDialog, private fb: FormBuilder, private http: HttpClient) {
+
+  }
+
+  onBagSelected(bag: any) {
+    this.selectedBag = bag;
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+
+    this.form.controls['name'].setValue(bag.name);
+    this.form.controls['responsibleId'].setValue(bag.responsibleId);
+
+    this.sub = this.form.valueChanges.pipe(debounceTime(500)).pipe(distinctUntilChanged())
+      .subscribe(val => {
+        if (this.form.status == 'VALID') {
+          const name = val.name;
+          const responsibleId = val.responsibleId;
+
+          this.isLoading = true;
+          this.service.modifyBag({ id: this.selectedBag!.id, name, responsibleId }).then(res => {
+            this.selectedBag!.name = name;
+            this.isLoading = false;
+          });
+        }
+
+      });
 
   }
 
   createBagClick() {
-    this.bagCreateDialogRef = this.dialog.open(BagCreationDialogComponent, {
-      //hasBackdrop: false
+    let dialog = this.dialog.open(BagCreationDialogComponent, {
+      // hasBackdrop: false
     });
 
-    this.bagCreateDialogRef
+    dialog
       .afterClosed()
       .pipe(filter(name => name))
       .subscribe(data => {
@@ -58,6 +90,15 @@ export class BagsManagementPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getBags().then(bags => this.bags = bags);
+
+    this.form = this.fb.group({
+      name: new FormControl(null, [Validators.minLength(4), Validators.maxLength(15), Validators.required]),
+      responsibleId: new FormControl(null)
+    });
+
+    this.http.get<User[]>('https://localhost:5001/api/users').toPromise().then(users => {
+      this.users = users;
+    });
   }
 
 }
@@ -76,7 +117,8 @@ export class BagsManagementPageComponent implements OnInit {
     MatDialogModule,
     MatFormFieldModule,
     FormsModule,
-    BagCreationDialogModule
+    BagCreationDialogModule,
+    SelectAutocompleteModule
   ],
   providers: [BagsManagementService],
   exports: [BagsManagementPageComponent],

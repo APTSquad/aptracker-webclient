@@ -1,11 +1,11 @@
 import {
-  Component, 
-  OnInit, 
-  NgModule, 
+  Component,
+  OnInit,
+  NgModule,
   ViewEncapsulation,
   ViewChildren,
   QueryList,
-  ElementRef 
+  ElementRef
 } from '@angular/core';
 import {
   MatDialogModule,
@@ -23,7 +23,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
-import { HierarchyDialogComponent } from 'src/app/shared/selection-dialog/selection-dialog';
+import { HierarchyDialogComponent } from 'src/app/shared/hierarchy-dialog/hierarchy-dialog';
 
 export enum HierarchyDialogType {
   Client, Article, Project
@@ -39,29 +39,29 @@ export class ReportPageComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   public customPatterns = {
-    '0': { pattern: new RegExp('\[0-9\]')},
-    '9': { pattern: new RegExp('\[05\]')}
+    '0': { pattern: new RegExp('\[0-9\]') },
+    '9': { pattern: new RegExp('\[05\]') }
   };
   percent: number = 0;
   time: number = 8;
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   @ViewChildren('expenseTime') expenseTime: QueryList<ElementRef>;
-  input() { 
+  input() {
     this.percent = this
-              .expenseTime
-              .filter(t => t.nativeElement.value)
-              .reduce((x, y) => {
-                return x + parseFloat(y.nativeElement.value);
-              }, 0);
-              
+      .expenseTime
+      .filter(t => t.nativeElement.value)
+      .reduce((x, y) => {
+        return x + parseFloat(y.nativeElement.value);
+      }, 0);
+
     this.percent = this.percent * 100 / this.time;
     console.log(this.percent);
   }
 
   finish(event: any) {
     let addable = '';
-    if(event.target.value.length == 1)
+    if (event.target.value.length == 1)
       addable = '.0';
     else if (event.target.value.length == 2)
       addable = '0';
@@ -98,20 +98,20 @@ const DATA = [
       {
         name: 'Проект1',
         expenses: [
-          {name: 'Тестирование'}, {name: 'Администрирование'}, {name: 'Затрата 3'}
+          { name: 'Тестирование' }, { name: 'Администрирование' }, { name: 'Затрата 3' }
         ]
       },
       {
         name: 'Проект2',
         expenses: [
-          {name: 'Затрата 1'}, {name: 'Затрата 2'}, {name: 'Затрата 3'},
-          {name: 'Затрата 1'}, {name: 'Затрата 2'}, {name: 'Затрата 3'},
+          { name: 'Затрата 1' }, { name: 'Затрата 2' }, { name: 'Затрата 3' },
+          { name: 'Затрата 1' }, { name: 'Затрата 2' }, { name: 'Затрата 3' },
         ]
       },
       {
         name: 'Проект1',
         expenses: [
-          {name: 'Затрата 1'}, {name: 'Затрата 2'}, {name: 'Затрата 3'}
+          { name: 'Затрата 1' }, { name: 'Затрата 2' }, { name: 'Затрата 3' }
         ]
       },
     ]
@@ -123,19 +123,19 @@ const DATA = [
       {
         name: 'Проект1',
         expenses: [
-          {name: 'Тестирование'}, {name: 'Администрирование'}, {name: 'Затрата 3'}
+          { name: 'Тестирование' }, { name: 'Администрирование' }, { name: 'Затрата 3' }
         ]
       },
       {
         name: 'Проект2',
         expenses: [
-          {name: 'Затрата 1'}, {name: 'Затрата 2'}, {name: 'Затрата 3'}
+          { name: 'Затрата 1' }, { name: 'Затрата 2' }, { name: 'Затрата 3' }
         ]
       },
       {
         name: 'Проект1',
         expenses: [
-          {name: 'Затрата 1'}, {name: 'Затрата 2'}, {name: 'Затрата 3'}
+          { name: 'Затрата 1' }, { name: 'Затрата 2' }, { name: 'Затрата 3' }
         ]
       },
     ]

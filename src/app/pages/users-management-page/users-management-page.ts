@@ -11,15 +11,20 @@ import {
   MatSidenavModule,
   MatRippleModule,
   MatAutocompleteModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatDialogRef,
+  MatDialog
 } from '@angular/material';
 import { UsersManagementService } from '../../shared/services/users-service';
 import { FormsModule, FormControl, ReactiveFormsModule, FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { User } from 'src/app/model';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxMaskModule } from 'ngx-mask';
-import { skipUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { skipUntil, debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { Subscription, of } from 'rxjs';
+import { SelectionDialogModule } from 'src/app/shared/selection-dialog/selection-dialog.module';
+import { SelectionDialogComponent } from 'src/app/shared/selection-dialog/selection-dialog.component';
+import { BagsManagementService } from 'src/app/shared/services/bags-service';
 
 
 @Component({
@@ -32,7 +37,7 @@ export class UsersManagementPageComponent implements OnInit {
   myControl = new FormControl();
   selectedUser: User | null = null;
   options: string[] = ['Портфель 000', 'Портфель 001', 'Портфель 002'];
-  constructor(private service: UsersManagementService, private fb: FormBuilder) {
+  constructor(private service: UsersManagementService, private fb: FormBuilder, private dialog: MatDialog, public bagService: BagsManagementService) {
 
   }
 
@@ -55,6 +60,34 @@ export class UsersManagementPageComponent implements OnInit {
 
       return !isCorrect ? { 'rateerror': { value: control.value } } : null;
     };
+  }
+
+  getFunc() {
+
+  }
+
+  openBagsDialog() {
+    this.bagService.getBags().then(bags => {
+      const dialogRef = this.dialog.open(SelectionDialogComponent, {
+        width: '450px',
+        data: {
+          header: 'Заголовок',
+          items: bags
+        }
+      });
+      dialogRef.afterClosed().subscribe((selected: any) => {
+        if (selected == null) {
+          return;
+        }
+        console.log(selected);
+        //of(data).pipe(filter((val: any) => val.checked == true)).subscribe(r => console.log(r));
+        var data = { id: this.selectedUser!.id, bags: selected };
+        this.service.setUserBags(data);
+      });
+    });
+
+
+
   }
 
   ngOnInit(): void {
@@ -116,6 +149,7 @@ export class UsersManagementPageComponent implements OnInit {
     MatRippleModule,
     MatAutocompleteModule,
     MatProgressBarModule,
+    SelectionDialogModule,
     NgxMaskModule.forRoot(),
     TextMaskModule
   ],

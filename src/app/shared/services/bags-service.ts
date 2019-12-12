@@ -7,6 +7,15 @@ import { Bag } from 'src/app/model';
   providedIn: 'root'
 })
 export class BagsManagementService {
+  modifyBag(data: any) {
+    return this.http.put<Bag>('https://localhost:5001/api/bags', data)
+      .toPromise()
+      // .then(res => res.data as User[])
+      .then(data => {
+        console.log(data);
+        return data;
+      });
+  }
 
   constructor(private http: HttpClient) { }
 

@@ -28,4 +28,14 @@ export class UsersManagementService {
         return data;
       });
   }
+
+  setUserBags(data: { id: number, bags: Array<number> }) {
+    return this.http.post<User>('https://localhost:5001/api/users/setBags', data)
+      .toPromise()
+      // .then(res => res.data as User[])
+      .then(data => {
+        console.log(data);
+        return data;
+      });
+  }
 }

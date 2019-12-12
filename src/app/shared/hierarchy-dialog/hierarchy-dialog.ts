@@ -5,8 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'selection-dialog',
-    templateUrl: 'selection-dialog.html',
+    selector: 'hierarchy-dialog',
+    templateUrl: 'hierarchy-dialog.html',
 })
 export class HierarchyDialogComponent {
 

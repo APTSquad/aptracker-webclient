@@ -27,28 +27,6 @@ export class BagCreationDialogComponent implements OnInit {
   }
   form: FormGroup;
 
-  options = [
-    {
-      display: 'One',
-      value: '1'
-    }, {
-      display: 'Two',
-      value: '2'
-    }, {
-      display: 'Three',
-      value: '3'
-    }, {
-      display: 'Four',
-      value: '4'
-    }, {
-      display: 'Five',
-      value: '5'
-    }, {
-      display: 'Six',
-      value: '6'
-    }
-  ];
-
   constructor(private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<BagCreationDialogComponent>,
     private http: HttpClient) {

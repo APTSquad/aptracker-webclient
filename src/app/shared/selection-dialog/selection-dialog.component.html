@@ -1,0 +1,18 @@
+<div>
+    <h1 mat-dialog-title>{{data.header}}</h1>
+    <div mat-dialog-content fxLayout="column" fxLayoutAlign="stretch">
+        <mat-form-field appearance="fill">
+            <mat-label>Фильтр</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <h4>Варианты</h4>
+        <mat-list-item *ngFor="let item of data.items">
+            <mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled">{{ item.name }}</mat-checkbox>
+        </mat-list-item>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="null">Отмена</button>
+        <button mat-button (click)="submit()" cdkFocusInitial>Подтвердить</button>
+    </div>
+</div>
