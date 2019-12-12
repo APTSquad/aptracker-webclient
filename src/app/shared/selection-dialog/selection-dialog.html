@@ -1,0 +1,34 @@
+<div>
+    <h1 mat-dialog-title>{{data.header}}</h1>
+    <div mat-dialog-content fxLayout="column" fxLayoutAlign="stretch">
+        <mat-form-field appearance="fill">
+            <mat-label>Фильтр</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <h4>Варианты</h4>
+        <mat-list>
+            <h3 mat-subheader *ngIf="data.recommended">Рекомендованные</h3>
+            <mat-list-item *ngFor="let item of data.recommended">
+                <h4 mat-line>{{item.name}}</h4>
+            </mat-list-item>
+            <mat-divider *ngIf="data.recommended"></mat-divider>
+            <h3 mat-subheader *ngIf="data.recommended">Остальные</h3>
+            <mat-list-item *ngFor="let item of data.items">
+                <h4 mat-line>{{item.name}}</h4>
+                <button (click)="doLog('select item')" mat-icon-button
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon>done</mat-icon>
+                </button>
+                <button (click)="doLog('select open')" mat-icon-button
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon>forward</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="true">Отмена</button>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Подтвердить</button>
+    </div>
+</div>

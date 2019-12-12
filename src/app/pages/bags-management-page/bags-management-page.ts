@@ -9,12 +9,17 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSidenavModule,
-  MatRippleModule,
-  MatAutocompleteModule
+  MatDialogRef,
+  MatDialog,
+  MatDialogModule
 } from '@angular/material';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Bag } from 'src/app/model';
-import { BagsManagementService } from './bags-management-service';
+import { BagsManagementService } from '../../shared/services/bags-service';
+import { BagCreationDialogComponent } from './bag-creation-dialog/bag-creation-dialog.component';
+import { filter } from 'rxjs/operators';
+import { BagCreationDialogModule } from './bag-creation-dialog/bag-creation-dialog.module';
+
 
 
 @Component({
@@ -26,8 +31,27 @@ export class BagsManagementPageComponent implements OnInit {
   myControl = new FormControl();
   selectedBag: Bag | null = null;
   options: string[] = ['Павел', 'Петр'];
-  constructor(private service: BagsManagementService) {
 
+  bagCreateDialogRef: MatDialogRef<BagCreationDialogComponent>;
+
+  constructor(private service: BagsManagementService, private dialog: MatDialog) {
+
+  }
+
+  createBagClick() {
+    this.bagCreateDialogRef = this.dialog.open(BagCreationDialogComponent, {
+      //hasBackdrop: false
+    });
+
+    this.bagCreateDialogRef
+      .afterClosed()
+      .pipe(filter(name => name))
+      .subscribe(data => {
+        console.log(data);
+        this.service.createBag(data).then(result => {
+          this.bags.push(result);
+        });
+      });
   }
 
   bags: Bag[];
@@ -40,22 +64,23 @@ export class BagsManagementPageComponent implements OnInit {
 
 @NgModule({
   imports: [
+    CommonModule,
     MatIconModule,
     MatListModule,
     ReactiveFormsModule,
-    FormsModule,
     MatTableModule,
-    MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
-    CommonModule,
     MatButtonModule,
     MatSidenavModule,
-    MatRippleModule,
-    MatAutocompleteModule
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    BagCreationDialogModule
   ],
   providers: [BagsManagementService],
   exports: [BagsManagementPageComponent],
   declarations: [BagsManagementPageComponent],
+  entryComponents: [BagCreationDialogComponent]
 })
 export class BagsManagementPageModule { }

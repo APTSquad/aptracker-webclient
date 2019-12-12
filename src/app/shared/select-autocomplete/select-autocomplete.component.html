@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <mat-select [formControl]="formControlRef" #singleSelect>
+
+        <mat-option>
+            <ngx-mat-select-search [formControl]="filterControl" [placeholderLabel]="placeholderLabel"
+                noEntriesFoundLabel="Совпадения не найдены">
+            </ngx-mat-select-search>
+        </mat-option>
+
+        <mat-option *ngFor="let elem of filteredData | async" [value]="valueGetter(elem)">
+            {{labelGetter(elem)}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
