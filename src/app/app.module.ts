@@ -6,17 +6,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ReportPageModule } from './pages/report-page/report-page.component';
-import { HierarchyPageModule } from './pages/hierarchy-page/hierarchy-page';
-import { NavBarModule } from './shared/navbar/navbar';
+
 import { SCOPES } from './shared/configuration/scopes';
-import { UsersManagementPageModule } from './pages/users-management-page/users-management-page';
-import { BagsManagementPageModule } from './pages/bags-management-page/bags-management-page';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { LogLevel } from 'msal';
 import { MatButtonModule } from '@angular/material';
 import { HierarchyDialogModule } from './shared/hierarchy-dialog/hierarchy-dialog';
 export const protectedResourceMap: [string, string[]][] = [['https://localhost:5001/api', ['api://f2fee166-e82f-4861-a752-83a1c561115d/access_as_user', 'offline_access']], ['https://graph.microsoft.com/v1.0/me', ['user.read']]];
+
+import { LoggingInterceptor } from './shared/http/http-logging.interceptor'
+import { NavBarModule } from './shared/navbar/navbar.module';
+import { UsersManagementPageModule } from './pages/users-management-page/users-management-page.module';
+import { BagsManagementPageModule } from './pages/bags-management-page/bags-management-page.module';
+import { HierarchyPageModule } from './pages/hierarchy-page/hierarchy-page.module';
+import { ReportPageModule } from './pages/report-page/report-page.module';
 
 export function loggerCallback(logLevel: any, message: any, piiEnabled: any) {
   console.log(message);
@@ -54,7 +57,18 @@ export function loggerCallback(logLevel: any, message: any, piiEnabled: any) {
     HierarchyDialogModule,
     HttpClientModule,
   ],
-  providers: [HttpClient, { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true }],
+  providers: [HttpClient,
+    {
+      provide:
+        HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggingInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

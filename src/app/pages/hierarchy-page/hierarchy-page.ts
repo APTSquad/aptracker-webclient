@@ -2,32 +2,14 @@
 import { HierarchyService } from '../../shared/services/hierarchy-service';
 import { Client } from '../../model/client';
 
-import { Component, OnInit, NgModule, Inject } from '@angular/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { CommonModule } from '@angular/common';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { Component, OnInit, Inject } from '@angular/core';
 import {
-  MatIconModule,
-  MatButtonModule,
-  MatListModule,
-  MatFormFieldModule,
-  MatMenuModule,
-  MatInputModule,
-  MatCardModule,
-  MatAutocompleteModule,
-  MatOptionModule,
-  MatRippleModule,
-  MatDialogModule,
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { HierarchyDialogType } from './dialog-type';
-import { FilterPipe } from '../../shared/pipes/filter.pipe';
-
-
 
 @Component({
   selector: 'app-hierarchy-page',
@@ -36,25 +18,18 @@ import { FilterPipe } from '../../shared/pipes/filter.pipe';
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HierarchyPageComponent implements OnInit {
-
   clients: Client[];
   pepa: string;
-
-
   myControl = new FormControl();
   options: string[] = ['123', '345', '123214'];
   selectedClient: any = null;
   selectedProject: any = null;
-
   isShowinput = false;
   dialogType: HierarchyDialogType;
-
   name: string;
-
   searchText: string;
   searchProject: string;
   searchClient: string;
-
 
   constructor(private clientService: HierarchyService, public dialog: MatDialog) {
 
@@ -86,7 +61,6 @@ export class HierarchyPageComponent implements OnInit {
     this.openDialog();
   }
 
-
   openDialog(): void {
     const dialogRef = this.dialog.open(HierarchyDialog, {
       width: '450px',
@@ -101,9 +75,7 @@ export class HierarchyPageComponent implements OnInit {
       this.name = result;
 
     });
-
   }
-
 }
 
 @Component({
@@ -122,32 +94,3 @@ export class HierarchyDialog {
     this.dialogRef.close();
   }
 }
-
-
-@NgModule({
-  imports: [
-    MatIconModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    MatRippleModule,
-    MatInputModule,
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatMenuModule,
-    FlexLayoutModule,
-    ScrollingModule,
-    MatAutocompleteModule,
-    MatOptionModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDialogModule
-  ],
-  exports: [HierarchyPageComponent],
-  providers: [HierarchyService],
-  declarations: [HierarchyPageComponent, HierarchyDialog, FilterPipe],
-  entryComponents: [HierarchyDialog]
-})
-export class HierarchyPageModule { }

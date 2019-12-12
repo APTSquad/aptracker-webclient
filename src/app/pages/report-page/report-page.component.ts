@@ -1,28 +1,16 @@
 import {
   Component,
   OnInit,
-  NgModule,
   ViewEncapsulation,
   ViewChildren,
   QueryList,
   ElementRef
 } from '@angular/core';
 import {
-  MatDialogModule,
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
+  MatDialog
 } from '@angular/material';
-import { CommonModule } from '@angular/common';
-import { MatIconModule, MatButtonModule } from '@angular/material';
-import { MatListModule } from '@angular/material/list';
-import { MatInputModule } from '@angular/material/input';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { FormControl } from '@angular/forms';
+import { IConfig } from 'ngx-mask'
 import { HierarchyDialogComponent } from 'src/app/shared/hierarchy-dialog/hierarchy-dialog';
 
 export enum HierarchyDialogType {
@@ -143,24 +131,3 @@ const DATA = [
 ];
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
-
-@NgModule({
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    MatListModule,
-    MatInputModule,
-    FlexLayoutModule,
-    MatCardModule,
-    MatProgressBarModule,
-    MatAutocompleteModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxMaskModule.forRoot(options),
-    MatDialogModule
-  ],
-  exports: [ReportPageComponent],
-  declarations: [ReportPageComponent],
-})
-export class ReportPageModule { }

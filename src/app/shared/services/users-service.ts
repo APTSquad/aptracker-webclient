@@ -10,13 +10,7 @@ export class UsersManagementService {
   constructor(private http: HttpClient) { }
 
   getUsers() {
-    return this.http.get<User[]>('https://localhost:5001/api/users')
-      .toPromise()
-      // .then(res => res.data as User[])
-      .then(data => {
-        console.log(data);
-        return data;
-      });
+    return this.http.get<User[]>('https://localhost:5001/api/users');
   }
 
   modifyUser(user: any) {

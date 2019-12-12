@@ -21,7 +21,6 @@ export class HierarchyDialogComponent {
     }
 }
 
-
 @NgModule({
     imports: [
         CommonModule,

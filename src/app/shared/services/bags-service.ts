@@ -7,35 +7,17 @@ import { Bag } from 'src/app/model';
   providedIn: 'root'
 })
 export class BagsManagementService {
-  modifyBag(data: any) {
-    return this.http.put<Bag>('https://localhost:5001/api/bags', data)
-      .toPromise()
-      // .then(res => res.data as User[])
-      .then(data => {
-        console.log(data);
-        return data;
-      });
-  }
-
   constructor(private http: HttpClient) { }
 
+  modifyBag(data: any) {
+    return this.http.put<Bag>('https://localhost:5001/api/bags', data);
+  }
+
   getBags() {
-    return this.http.get<Bag[]>('https://localhost:5001/api/bags')
-      .toPromise()
-      // .then(res => res.data as User[])
-      .then(data => {
-        console.log(data);
-        return data;
-      });
+    return this.http.get<Bag[]>('https://localhost:5001/api/bags');
   }
 
   createBag(data: any) {
-    return this.http.post<Bag>('https://localhost:5001/api/bags', data)
-      .toPromise()
-      // .then(res => res.data as User[])
-      .then(data => {
-        console.log(data);
-        return data;
-      });
+    return this.http.post<Bag>('https://localhost:5001/api/bags', data);
   }
 }

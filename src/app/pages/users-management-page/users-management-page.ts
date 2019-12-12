@@ -1,29 +1,9 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
-import {
-  MatIconModule,
-  MatButtonModule,
-  MatListModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSidenavModule,
-  MatRippleModule,
-  MatAutocompleteModule,
-  MatProgressBarModule,
-  MatDialogRef,
-  MatDialog
-} from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 import { UsersManagementService } from '../../shared/services/users-service';
-import { FormsModule, FormControl, ReactiveFormsModule, FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { User } from 'src/app/model';
-import { TextMaskModule } from 'angular2-text-mask';
-import { NgxMaskModule } from 'ngx-mask';
-import { skipUntil, debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
-import { Subscription, of } from 'rxjs';
-import { SelectionDialogModule } from 'src/app/shared/selection-dialog/selection-dialog.module';
-import { SelectionDialogComponent } from 'src/app/shared/selection-dialog/selection-dialog.component';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { BagsManagementService } from 'src/app/shared/services/bags-service';
 
 
@@ -36,8 +16,12 @@ export class UsersManagementPageComponent implements OnInit {
   form: FormGroup;
   myControl = new FormControl();
   selectedUser: User | null = null;
-  options: string[] = ['Портфель 000', 'Портфель 001', 'Портфель 002'];
-  constructor(private service: UsersManagementService, private fb: FormBuilder, private dialog: MatDialog, public bagService: BagsManagementService) {
+  private sub: Subscription;
+  users: User[];
+  isLoading: boolean = false;
+  isLoadingUsers: boolean = true;
+
+  constructor(private userService: UsersManagementService, private fb: FormBuilder, private bagService: BagsManagementService) {
 
   }
 
@@ -45,13 +29,6 @@ export class UsersManagementPageComponent implements OnInit {
 
     return this.form.controls[control].hasError(error);
   }
-
-  private sub: Subscription;
-
-  users: User[];
-
-  isLoading: boolean = false;
-  isLoadingUsers: boolean = true;
 
   rateValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
@@ -62,41 +39,16 @@ export class UsersManagementPageComponent implements OnInit {
     };
   }
 
-  getFunc() {
-
-  }
-
-  openBagsDialog() {
-    this.bagService.getBags().then(bags => {
-      const dialogRef = this.dialog.open(SelectionDialogComponent, {
-        width: '450px',
-        data: {
-          header: 'Заголовок',
-          items: bags
-        }
-      });
-      dialogRef.afterClosed().subscribe((selected: any) => {
-        if (selected == null) {
-          return;
-        }
-        console.log(selected);
-        //of(data).pipe(filter((val: any) => val.checked == true)).subscribe(r => console.log(r));
-        var data = { id: this.selectedUser!.id, bags: selected };
-        this.service.setUserBags(data);
-      });
-    });
-
-
-
-  }
-
   ngOnInit(): void {
-    this.service.getUsers().then(users => {
+    this.userService.getUsers().subscribe(users => {
       this.users = users;
       this.isLoadingUsers = false;
     });
     this.form = this.fb.group({
-      name: new FormControl(null, [Validators.minLength(4), Validators.maxLength(15), Validators.required]),
+      name: new FormControl(null,
+        [Validators.minLength(4),
+        Validators.maxLength(15),
+        Validators.required]),
       rate: new FormControl(null, [this.rateValidator()])
     });
   }
@@ -121,40 +73,12 @@ export class UsersManagementPageComponent implements OnInit {
           const rate = Number(val.rate) / 100;
 
           this.isLoading = true;
-          this.service.modifyUser({ id: this.selectedUser!.id, name, rate }).then(res => {
+          this.userService.modifyUser({ id: this.selectedUser!.id, name, rate }).then(() => {
             this.selectedUser!.name = name;
             this.selectedUser!.rate = rate;
             this.isLoading = false;
           });
         }
-
       });
   }
-
 }
-
-@NgModule({
-  imports: [
-    MatIconModule,
-    MatListModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatPaginatorModule,
-    MatInputModule,
-    CommonModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatRippleModule,
-    MatAutocompleteModule,
-    MatProgressBarModule,
-    SelectionDialogModule,
-    NgxMaskModule.forRoot(),
-    TextMaskModule
-  ],
-  providers: [UsersManagementService],
-  exports: [UsersManagementPageComponent],
-  declarations: [UsersManagementPageComponent],
-})
-export class UsersManagementPageModule { }

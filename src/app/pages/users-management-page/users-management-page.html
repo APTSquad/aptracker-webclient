@@ -4,19 +4,13 @@
         <h1>Управление пользователями</h1>
         <div class="aptracker-users-search">
             <mat-form-field *ngIf="!isLoadingUsers">
-
                 <mat-label>Поиск</mat-label>
                 <input matInput placeholder="Имя, адрес...">
             </mat-form-field>
         </div>
 
     </div>
-
-
 </div>
-
-
-
 
 <div class="example-sidenav-content" style="position: absolute; top: 90px; bottom: 0px; left:0; right: 300px;">
     <mat-progress-bar *ngIf="isLoadingUsers" mode="query" style="width: 100%">
@@ -62,8 +56,6 @@
                     </mat-error>
                 </mat-form-field>
             </p>
-            <p>
-                <button mat-button (click)="openBagsDialog()"> Портфели</button> </p>
         </div>
         <mat-progress-bar *ngIf="isLoading" mode="query">
         </mat-progress-bar>
