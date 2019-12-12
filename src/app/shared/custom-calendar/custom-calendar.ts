@@ -8,8 +8,9 @@ import {
   MatInputModule,
   MatNativeDateModule
 } from '@angular/material';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import { DateService } from './dateService';
+import {FormControl, ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { DateService, DateI, DateType } from './dateService';
+
 
 
 
@@ -24,7 +25,9 @@ export class CustomCalendarComponent implements OnInit {
   constructor(private date: DateService) { }
 
   // Array of dates that (required fill and filled dates)
-  dates: Array<Date[]> = [this.date.requireFillDateArray, this.date.filledDateArray];
+  dates = this.date.dData;
+
+
 
   ngOnInit() {
   }
@@ -42,21 +45,26 @@ export class CustomDatesComponent extends NativeDateAdapter{
    date: DateService;
   // constructor( ) { }
 
-  private _datesArray: Array<Date[]>;
+ // private _datesArray: Array<Date[]>;
+  private _datesArray: Array<DateI>;
+
 
   // days that's not require fill
     tomorrow = new Date();
- 
+
 
   // get chose date
-  getChosedate = new FormControl(new Date()); // unutlized yet
+  getChosedate: Date; // new FormControl(new Date()); // unutlized yet
   @Input()
   max: Date | null;
 
 
+  minDate = new Date(2010, 0, 1);
+  maxDate = new Date(2020, 0, 1);
+
   @Input()
-  get datesArray(): Array<Date[]> {return this._datesArray; }
-  set datesArray(d: Array<Date[]>) {
+  get datesArray(): Array<DateI> {return this._datesArray; }
+  set datesArray(d: Array<DateI>) {
     this._datesArray = d;
 
     this._setupClassFunction();
@@ -68,26 +76,26 @@ export class CustomDatesComponent extends NativeDateAdapter{
   private _setupClassFunction() {
 
     this.dateClass = (d: Date) => {
-      let fill = false;
+      let requirefill = false;
       let filled = false;
 
-      if (this._datesArray[1]) {
-        filled = this._datesArray[1].some((item: Date) =>
+      if (this._datesArray[0].type == DateType.REQUIRED) {
+        requirefill = this._datesArray[0].date.some((item: Date) =>
           item.getFullYear() === d.getFullYear()
           && item.getDate() === d.getDate()
           && item.getMonth() === d.getMonth());
-        if (filled) {
-          return 'filled-custom-date-class';
+        if (requirefill) {
+          return 'requireFill-custom-date-class';
         }
         // return filled ? 'filled-custom-date-class' : undefined;
       }
 
-      if (this._datesArray[0]) {
-        fill = this._datesArray[0].some((item: Date) =>
+      if (this._datesArray[1].type == DateType.REPORTED) {
+        filled = this._datesArray[1].date.some((item: Date) =>
           item.getFullYear() === d.getFullYear()
           && item.getDate() === d.getDate()
           && item.getMonth() === d.getMonth());
-        return fill ? 'requireFill-custom-date-class' : undefined;
+        return filled ? 'filled-custom-date-class' : undefined;
       }
 
       return;
@@ -115,7 +123,8 @@ export class CustomDatesComponent extends NativeDateAdapter{
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
 
   exports: [CustomCalendarComponent],

@@ -14,6 +14,7 @@ import {
   MAT_DIALOG_DATA
 } from '@angular/material';
 import { CommonModule } from '@angular/common';
+// tslint:disable-next-line: no-duplicate-imports
 import { MatIconModule, MatButtonModule } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
@@ -22,7 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { HierarchyDialogComponent } from 'src/app/shared/selection-dialog/selection-dialog';
 
 export enum HierarchyDialogType {
@@ -41,7 +42,7 @@ import {CustomCalendarModule} from '../../shared/custom-calendar/custom-calendar
 export class ReportPageComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
-  public customPatterns = {
+  customPatterns = {
     '0': { pattern: new RegExp('\[0-9\]')},
     '9': { pattern: new RegExp('\[05\]')}
   };
@@ -50,33 +51,26 @@ export class ReportPageComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   @ViewChildren('expenseTime') expenseTime: QueryList<ElementRef>;
-<<<<<<< HEAD
   input() {
-    this.percent =  this
-                    .expenseTime
-                    .filter(t => t.nativeElement.value)
-                    .length / this.expenseTime.length * 100;
-=======
-  input() { 
     this.percent = this
               .expenseTime
               .filter(t => t.nativeElement.value)
               .reduce((x, y) => {
                 return x + parseFloat(y.nativeElement.value);
               }, 0);
-              
+
     this.percent = this.percent * 100 / this.time;
     console.log(this.percent);
   }
 
   finish(event: any) {
     let addable = '';
-    if(event.target.value.length == 1)
+    if (event.target.value.length == 1) {
       addable = '.0';
-    else if (event.target.value.length == 2)
+    } else if (event.target.value.length == 2) {
       addable = '0';
+ }
     event.target.value += addable;
->>>>>>> master
   }
 
   selectClient() {
@@ -90,7 +84,7 @@ export class ReportPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result)
+      console.log(result);
     });
   }
 
@@ -168,12 +162,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-<<<<<<< HEAD
-    CustomCalendarModule
-=======
+    CustomCalendarModule,
     NgxMaskModule.forRoot(options),
     MatDialogModule
->>>>>>> master
   ],
   exports: [ReportPageComponent],
   declarations: [ReportPageComponent],
