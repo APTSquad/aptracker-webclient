@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { options, ReportPageComponent } from './report-page.component';
+import { CustomCalendarModule } from 'src/app/shared/custom-calendar/custom-calendar';
 
 @NgModule({
     imports: [
@@ -20,7 +21,9 @@ import { options, ReportPageComponent } from './report-page.component';
         FormsModule,
         ReactiveFormsModule,
         NgxMaskModule.forRoot(options),
-        MatDialogModule
+        MatDialogModule,
+        CustomCalendarModule
+
     ],
     exports: [ReportPageComponent],
     declarations: [ReportPageComponent],
