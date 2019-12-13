@@ -7,6 +7,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HierarchyPageComponent, HierarchyDialog } from './hierarchy-page';
 import { HierarchyService } from 'src/app/shared/services/hierarchy-service';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
+import { ClientCreationDialog } from './client-dialog/client-creation-dialog';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ProjectCreationDialog } from './project-dialog/project-creation-dialog';
 
 @NgModule({
     imports: [
@@ -27,11 +30,12 @@ import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
         MatOptionModule,
         FormsModule,
         ReactiveFormsModule,
-        MatDialogModule
+        MatDialogModule,
+        NgSelectModule
     ],
     exports: [HierarchyPageComponent],
     providers: [HierarchyService],
-    declarations: [HierarchyPageComponent, HierarchyDialog, FilterPipe],
-    entryComponents: [HierarchyDialog]
+    declarations: [HierarchyPageComponent, HierarchyDialog, FilterPipe, ClientCreationDialog, ProjectCreationDialog],
+    entryComponents: [HierarchyDialog, ClientCreationDialog, ProjectCreationDialog]
 })
 export class HierarchyPageModule { }

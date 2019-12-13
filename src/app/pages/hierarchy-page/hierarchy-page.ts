@@ -8,8 +8,13 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { HierarchyDialogType } from './dialog-type';
+import { ClientCreationDialog } from './client-dialog/client-creation-dialog';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { ProjectCreationDialog } from './project-dialog/project-creation-dialog';
+import { Project } from 'src/app/model';
 
 @Component({
   selector: 'app-hierarchy-page',
@@ -31,14 +36,46 @@ export class HierarchyPageComponent implements OnInit {
   searchProject: string;
   searchClient: string;
 
-  constructor(private clientService: HierarchyService, public dialog: MatDialog) {
+  clientForm: FormGroup;
+  clientSub: Subscription;
+  projectSub: Subscription;
+  projectForm: FormGroup;
 
+  constructor(private hierarchyService: HierarchyService, public dialog: MatDialog, private fb: FormBuilder) {
+    this.clientForm = fb.group({
+      name: new FormControl('')
+    });
+
+    this.projectForm = fb.group({
+      name: new FormControl('')
+    });
   }
 
   ngOnInit() {
-    this.clientService.getClients().then(data => {
+    this.hierarchyService.getHierarchy().subscribe(data => {
       this.clients = data;
     });
+
+  }
+
+  onClientSelected(client: Client) {
+    if (this.clientSub) {
+      this.clientSub.unsubscribe();
+    }
+    this.selectedClient = client;
+    this.selectedProject = null;
+
+    this.clientForm.controls.name.setValue(client.name);
+
+    this.clientSub = this.clientForm.valueChanges
+      .pipe(debounceTime(500))
+      .pipe(distinctUntilChanged())
+      .subscribe((data: any) => {
+        this.hierarchyService.modifyClient({ id: client.id, name: data.name })
+          .subscribe((res: any) => {
+            this.selectedClient.name = res.name;
+          });
+      });
 
   }
 
@@ -46,35 +83,57 @@ export class HierarchyPageComponent implements OnInit {
     this.isShowinput = !this.isShowinput;
   }
 
-  showProjectDialog() {
-    this.dialogType = HierarchyDialogType.Project;
-    this.openDialog();
-  }
-
-  showArticleDialog() {
-    this.dialogType = HierarchyDialogType.Article;
-    this.openDialog();
-  }
-
-  showClientDialog() {
-    this.dialogType = HierarchyDialogType.Client;
-    this.openDialog();
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(HierarchyDialog, {
+  onProjectDialog(): void {
+    const client = this.selectedClient;
+    const dialogRef = this.dialog.open(ProjectCreationDialog, {
       width: '450px',
       data: {
-        name: this.name,
-        DialogType: this.dialogType
+        client
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.name = result;
+    dialogRef.afterClosed()
+      .filter(result => result != null)
+      .subscribe(result => {
+        this.hierarchyService.createProject(result).subscribe(res => {
+          this.selectedClient.projects.push(res);
+        });
+      });
+  }
 
+  onProjectSelected(project: Project) {
+    if (this.projectSub) {
+      this.projectSub.unsubscribe();
+    }
+
+    this.selectedProject = project;
+
+    this.projectForm.controls.name.setValue(project.name);
+
+    this.projectSub = this.projectForm.valueChanges
+      .pipe(debounceTime(500))
+      .pipe(distinctUntilChanged())
+      .subscribe((data: any) => {
+        this.hierarchyService.modifyProject({ id: project.id, name: data.name })
+          .subscribe((res: any) => {
+            this.selectedProject.name = res.name;
+          });
+      });
+
+  }
+
+  openClientDialog(): void {
+    const dialogRef = this.dialog.open(ClientCreationDialog, {
+      width: '450px',
     });
+
+    dialogRef.afterClosed()
+      .filter(result => result != null)
+      .subscribe(result => {
+        this.hierarchyService.createClient(result).subscribe(res => {
+          this.clients.push(res);
+        });
+      });
   }
 }
 

@@ -14,8 +14,7 @@
 
                 <mat-list class="scrollbar" dense>
                     <mat-list-item matRipple *ngFor="let client of clients | filter: searchClient"
-                        (click)="selectedClient = client; selectedProject = null"
-                        [class.selected-item]="client == selectedClient">
+                        (click)="onClientSelected(client)" [class.selected-item]="client == selectedClient">
                         <span mat-line class="header-li"> {{ client.name  }} </span>
                         <span mat-line>Портфель: {{ client.bag.name }} </span>
                         <mat-divider></mat-divider>
@@ -24,7 +23,7 @@
 
                 <br>
 
-                <button mat-stroked-button color="primary" (click)="showClientDialog()">
+                <button mat-stroked-button color="primary" (click)="openClientDialog()">
                     Добавить клиента
                 </button>
             </mat-card>
@@ -37,10 +36,9 @@
                     <mat-card-title>Клиент</mat-card-title>
                 </mat-card-header>
                 <!--  -->
-                <form class="input-client">
+                <form [formGroup]="clientForm" class="input-client">
                     <mat-form-field class="input-size">
-                        <input matInput placeholder="Название" value="client" [(ngModel)]="selectedClient.name"
-                            name="name">
+                        <input matInput placeholder="Название" formControlName="name">
                     </mat-form-field>
                     <mat-form-field class="input-size">
                         <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
@@ -66,17 +64,17 @@
                     <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
                         <mat-icon>search</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary" (click)="showProjectDialog()">
+                    <button mat-icon-button color="primary" (click)="onProjectDialog()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
 
                 <mat-list class="scrollbar" dense>
                     <mat-list-item matRipple *ngFor="let project of selectedClient.projects | filter: searchProject"
-                        (click)="selectedProject = project" [class.selected-item]="project == selectedProject">
+                        (click)="onProjectSelected(project)" [class.selected-item]="project == selectedProject">
                         <span mat-line class="header-li"> {{ project.name }} </span>
                         <span mat-line>Портфель:
-                            {{project.bag.name}}</span>
+                            {{project.bag ? project.bag.name : 'не задан'}}</span>
                         <mat-divider></mat-divider>
                     </mat-list-item>
 
@@ -95,10 +93,9 @@
                     <mat-card-title>Проект</mat-card-title>
                 </mat-card-header>
                 <!--  -->
-                <form class="input-client">
+                <form [formGroup]="projectForm" class="input-client">
                     <mat-form-field class="input-size">
-                        <input matInput placeholder="Название" value="client" [(ngModel)]="selectedProject.name"
-                            name="name">
+                        <input matInput placeholder="Название" formControlName="name">
                     </mat-form-field>
                     <mat-form-field class="input-size">
                         <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
@@ -122,7 +119,7 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
                 <button mat-icon-button (click)=showInput() *ngIf="!isShowinput"> <mat-icon>search</mat-icon></button> -->
-                    <button mat-icon-button color="primary" (click)="showArticleDialog()">
+                    <button mat-icon-button color="primary">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
