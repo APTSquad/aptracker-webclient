@@ -17,6 +17,9 @@ export enum HierarchyDialogType {
   Client, Article, Project
 }
 
+import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calendar';
+
+
 @Component({
   selector: 'app-report-page',
   templateUrl: './report-page.component.html',
@@ -49,10 +52,11 @@ export class ReportPageComponent implements OnInit {
 
   finish(event: any) {
     let addable = '';
-    if (event.target.value.length == 1)
+    if (event.target.value.length == 1) {
       addable = '.0';
-    else if (event.target.value.length == 2)
+    } else if (event.target.value.length == 2) {
       addable = '0';
+    }
     event.target.value += addable;
   }
 
@@ -67,7 +71,7 @@ export class ReportPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result)
+      console.log(result);
     });
   }
 
