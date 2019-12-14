@@ -40,6 +40,8 @@ export class HierarchyPageComponent implements OnInit {
   clientSub: Subscription;
   projectSub: Subscription;
   projectForm: FormGroup;
+  editingClient: any;
+  editingProject: any;
 
   constructor(private hierarchyService: HierarchyService, public dialog: MatDialog, private fb: FormBuilder) {
     this.clientForm = fb.group({
@@ -71,9 +73,12 @@ export class HierarchyPageComponent implements OnInit {
       .pipe(debounceTime(500))
       .pipe(distinctUntilChanged())
       .subscribe((data: any) => {
+        this.editingClient = this.selectedClient;
         this.hierarchyService.modifyClient({ id: client.id, name: data.name })
           .subscribe((res: any) => {
-            this.selectedClient.name = res.name;
+            //const found = this.clients.find(x => x.id == res.id);
+            this.editingClient!.name = res.name;
+            //this.selectedClient.name = res.name;
           });
       });
 
@@ -114,9 +119,14 @@ export class HierarchyPageComponent implements OnInit {
       .pipe(debounceTime(500))
       .pipe(distinctUntilChanged())
       .subscribe((data: any) => {
+        this.editingProject = this.selectedProject;
         this.hierarchyService.modifyProject({ id: project.id, name: data.name })
           .subscribe((res: any) => {
-            this.selectedProject.name = res.name;
+            //const found = this.clients.find(x => x.id == res.id);
+            //found!.name = res.name;
+            //this.selectedProject.name = res.name;
+            this.editingProject.name = res.name;
+            //this.selectedProject.name = res.name;
           });
       });
 

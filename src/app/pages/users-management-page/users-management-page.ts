@@ -64,10 +64,17 @@ export class UsersManagementPageComponent implements OnInit {
     }
 
     this.form.controls['name'].setValue(user.name);
-    this.form.controls['rate'].setValue((user.rate * 100).toFixed(2));
+    console.log('rate', user.rate);
+    let val = String(user.rate * 100);
+    if (val.length < 3) {
+      val = '0'.repeat(3 - val.length) + val;
+    }
+    console.log(val);
+    this.form.controls['rate'].setValue(val);
 
     this.sub = this.form.valueChanges.pipe(debounceTime(500)).pipe(distinctUntilChanged())
       .subscribe(val => {
+        console.log(val)
         if (this.form.status == 'VALID') {
           const name = val.name;
           const rate = Number(val.rate) / 100;
