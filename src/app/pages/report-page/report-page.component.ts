@@ -10,8 +10,11 @@ import {
   MatDialog
 } from '@angular/material';
 import { FormControl } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { IConfig } from 'ngx-mask'
 import { HierarchyDialogComponent } from 'src/app/shared/hierarchy-dialog/hierarchy-dialog';
+import { ReportFormService } from 'src/app/shared/services/report-form-service';
 
 export enum HierarchyDialogType {
   Client, Article, Project
@@ -27,7 +30,11 @@ import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calend
   encapsulation: ViewEncapsulation.None
 })
 export class ReportPageComponent implements OnInit {
-  constructor(public dialog: MatDialog) { }
+  reportForm: FormGroup;
+  reportFormSub: Subscription;
+  clients: FormArray;
+  
+  constructor(public dialog: MatDialog, private reportFormService: ReportFormService) { }
 
   public customPatterns = {
     '0': { pattern: new RegExp('\[0-9\]') },
@@ -78,6 +85,27 @@ export class ReportPageComponent implements OnInit {
   items = DATA;
 
   ngOnInit() {
+    this.reportFormSub = this.reportFormService.reportForm$
+      .subscribe(team => {
+          this.reportForm = team
+          this.clients = this.reportForm.get('clients') as FormArray
+        })
+    console.log("component")
+    console.log(this.reportForm)
+  }
+
+  addClient() {
+    this.reportFormService.addClient()
+    console.log("kekke", this.reportForm.value)
+  }
+
+  getProjectsFor(index: number) {
+    return (<FormArray>(<FormArray>this.reportForm.get('clients')).controls[index].get('projects')).controls;
+  }
+
+  getExpensesFor(clientIndex: number, projIndex: number) {
+    return (<FormArray>(<FormArray>(<FormArray>this.reportForm.get('clients'))
+      .controls[clientIndex].get('projects')).controls[projIndex].get('expenses')).controls;
   }
 
 }

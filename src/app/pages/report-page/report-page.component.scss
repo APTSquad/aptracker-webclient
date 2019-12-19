@@ -99,3 +99,7 @@ app-report-page mat-progress-bar {
     align-items: center;
     justify-content: center;
 }
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: rgba(0, 0, 0, 0.12) !important;
+}

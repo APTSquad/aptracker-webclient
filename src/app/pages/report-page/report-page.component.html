@@ -19,35 +19,78 @@
   <button (click)="selectClient()" mat-fab style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
       <mat-icon>add</mat-icon>
   </button>
-  <mat-list class="main-list" style="padding: 0">
-    <ng-container *ngFor="let item of items">
-      <ng-container *ngIf="item.selected === true">
-        <mat-list-item> {{item.name}} </mat-list-item>
-        <mat-list class="nested-list">
-          <ng-container *ngFor="let project of item.projects">
-            <mat-list-item> {{project.name}} </mat-list-item>
-            <mat-list class="nested-list">
-              <ng-container *ngFor="let expense of project.expenses">
-                <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
+  <form [formGroup]="reportForm">
+    <button mat-button-raised color="primary"(click)="addClient()">Add</button>
+    <mat-list formArrayName="clients" class="main-list" style="padding: 0">
+      <ng-container *ngFor="let client of clients.controls;let clientIndex=index;">
+        <mat-list-item>{{client.value.name}}</mat-list-item>
+        <ng-container [formGroupName]="clientIndex">
+          <mat-list formArrayName="projects" class="nested-list">
+            <ng-container *ngFor="let project of getProjectsFor(clientIndex); let projectIndex=index">
+              <mat-list-item>{{project.controls.name.value}}</mat-list-item>
+              <ng-container [formGroupName]="projectIndex">
+                <mat-list formArrayName="expenses" class="nested-list">
+                  <ng-container *ngFor="let expense of getExpensesFor(clientIndex, projectIndex); let expenseIndex=index">
+                    <ng-container [formGroupName]="expenseIndex">
+                      <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
 
-                  <span fxFlex="80%" style="word-wrap:break-word;">
-                      {{expense.name}}
-                  </span>
-
-                  <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
-                    floatLabel="never">
-                    <input type="text" [patterns]="customPatterns" mask="0.9"
-                      maxlength="3" matInput #expenseTime name="time" ngModel
-                      class="form-control" placeholder="0.0" (input)="input()" (focusout)="finish($event)"/>
-                  </mat-form-field>
-                </div>
+                        <span fxFlex="80%" style="word-wrap:break-word;">
+                          {{expense.controls.name.value}}
+                        </span>
+      
+                        <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
+                          floatLabel="never">
+                          <!--  
+                            name="time" 
+                          class="form-control"   -->
+                          <input formControlName="time" type="text" matInput #expenseTime maxlength="3"
+                            (focusout)="finish($event)" (input)="input()"
+                            [patterns]="customPatterns" mask="0.9"
+                            placeholder="0.0"
+                            />
+                        </mat-form-field>
+                      </div>
+                    </ng-container>
+                    
+                  </ng-container>
+                </mat-list>
               </ng-container>
-            </mat-list>
-          </ng-container>
-        </mat-list>
+            </ng-container>
+          </mat-list>
+        </ng-container>
       </ng-container>
-    </ng-container>
-  </mat-list>
-<!-- </mat-card> -->
-
+    </mat-list>
+  </form>
 </main>
+
+
+
+<!-- <mat-list class="main-list" style="padding: 0">
+  <ng-container *ngFor="let item of items">
+    <ng-container *ngIf="item.selected === true">
+      <mat-list-item> {{item.name}} </mat-list-item>
+      <mat-list class="nested-list">
+        <ng-container *ngFor="let project of item.projects">
+          <mat-list-item> {{project.name}} </mat-list-item>
+          <mat-list class="nested-list">
+            <ng-container *ngFor="let expense of project.expenses">
+              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
+
+                <span fxFlex="80%" style="word-wrap:break-word;">
+                    {{expense.name}}
+                </span>
+
+                <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
+                  floatLabel="never">
+                  <input type="text" [patterns]="customPatterns" mask="0.9"
+                    maxlength="3" matInput #expenseTime name="time" ngModel
+                    class="form-control" placeholder="0.0" (input)="input()" (focusout)="finish($event)"/>
+                </mat-form-field>
+              </div>
+            </ng-container>
+          </mat-list>
+        </ng-container>
+      </mat-list>
+    </ng-container>
+  </ng-container>
+</mat-list> -->

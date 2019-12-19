@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { options, ReportPageComponent } from './report-page.component';
 import { CustomCalendarModule } from 'src/app/shared/custom-calendar/custom-calendar';
+import { ReportFormService } from 'src/app/shared/services/report-form-service';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import { CustomCalendarModule } from 'src/app/shared/custom-calendar/custom-cale
         CustomCalendarModule
 
     ],
+    providers: [ReportFormService],
     exports: [ReportPageComponent],
     declarations: [ReportPageComponent],
 })
