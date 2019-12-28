@@ -7,21 +7,24 @@ import { Project } from 'src/app/model';
 @Injectable()
 export class HierarchyService {
   modifyProject(project: any) {
-    return this.http.put<Project>('https://localhost:5001/api/projects', project);
+    return this.http.put<Project>('http://localhost:5000/api/projects', project);
   }
   createProject(project: any) {
-    return this.http.post<Project>('https://localhost:5001/api/projects', project);
+    return this.http.post<Project>('http://localhost:5000/api/projects', project);
+  }
+  ProjectSetBag(projectBag: any) {
+    return this.http.post<Project>('http://localhost:5000/api/Projects/setBag', projectBag);
   }
   modifyClient(client: any) {
-    return this.http.put<Client>('https://localhost:5001/api/clients', client);
+    return this.http.put<Client>('http://localhost:5000/api/clients', client);
   }
   createClient(client: any) {
-    return this.http.post<Client>('https://localhost:5001/api/clients', client);
+    return this.http.post<Client>('http://localhost:5000/api/clients', client);
   }
 
   constructor(private http: HttpClient) { }
 
   getHierarchy() {
-    return this.http.get<Client[]>('https://localhost:5001/api/hierarchy');
+    return this.http.get<Client[]>('http://localhost:5000/api/hierarchy');
   }
 }

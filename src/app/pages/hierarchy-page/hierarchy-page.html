@@ -1,4 +1,8 @@
-<div class="absolute-wrapper">
+
+<mat-progress-bar *ngIf="isLoadingBags" mode="query" style="width: 100%">
+</mat-progress-bar>
+
+<div  *ngIf="!isLoadingBags" class="absolute-wrapper">
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly stretch" class="container" fxFill>
         <!--clients-->
         <div fxFlex="32">

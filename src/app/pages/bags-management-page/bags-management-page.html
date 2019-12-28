@@ -18,7 +18,7 @@
     </mat-progress-bar>
     <mat-list>
         <mat-list-item *ngFor="let bag of bags" matRipple [class.active-user]="bag == selectedBag"
-            (click)="onBagSelected(bag)">
+            (click)="onBagSelected(bag)" >
             <h4 mat-line>{{bag.name}}</h4>
             <span mat-line>Ответственный: {{ bag.responsible ? bag.responsible.name : 'не задан' }}</span>
         </mat-list-item>
@@ -26,13 +26,12 @@
 </div>
 
 
-
 <mat-drawer-container class="example-container mat-elevation-z2"
     style="position: fixed; top: 56px; z-index: 10; right: 0; bottom: 0; width: 300px;">
 
     <mat-drawer #drawer class="example-sidenav mat-elevation-z2" mode="side" opened="true" position="end"
         style="width: 300px;">
-        <div [formGroup]="form" class="user-info" *ngIf="selectedBag != null">
+        <div [formGroup]="form" class="user-info" *ngIf="selectedBag != null" >
             Портфель {{selectedBag.name}}
             <p>
                 <mat-form-field style="width: 100%;">
@@ -45,7 +44,12 @@
                     placeholder="Ответственный" [virtualScroll]="true" formControlName="responsibleId">
                 </ng-select>
             </p>
+
+            <div align="center">
+                <button mat-raised-button color="accent"  [routerLink]="['/bag-management', selectedBag.id]">Open Bag</button>
+            </div>
         </div>
+        
         <div class="select-info" *ngIf="selectedBag == null"
             style="display: flex; flex-direction: column; align-items: stretch; justify-content: center; width: 100%; height: 100%; text-align: center;">
 

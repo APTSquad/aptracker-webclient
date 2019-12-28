@@ -9,15 +9,17 @@ import { Bag } from 'src/app/model';
 export class BagsManagementService {
   constructor(private http: HttpClient) { }
 
+
   modifyBag(data: any) {
-    return this.http.put<Bag>('https://localhost:5001/api/bags', data);
+    return this.http.put<Bag>('http://localhost:5000/api/bags', data);
   }
 
   getBags() {
-    return this.http.get<Bag[]>('https://localhost:5001/api/bags');
+    return this.http.get<Bag[]>('http://localhost:5000/api/bags');
   }
 
+  
   createBag(data: any) {
-    return this.http.post<Bag>('https://localhost:5001/api/bags', data);
+    return this.http.post<Bag>('http://localhost:5000/api/bags', data);
   }
 }

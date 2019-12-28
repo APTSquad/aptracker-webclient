@@ -12,14 +12,18 @@ import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { LogLevel } from 'msal';
 import { MatButtonModule } from '@angular/material';
 import { HierarchyDialogModule } from './shared/hierarchy-dialog/hierarchy-dialog';
-export const protectedResourceMap: [string, string[]][] = [['https://localhost:5001/api', ['api://f2fee166-e82f-4861-a752-83a1c561115d/access_as_user', 'offline_access']], ['https://graph.microsoft.com/v1.0/me', ['user.read']]];
+// tslint:disable-next-line:max-line-length
+export const protectedResourceMap: [string, string[]][] = [['http://localhost:5000/api', ['api://f2fee166-e82f-4861-a752-83a1c561115d/access_as_user', 'offline_access']], ['https://graph.microsoft.com/v1.0/me', ['user.read']]];
 
 import { LoggingInterceptor } from './shared/http/http-logging.interceptor'
 import { NavBarModule } from './shared/navbar/navbar.module';
+// tslint:disable-next-line: max-line-length
 import { UsersManagementPageModule } from './pages/users-management-page/users-management-page.module';
 import { BagsManagementPageModule } from './pages/bags-management-page/bags-management-page.module';
+import { BagManagementPageModule } from './pages/bag-management-page/bag-management.module'
 import { HierarchyPageModule } from './pages/hierarchy-page/hierarchy-page.module';
 import { ReportPageModule } from './pages/report-page/report-page.module';
+
 
 export function loggerCallback(logLevel: any, message: any, piiEnabled: any) {
   console.log(message);
@@ -54,6 +58,7 @@ export function loggerCallback(logLevel: any, message: any, piiEnabled: any) {
     HierarchyPageModule,
     BagsManagementPageModule,
     UsersManagementPageModule,
+    BagManagementPageModule,
     HierarchyDialogModule,
     HttpClientModule,
   ],

@@ -35,6 +35,8 @@ export class HierarchyPageComponent implements OnInit {
   searchText: string;
   searchProject: string;
   searchClient: string;
+  isLoadingBags: boolean = true;
+
 
   clientForm: FormGroup;
   clientSub: Subscription;
@@ -43,6 +45,7 @@ export class HierarchyPageComponent implements OnInit {
   editingClient: any;
   editingProject: any;
 
+  // tslint:disable-next-line:max-line-length
   constructor(private hierarchyService: HierarchyService, public dialog: MatDialog, private fb: FormBuilder) {
     this.clientForm = fb.group({
       name: new FormControl('')
@@ -56,6 +59,7 @@ export class HierarchyPageComponent implements OnInit {
   ngOnInit() {
     this.hierarchyService.getHierarchy().subscribe(data => {
       this.clients = data;
+      this.isLoadingBags = false;
     });
 
   }
@@ -76,9 +80,9 @@ export class HierarchyPageComponent implements OnInit {
         this.editingClient = this.selectedClient;
         this.hierarchyService.modifyClient({ id: client.id, name: data.name })
           .subscribe((res: any) => {
-            //const found = this.clients.find(x => x.id == res.id);
+            // const found = this.clients.find(x => x.id == res.id);
             this.editingClient!.name = res.name;
-            //this.selectedClient.name = res.name;
+            // this.selectedClient.name = res.name;
           });
       });
 
@@ -122,11 +126,11 @@ export class HierarchyPageComponent implements OnInit {
         this.editingProject = this.selectedProject;
         this.hierarchyService.modifyProject({ id: project.id, name: data.name })
           .subscribe((res: any) => {
-            //const found = this.clients.find(x => x.id == res.id);
-            //found!.name = res.name;
-            //this.selectedProject.name = res.name;
+            // const found = this.clients.find(x => x.id == res.id);
+            // found!.name = res.name;
+            // this.selectedProject.name = res.name;
             this.editingProject.name = res.name;
-            //this.selectedProject.name = res.name;
+            // this.selectedProject.name = res.name;
           });
       });
 

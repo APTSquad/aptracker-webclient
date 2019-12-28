@@ -1,0 +1,59 @@
+<div>
+    <h1 mat-dialog-title> Создание проекта </h1>
+    <h2 *ngIf="data.projects.length == 0">not projectss</h2>
+    <div>
+        <mat-selection-list  #list class="scrollbar" #list [(ngModel)]="selectedObj" (ngModelChange)="onNgModelChange($event)">
+            <mat-list-option *ngFor="let project of data.projects | filter: searchProject" [value]="project">
+
+                <span mat-line style="font-size: 15px; font-weight: 500; margin-bottom: 1%;">
+                    {{ project.name }}
+                </span>
+                <span mat-line>Портфель:
+                    {{project.bag ? project.bag.name : 'не задан'}}
+                </span>
+
+                <mat-divider></mat-divider>
+
+            </mat-list-option>
+        </mat-selection-list>
+    </div>
+
+    <div *ngIf="data.projects.length > 0 " style="display:flex; justify-content:flex-start;">
+        <mat-form-field style="display: block; justify-content: center; font-size: 14px; margin: auto;">
+            <input matInput type="text" placeholder="Фильтр" [(ngModel)]="searchProject">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <button mat-icon-button color="primary" (click)="submit()">
+            <mat-icon>add</mat-icon>
+        </button>
+
+    </div>
+
+
+
+
+</div>
+
+<style>
+    .scrollbar {
+        max-height: 225px !important;
+        overflow: auto;
+
+    }
+
+    .scrollbar::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background-color: #F5F5F5;
+        border-radius: 8px;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        box-shadow: inset 0 0 6px rgba(46, 46, 46, 0.3);
+        -webkit-box-shadow: inset 0 0 6px rgba(46, 46, 46, 0.3);
+        background-color: rgb(80, 79, 79);
+
+    }
+</style>

@@ -10,10 +10,10 @@ export class UsersManagementService {
   constructor(private http: HttpClient) { }
 
   getUsers() {
-    return this.http.get<User[]>('https://localhost:5001/api/users');
+    return this.http.get<User[]>('http://localhost:5000/api/users');
   }
 
   modifyUser(user: any) {
-    return this.http.put<User[]>('https://localhost:5001/api/users', user);
+    return this.http.put<User[]>('http://localhost:5000/api/users', user);
   }
 }

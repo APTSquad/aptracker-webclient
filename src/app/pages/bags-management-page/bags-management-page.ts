@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   MatDialog
 } from '@angular/material';
@@ -9,6 +9,7 @@ import { BagCreationDialogComponent } from './bag-creation-dialog/bag-creation-d
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { UsersManagementService } from 'src/app/shared/services/users-service';
+
 
 
 @Component({
@@ -26,6 +27,10 @@ export class BagsManagementPageComponent implements OnInit {
   private sub: Subscription;
   isLoading: boolean;
 
+  id:number;
+  private subBag:any;
+
+  // tslint:disable-next-line:max-line-length
   constructor(private bagService: BagsManagementService, private userService: UsersManagementService, private dialog: MatDialog, private fb: FormBuilder) {
 
   }
@@ -51,6 +56,7 @@ export class BagsManagementPageComponent implements OnInit {
 
           this.isLoading = true;
           this.bagService.modifyBag({ id: this.selectedBag!.id, name, responsibleId })
+            // tslint:disable-next-line:no-shadowed-variable
             .subscribe((bag: Bag) => {
               this.selectedBag!.name = name;
               this.selectedBag!.responsible = bag.responsible;
@@ -58,6 +64,8 @@ export class BagsManagementPageComponent implements OnInit {
             });
         }
       });
+
+
   }
 
   createBagClick() {
@@ -75,7 +83,6 @@ export class BagsManagementPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.bagService.getBags().subscribe(bags => { this.bags = bags; this.isLoadingBags = false; });
-
     this.form = this.fb.group({
       name: new FormControl(null,
         [
@@ -90,5 +97,7 @@ export class BagsManagementPageComponent implements OnInit {
       this.users = users;
     });
   }
+
+
 
 }

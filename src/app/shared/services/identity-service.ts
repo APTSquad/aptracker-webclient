@@ -32,7 +32,7 @@ export class IdentityService implements OnDestroy {
 
     constructor(private router: Router, private authService:
         MsalService, private broadcastService: BroadcastService, private http: HttpClient) {
-        http.get('https://localhost:5001/api/identity/me').subscribe(x => console.log(x));
+        http.get('http://localhost:5000/api/identity/me').subscribe(x => console.log(x));
         const user = this.authService.getUser();
         console.log(user);
         if (user != null) {

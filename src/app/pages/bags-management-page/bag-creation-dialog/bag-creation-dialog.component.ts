@@ -19,7 +19,7 @@ export class BagCreationDialogComponent implements OnInit {
       responsibleId: new FormControl(null),
     });
 
-    this.http.get<User[]>("https://localhost:5001/api/users").toPromise().then(users => {
+    this.http.get<User[]>("http://localhost:5000/api/users").toPromise().then(users => {
       this.users = users;
     });
 

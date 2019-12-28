@@ -1,0 +1,90 @@
+
+<div class="aptracker-primary-header-users mat-elevation-z3" style=" position: absolute ; width: 100%;">
+    <div class="aptracker-primary-header-label"
+        style=" display: flex; justify-content: space-between; align-items: center; height: 100%;">
+        <h1>Портфель {{selectedBag?.name}} </h1>
+    </div>
+</div>
+
+<mat-progress-bar *ngIf="isLoadingBags" mode="query" style="width: 100%">
+</mat-progress-bar>
+
+<div class="absolute-wrapper"   *ngIf="!isLoadingBags">
+    <div  fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly stretch" class="container"  fxFill>
+        <!--clients-->
+        <div fxFlex="32">
+            <mat-card >
+                <mat-card-header>
+                    <mat-card-title>Клиенты</mat-card-title>
+                </mat-card-header>
+
+
+                <mat-list class="scrollbar" dense>
+                    <mat-list-item matRipple *ngFor="let client of selectedBag.clients ">
+                        <span mat-line class="header-li"> {{ client.name  }} </span>
+                        <!-- <span mat-line>Портфель: {{ client.bag.name }} </span> -->
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+
+                <br>
+            </mat-card>
+        </div>
+
+        <div fxFlex="32" >
+            <mat-card >
+
+                <span>
+                    <h5 align="center">Проекты</h5>
+                    <mat-divider></mat-divider>
+                </span>
+
+
+                <mat-list class="scrollbar" dense>
+                    <mat-list-item matRipple *ngFor="let project of selectedBag.projects" >
+                        <span mat-line class="header-li"> {{ project.name }} </span>
+                        <span mat-line>Клиент: {{project.client? project.client.name : 'не задан'}}</span>
+                        <button mat-icon-button (click)="removeProject(project)" >
+                            <mat-icon  class="mat-24">clear</mat-icon>
+                        </button>
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+
+                <br>
+
+                <button mat-stroked-button color="primary" (click)="onProjectDialog()">
+                    Добавить проект
+                </button>
+            </mat-card>
+        </div>
+        <div fxFlex="32" >
+            <mat-card>
+
+                <span>
+                    <!-- <p>Some project info</p> -->
+                    <h5 align="center">Статьи</h5>
+                    <mat-divider></mat-divider>
+                </span>
+
+                <mat-list class="scrollbar" dense>
+                    <mat-list-item matRipple *ngFor="let article of selectedBag.articles" id="active-li">
+                        <span mat-line class="header-li"> {{ article.name }} </span>
+                        <span mat-line>Проект: {{ article.project? article.project.name : 'не задан'}} </span>
+                        <button mat-icon-button (click)="removeArticle(article)">
+                            <mat-icon class="mat-24">clear</mat-icon>
+                        </button>
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+
+                <br>
+
+                <button mat-stroked-button color="primary" (click)="onArticleDialog()">
+                    Добавить статья
+                </button>
+            </mat-card>
+        </div>
+
+    </div>
+</div>
