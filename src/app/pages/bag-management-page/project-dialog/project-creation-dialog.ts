@@ -8,7 +8,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSelectionList, MatSelectionListChange
 export class ProjectCreationDialog implements OnInit {
     selectedObj: any;
 
-    @ViewChild(MatSelectionList, {static: true}) list: MatSelectionList;
+    searchProject: any;
+    @ViewChild(MatSelectionList, { static: true }) list: MatSelectionList;
 
 
     ngOnInit(): void {
@@ -21,10 +22,10 @@ export class ProjectCreationDialog implements OnInit {
         });
 
 
-            this.list.selectionChange.subscribe((s: MatSelectionListChange) => {
-                this.list.deselectAll();
-                s.option.selected = true;
-            });
+        this.list.selectionChange.subscribe((s: MatSelectionListChange) => {
+            this.list.deselectAll();
+            s.option.selected = true;
+        });
 
 
     }
@@ -40,7 +41,7 @@ export class ProjectCreationDialog implements OnInit {
     onNgModelChange($event: any) {
         this.selectedObj = $event;
         console.log(this.selectedObj);
-      }
+    }
 
     submit(): void {
         this.dialogRef.close(this.selectedObj[0]);

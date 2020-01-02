@@ -2,7 +2,8 @@
     <h1 mat-dialog-title> Создание проекта </h1>
     <h2 *ngIf="data.projects.length == 0">not projectss</h2>
     <div>
-        <mat-selection-list  #list class="scrollbar" #list [(ngModel)]="selectedObj" (ngModelChange)="onNgModelChange($event)">
+        <mat-selection-list #list class="scrollbar" #list [(ngModel)]="selectedObj"
+            (ngModelChange)="onNgModelChange($event)">
             <mat-list-option *ngFor="let project of data.projects | filter: searchProject" [value]="project">
 
                 <span mat-line style="font-size: 15px; font-weight: 500; margin-bottom: 1%;">
