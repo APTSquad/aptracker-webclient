@@ -14,6 +14,7 @@ export class BagReportPageComponent implements OnInit {
   form: FormGroup;
   bags: any;
   isLoadingReport: boolean = false;
+  reportData: any = null;
 
   submit() {
     this.reportData = null;
@@ -42,6 +43,5 @@ export class BagReportPageComponent implements OnInit {
     });
 
   }
-  reportData = null;
-  displayedColumns: string[] = ['clientName'];
+
 }

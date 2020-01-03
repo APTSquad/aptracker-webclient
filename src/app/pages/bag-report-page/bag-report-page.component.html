@@ -25,11 +25,11 @@
             <thead>
                 <tr mdcDataTableHeaderRow>
                     <th mdcDataTableHeaderCell>Клиенты, проекты, статьи</th>
-                    <th mdcDataTableHeaderCell *ngFor="let user of reportData.users">{{user.name}}</th>
+                    <th mdcDataTableHeaderCell *ngFor="let user of reportData!.users">{{user.name}}</th>
                 </tr>
             </thead>
             <tbody mdcDataTableContent>
-                <ng-container *ngFor="let client of reportData.clients">
+                <ng-container *ngFor="let client of reportData!.clients">
                     <tr mdcDataTableRow>
                         <td mdcDataTableCell>{{client.clientName}}</td>
                         <ng-container *ngFor="let user of client.users">

@@ -1,16 +1,21 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-// tslint:disable-next-line: max-line-length
-import { MatDialogRef, MAT_DIALOG_DATA, MatSelectionList, MatSelectionListChange } from '@angular/material';
+import {
+    MatDialogRef,
+    MAT_DIALOG_DATA,
+    MatSelectionList,
+    MatSelectionListChange
+} from '@angular/material';
 @Component({
     selector: 'article-creation-dialog',
     templateUrl: 'article-creation-dialog.html',
 })
 export class ArticleCreationDialog implements OnInit {
-
+    searchArticles: any;
+    searchProject: any;
     selectedObj: any;
     articles = this.data.articles;
 
-    @ViewChild(MatSelectionList, {static: true}) list: MatSelectionList;
+    @ViewChild(MatSelectionList, { static: true }) list: MatSelectionList;
 
     ngOnInit(): void {
 
