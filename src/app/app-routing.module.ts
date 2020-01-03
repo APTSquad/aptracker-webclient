@@ -6,7 +6,8 @@ import { UsersManagementPageComponent } from './pages/users-management-page/user
 import { HierarchyPageComponent } from './pages/hierarchy-page/hierarchy-page';
 import { BagsManagementPageComponent } from './pages/bags-management-page/bags-management-page';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import {BagmanagementComponent } from './pages/bag-management-page/bag-management';
+import { BagmanagementComponent } from './pages/bag-management-page/bag-management';
+import { BagReportPageComponent } from './pages/bag-report-page/bag-report-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/report', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'users', component: UsersManagementPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'bag-management/:id', component: BagmanagementComponent },
+  { path: 'bag-report', component: BagReportPageComponent },
 
 ];
 
