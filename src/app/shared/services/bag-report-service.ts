@@ -11,12 +11,12 @@ export class BagReportService {
 
     constructor(private http: HttpClient) { }
 
-    getReport() {
+    getReport(data: any) {
         return this.http.post<any>(`http://localhost:5000/api/bagreport/`,
             {
-                BagId: 1,
-                start: '2019-01-02T17:52:52.128Z',
-                end: '2020-01-02T17:52:52.128Z'
+                bagId: data.bagId,
+                begin: data.range.begin.toISOString(),
+                end: data.range.end.toISOString(),
             });
     }
 

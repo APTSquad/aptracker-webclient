@@ -1,15 +1,67 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+<div style="margin: 10px;">
+    <form [formGroup]="form">
+        <mat-form-field>
+            <input matInput placeholder="Период" [satDatepicker]="picker" formControlName="range">
+            <sat-datepicker #picker [rangeMode]="true">
+            </sat-datepicker>
+            <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+        </mat-form-field>
+        <ng-select [items]="bags" dropdownPosition="auto" appendTo="body" bindValue="id" bindLabel="name"
+            placeholder="Портфель" [virtualScroll]="true" formControlName="bagId">
+        </ng-select>
+        <mat-error *ngIf="controlHasErrors('bagId')">
+            Укажите портфель
+        </mat-error>
+        <button mat-raised-button color="accent" (click)="submit()">Сформировать</button>
+    </form>
 
-    <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+    <br>
+    <mat-progress-bar *ngIf="isLoadingReport" mode="query" style="width: 100%">
+    </mat-progress-bar>
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="clientName">
-        <th mat-header-cell *matHeaderCellDef> Название </th>
-        <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
-    </ng-container>
+    <br>
+    <mdc-data-table style="width: 100%;" *ngIf="reportData">
+        <table mdcDataTableTable>
+            <thead>
+                <tr mdcDataTableHeaderRow>
+                    <th mdcDataTableHeaderCell>Клиенты, проекты, статьи</th>
+                    <th mdcDataTableHeaderCell *ngFor="let user of reportData.users">{{user.name}}</th>
+                </tr>
+            </thead>
+            <tbody mdcDataTableContent>
+                <ng-container *ngFor="let client of reportData.clients">
+                    <tr mdcDataTableRow>
+                        <td mdcDataTableCell>{{client.clientName}}</td>
+                        <ng-container *ngFor="let user of client.users">
 
+                            <td mdcDataTableCell> {{user.summary}}</td>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+                        </ng-container>
+                    </tr>
+                    <ng-container *ngFor="let project of client.projects">
+                        <tr mdcDataTableRow>
+                            <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;{{project.projectName}}</td>
+                            <ng-container *ngFor="let user of project.users">
+
+                                <td mdcDataTableCell> {{user.summary}}</td>
+
+                            </ng-container>
+                        </tr>
+                        <ng-container *ngFor="let article of project.articles">
+                            <tr mdcDataTableRow>
+                                <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{article.articleName}}</td>
+                                <ng-container *ngFor="let user of article.users">
+
+                                    <td mdcDataTableCell> {{user.summary}}</td>
+
+                                </ng-container>
+                            </tr>
+
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+
+            </tbody>
+        </table>
+    </mdc-data-table>
+</div>

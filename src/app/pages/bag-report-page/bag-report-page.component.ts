@@ -1,18 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BagReportService } from 'src/app/shared/services/bag-report-service';
-
-const ELEMENT_DATA: any[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { BagsManagementService } from 'src/app/shared/services/bags-service';
 
 @Component({
   selector: 'app-bag-report-page',
@@ -21,15 +10,38 @@ const ELEMENT_DATA: any[] = [
 })
 export class BagReportPageComponent implements OnInit {
   data: any;
+  date: any;
+  form: FormGroup;
+  bags: any;
+  isLoadingReport: boolean = false;
 
+  submit() {
+    this.reportData = null;
+    this.isLoadingReport = true;
+    this.service.getReport(this.form.value).subscribe(res => {
+      this.reportData = res;
+      this.isLoadingReport = false;
+    });
+  }
 
-  constructor(private service: BagReportService) { }
+  controlHasErrors(controlName: string): boolean {
+    return Boolean(this.form.controls[controlName].errors);
+  }
+
+  constructor(private service: BagReportService, fb: FormBuilder,
+    private bagService: BagsManagementService) {
+    this.form = fb.group({
+      range: [{ begin: null, end: null }],
+      bagId: null
+    });
+  }
 
   ngOnInit() {
-    this.service.getReport().subscribe(res => {
-      this.dataSource = res.clients;
-    })
+    this.bagService.getBags().subscribe(bags => {
+      this.bags = bags;
+    });
+
   }
-  dataSource = ELEMENT_DATA;
+  reportData = null;
   displayedColumns: string[] = ['clientName'];
 }
