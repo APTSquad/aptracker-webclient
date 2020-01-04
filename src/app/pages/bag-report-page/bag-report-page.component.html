@@ -5,6 +5,9 @@
             <sat-datepicker #picker [rangeMode]="true">
             </sat-datepicker>
             <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+            <mat-error *ngIf="controlHasErrors('range')">
+                Укажите период
+            </mat-error>
         </mat-form-field>
         <ng-select [items]="bags" dropdownPosition="auto" appendTo="body" bindValue="id" bindLabel="name"
             placeholder="Портфель" [virtualScroll]="true" formControlName="bagId">
@@ -12,153 +15,182 @@
         <mat-error *ngIf="controlHasErrors('bagId')">
             Укажите портфель
         </mat-error>
-        <button mat-raised-button color="accent" (click)="submit()">Сформировать</button>
+        <button mat-raised-button color="accent" [disabled]="form.invalid" (click)="submit()">Сформировать</button>
     </form>
 
-    <br>
-    <mat-progress-bar *ngIf="isLoadingReport" mode="query" style="width: 100%">
-    </mat-progress-bar>
-
+    <ng-container *ngIf="isLoadingReport">
+        <br>
+        <mat-progress-bar mode="query" style="width: 100%">
+        </mat-progress-bar>
+    </ng-container>
     <br>
     <ng-container *ngIf="reportData">
-        <h4>По клиентам</h4>
+
         <mdc-data-table style="width: 100%;">
             <table mdcDataTableTable>
-                <thead>
-                    <tr mdcDataTableHeaderRow>
-                        <th mdcDataTableHeaderCell>Клиенты, проекты, статьи</th>
-                        <th mdcDataTableHeaderCell *ngFor="let user of reportData!.users">{{user.name}}</th>
-                    </tr>
-                </thead>
                 <tbody mdcDataTableContent>
-                    <ng-container *ngFor="let client of reportData!.clients">
-                        <tr mdcDataTableRow>
-                            <td mdcDataTableCell>{{client.clientName}}</td>
-                            <ng-container *ngFor="let user of client.users">
-
-                                <td mdcDataTableCell> {{user.summary}}</td>
-
-                            </ng-container>
+                    <div *ngIf="reportData!.clients.length; then clients else noClients">
+                    </div>
+                    <ng-template #clients>
+                        <tr mdcDataTableHeaderRow>
+                            <td mdcDataTableCell [attr.colspan]="reportData.users.length + 1">
+                                <b>По клиентам</b>
+                            </td>
                         </tr>
-                        <ng-container *ngFor="let project of client.projects">
+                        <tr mdcDataTableRow>
+                            <th mdcDataTableHeaderCell>Клиенты, проекты, статьи</th>
+                            <th mdcDataTableHeaderCell *ngFor="let user of reportData!.users">{{user.name}}</th>
+                        </tr>
+                        <ng-container *ngFor="let client of reportData!.clients">
                             <tr mdcDataTableRow>
-                                <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;{{project.projectName}}</td>
-                                <ng-container *ngFor="let user of project.users">
+                                <td mdcDataTableCell>{{client.clientName}}</td>
+                                <ng-container *ngFor="let user of client.users">
 
                                     <td mdcDataTableCell> {{user.summary}}</td>
 
                                 </ng-container>
                             </tr>
-                            <ng-container *ngFor="let article of project.articles">
+                            <ng-container *ngFor="let project of client.projects">
                                 <tr mdcDataTableRow>
-                                    <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{article.articleName}}
-                                    </td>
-                                    <ng-container *ngFor="let user of article.users">
+                                    <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;{{project.projectName}}</td>
+                                    <ng-container *ngFor="let user of project.users">
 
                                         <td mdcDataTableCell> {{user.summary}}</td>
 
                                     </ng-container>
                                 </tr>
+                                <ng-container *ngFor="let article of project.articles">
+                                    <tr mdcDataTableRow>
+                                        <td mdcDataTableCell>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{article.articleName}}
+                                        </td>
+                                        <ng-container *ngFor="let user of article.users">
 
+                                            <td mdcDataTableCell> {{user.summary}}</td>
+
+                                        </ng-container>
+                                    </tr>
+
+                                </ng-container>
                             </ng-container>
                         </ng-container>
-                    </ng-container>
-
-                </tbody>
-            </table>
-        </mdc-data-table>
-        <h4>По проектам</h4>
-        <mdc-data-table style="width: 100%;">
-            <table mdcDataTableTable>
-                <thead>
-                    <tr mdcDataTableHeaderRow>
-                        <th mdcDataTableHeaderCell>Клиенты, проекты, статьи</th>
-                        <th mdcDataTableHeaderCell *ngFor="let user of reportData!.users">{{user.name}}</th>
-                    </tr>
-                </thead>
-                <tbody mdcDataTableContent>
-                    <ng-container *ngFor="let client of reportData!.projects">
-                        <tr mdcDataTableRow>
-                            <td mdcDataTableCell>{{client.clientName}}</td>
-                            <ng-container *ngFor="let user of client.users">
-
-                                <td mdcDataTableCell> {{user.summary}}</td>
-
-                            </ng-container>
+                    </ng-template>
+                    <ng-template #noClients>
+                        <tr mdcDataTableHeaderRow>
+                            <td mdcDataTableCell [attr.colspan]="reportData.users.length + 1">
+                                <b>Нет данных по клиентам</b>
+                            </td>
                         </tr>
-                        <ng-container *ngFor="let project of client.projects">
+                    </ng-template>
+
+                    <div *ngIf="reportData!.projects.length; then projects else noProjects"></div>
+                    <ng-template #projects>
+                        <tr mdcDataTableRow>
+                            <td mdcDataTableCell [attr.colspan]="reportData.users.length + 1">
+                                <b>По проектам</b>
+                            </td>
+                        </tr>
+                        <tr mdcDataTableRow>
+                            <th mdcDataTableHeaderCell>Клиенты, проекты, статьи</th>
+                            <th mdcDataTableHeaderCell *ngFor="let user of reportData!.users">{{user.name}}</th>
+                        </tr>
+                        <ng-container *ngFor="let client of reportData!.projects">
                             <tr mdcDataTableRow>
-                                <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;{{project.projectName}}</td>
-                                <ng-container *ngFor="let user of project.users">
+                                <td mdcDataTableCell>{{client.clientName}}</td>
+                                <ng-container *ngFor="let user of client.users">
 
                                     <td mdcDataTableCell> {{user.summary}}</td>
 
                                 </ng-container>
                             </tr>
-                            <ng-container *ngFor="let article of project.articles">
+                            <ng-container *ngFor="let project of client.projects">
                                 <tr mdcDataTableRow>
-                                    <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{article.articleName}}
-                                    </td>
-                                    <ng-container *ngFor="let user of article.users">
+                                    <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;{{project.projectName}}</td>
+                                    <ng-container *ngFor="let user of project.users">
 
                                         <td mdcDataTableCell> {{user.summary}}</td>
 
                                     </ng-container>
                                 </tr>
+                                <ng-container *ngFor="let article of project.articles">
+                                    <tr mdcDataTableRow>
+                                        <td mdcDataTableCell>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{article.articleName}}
+                                        </td>
+                                        <ng-container *ngFor="let user of article.users">
 
+                                            <td mdcDataTableCell> {{user.summary}}</td>
+
+                                        </ng-container>
+                                    </tr>
+
+                                </ng-container>
                             </ng-container>
                         </ng-container>
-                    </ng-container>
-
-                </tbody>
-            </table>
-        </mdc-data-table>
-        <h4>По статьям</h4>
-        <mdc-data-table style="width: 100%;">
-            <table mdcDataTableTable>
-                <thead>
-                    <tr mdcDataTableHeaderRow>
-                        <th mdcDataTableHeaderCell>Клиенты, проекты, статьи</th>
-                        <th mdcDataTableHeaderCell *ngFor="let user of reportData!.users">{{user.name}}</th>
-                    </tr>
-                </thead>
-                <tbody mdcDataTableContent>
-                    <ng-container *ngFor="let client of reportData!.articles">
+                    </ng-template>
+                    <ng-template #noProjects>
                         <tr mdcDataTableRow>
-                            <td mdcDataTableCell>{{client.clientName}}</td>
-                            <ng-container *ngFor="let user of client.users">
-
-                                <td mdcDataTableCell> {{user.summary}}</td>
-
-                            </ng-container>
+                            <td mdcDataTableCell [attr.colspan]="reportData.users.length + 1">
+                                <b>Нет данных по проектам</b>
+                            </td>
                         </tr>
-                        <ng-container *ngFor="let project of client.projects">
+                    </ng-template>
+
+                    <div *ngIf="reportData!.articles.length; then articles else noArticles"></div>
+                    <ng-template #articles>
+                        <tr mdcDataTableRow>
+                            <td mdcDataTableCell [attr.colspan]="reportData.users.length + 1">
+                                <b>По статьям</b>
+                            </td>
+                        </tr>
+                        <tr mdcDataTableRow>
+                            <th mdcDataTableHeaderCell>Клиенты, проекты, статьи</th>
+                            <th mdcDataTableHeaderCell *ngFor="let user of reportData!.users">{{user.name}}</th>
+                        </tr>
+
+                        <ng-container *ngFor="let client of reportData!.articles">
                             <tr mdcDataTableRow>
-                                <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;{{project.projectName}}</td>
-                                <ng-container *ngFor="let user of project.users">
+                                <td mdcDataTableCell>{{client.clientName}}</td>
+                                <ng-container *ngFor="let user of client.users">
 
                                     <td mdcDataTableCell> {{user.summary}}</td>
 
                                 </ng-container>
                             </tr>
-                            <ng-container *ngFor="let article of project.articles">
+                            <ng-container *ngFor="let project of client.projects">
                                 <tr mdcDataTableRow>
-                                    <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{article.articleName}}
-                                    </td>
-                                    <ng-container *ngFor="let user of article.users">
+                                    <td mdcDataTableCell> &nbsp;&nbsp;&nbsp;{{project.projectName}}</td>
+                                    <ng-container *ngFor="let user of project.users">
 
                                         <td mdcDataTableCell> {{user.summary}}</td>
 
                                     </ng-container>
                                 </tr>
+                                <ng-container *ngFor="let article of project.articles">
+                                    <tr mdcDataTableRow>
+                                        <td mdcDataTableCell>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{article.articleName}}
+                                        </td>
+                                        <ng-container *ngFor="let user of article.users">
 
+                                            <td mdcDataTableCell> {{user.summary}}</td>
+
+                                        </ng-container>
+                                    </tr>
+
+                                </ng-container>
                             </ng-container>
                         </ng-container>
-                    </ng-container>
-
+                    </ng-template>
+                    <ng-template #noArticles>
+                        <tr mdcDataTableRow>
+                            <td mdcDataTableCell [attr.colspan]="reportData.users.length + 1">
+                                <b>Нет данных по статьям</b>
+                            </td>
+                        </tr>
+                    </ng-template>
                 </tbody>
             </table>
         </mdc-data-table>
     </ng-container>
-
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BagReportService } from 'src/app/shared/services/bag-report-service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BagsManagementService } from 'src/app/shared/services/bags-service';
 
 @Component({
@@ -26,14 +26,20 @@ export class BagReportPageComponent implements OnInit {
   }
 
   controlHasErrors(controlName: string): boolean {
-    return Boolean(this.form.controls[controlName].errors);
+    return Boolean(!this.form.get(controlName)!.valid && this.form.get(controlName)!.touched);
   }
 
   constructor(private service: BagReportService, fb: FormBuilder,
     private bagService: BagsManagementService) {
     this.form = fb.group({
-      range: [{ begin: null, end: null }],
-      bagId: null
+      range: [null,
+        [
+          Validators.required
+        ]],
+      bagId: [null,
+        [
+          Validators.required
+        ]],
     });
   }
 
@@ -41,7 +47,5 @@ export class BagReportPageComponent implements OnInit {
     this.bagService.getBags().subscribe(bags => {
       this.bags = bags;
     });
-
   }
-
 }
