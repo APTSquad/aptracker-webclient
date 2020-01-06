@@ -1,4 +1,3 @@
-
 <div class="aptracker-primary-header-users mat-elevation-z3" style=" position: absolute ; width: 100%;">
     <div class="aptracker-primary-header-label"
         style=" display: flex; justify-content: space-between; align-items: center; height: 100%;">
@@ -9,11 +8,11 @@
 <mat-progress-bar *ngIf="isLoadingBags" mode="query" style="width: 100%">
 </mat-progress-bar>
 
-<div class="absolute-wrapper"   *ngIf="!isLoadingBags">
-    <div  fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly stretch" class="container"  fxFill>
+<div class="absolute-wrapper" *ngIf="!isLoadingBags">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly stretch" class="container" fxFill>
         <!--clients-->
         <div fxFlex="32">
-            <mat-card >
+            <mat-card>
                 <mat-card-header>
                     <mat-card-title>Клиенты</mat-card-title>
                 </mat-card-header>
@@ -31,8 +30,8 @@
             </mat-card>
         </div>
 
-        <div fxFlex="32" >
-            <mat-card >
+        <div fxFlex="32">
+            <mat-card>
 
                 <span>
                     <h5 align="center">Проекты</h5>
@@ -41,11 +40,11 @@
 
 
                 <mat-list class="scrollbar" dense>
-                    <mat-list-item matRipple *ngFor="let project of selectedBag.projects" >
+                    <mat-list-item matRipple *ngFor="let project of selectedBag.projects">
                         <span mat-line class="header-li"> {{ project.name }} </span>
                         <span mat-line>Клиент: {{project.client? project.client.name : 'не задан'}}</span>
-                        <button mat-icon-button (click)="removeProject(project)" >
-                            <mat-icon  class="mat-24">clear</mat-icon>
+                        <button mat-icon-button (click)="removeProject(project)">
+                            <mat-icon class="mat-24">clear</mat-icon>
                         </button>
                         <mat-divider></mat-divider>
                     </mat-list-item>
@@ -54,11 +53,11 @@
                 <br>
 
                 <button mat-stroked-button color="primary" (click)="onProjectDialog()">
-                    Добавить проект
+                    Добавить проекты
                 </button>
             </mat-card>
         </div>
-        <div fxFlex="32" >
+        <div fxFlex="32">
             <mat-card>
 
                 <span>
@@ -81,7 +80,7 @@
                 <br>
 
                 <button mat-stroked-button color="primary" (click)="onArticleDialog()">
-                    Добавить статья
+                    Добавить статьи
                 </button>
             </mat-card>
         </div>
