@@ -1,8 +1,9 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatCardModule,MatIconModule } from '@angular/material';
 import { MsalService } from '@azure/msal-angular';
+
 
 @Component({
   selector: 'app-login-page',
@@ -24,7 +25,9 @@ export class LoginPageComponent implements OnInit {
   imports: [
     CommonModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatCardModule,
+    MatIconModule
   ],
   exports: [LoginPageComponent],
   declarations: [LoginPageComponent],
