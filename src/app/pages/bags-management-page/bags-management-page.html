@@ -5,7 +5,7 @@
         <div class="aptracker-users-search">
             <mat-form-field>
                 <mat-label>Поиск</mat-label>
-                <input matInput>
+                <input matInput [(ngModel)]="searchBag">
             </mat-form-field>
         </div>
 
@@ -17,7 +17,7 @@
     <mat-progress-bar *ngIf="isLoadingBags" mode="query" style="width: 100%">
     </mat-progress-bar>
     <mat-list>
-        <mat-list-item *ngFor="let bag of bags" matRipple [class.active-user]="bag == selectedBag"
+        <mat-list-item *ngFor="let bag of bags | filter: searchBag" matRipple [class.active-user]="bag == selectedBag"
             (click)="onBagSelected(bag)">
             <h4 mat-line>{{bag.name}}</h4>
             <span mat-line>Ответственный: {{ bag.responsible ? bag.responsible.name : 'не задан' }}</span>

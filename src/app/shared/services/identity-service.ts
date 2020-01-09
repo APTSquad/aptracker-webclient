@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { SCOPES } from '../configuration/scopes';
 import { HttpClient } from '@angular/common/http';
 import { Roles as Role } from '../configuration/roles';
-import { ROLE_UNAUTHORIZED, ROLE_ADMIN, ROLE_DEVELOPER } from '../configuration/pages';
+import { ROLE_UNAUTHORIZED, ROLE_ADMIN, ROLE_DEVELOPER, ROLE_MANAGER } from '../configuration/pages';
 
 @Injectable({
     providedIn: 'root',
@@ -16,6 +16,7 @@ export class IdentityService implements OnDestroy {
     private subscriptionFailure: Subscription;
     private subscriptionToken: Subscription;
     private loggedIn: boolean = false;
+    public _user: any;
 
     ngOnDestroy(): void {
         this.broadcastService.getMSALSubject().next(1);
@@ -32,7 +33,9 @@ export class IdentityService implements OnDestroy {
 
     constructor(private router: Router, private authService:
         MsalService, private broadcastService: BroadcastService, private http: HttpClient) {
-        http.get('http://localhost:5000/api/identity/me').subscribe(x => console.log(x));
+        http.get('http://localhost:5000/api/identity/me').subscribe(x => {
+            this._user = x;
+        });
         const user = this.authService.getUser();
         console.log(user);
         if (user != null) {
@@ -87,8 +90,23 @@ export class IdentityService implements OnDestroy {
         return this.loggedIn;
     }
 
+    get user() {
+        return this._user;
+    }
+
     get role() {
-        return ROLE_ADMIN;
+        if (!this._user)
+            return ROLE_DEVELOPER;
+        if (this._user.role == 2)
+            return ROLE_ADMIN;
+
+        if (this._user.role == 1)
+            return ROLE_MANAGER;
+
+        if (this._user.role == 0)
+            return ROLE_DEVELOPER;
+
+        return ROLE_DEVELOPER;
     }
 
     login(): void {

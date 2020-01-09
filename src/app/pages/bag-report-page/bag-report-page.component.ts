@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BagReportService } from 'src/app/shared/services/bag-report-service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BagsManagementService } from 'src/app/shared/services/bags-service';
+import { IdentityService } from 'src/app/shared/services/identity-service';
 
 @Component({
   selector: 'app-bag-report-page',
@@ -30,7 +31,7 @@ export class BagReportPageComponent implements OnInit {
   }
 
   constructor(private service: BagReportService, fb: FormBuilder,
-    private bagService: BagsManagementService) {
+    private bagService: BagsManagementService, private identity: IdentityService) {
     this.form = fb.group({
       range: [null,
         [
@@ -41,11 +42,13 @@ export class BagReportPageComponent implements OnInit {
           Validators.required
         ]],
     });
+
+    this.bagService.getMyBags().subscribe(bags => {
+      this.bags = bags;
+    });
   }
 
   ngOnInit() {
-    this.bagService.getBags().subscribe(bags => {
-      this.bags = bags;
-    });
+
   }
 }
