@@ -119,7 +119,7 @@ export class BagmanagementComponent implements OnInit {
         this.bagService.ArticleSetBag(data).subscribe(res => {
           this.selectedBag.articles.push(res);
         });
-      });
+       });
   }
 
 

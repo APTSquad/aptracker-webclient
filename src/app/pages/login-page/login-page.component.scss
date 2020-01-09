@@ -1,0 +1,38 @@
+
+.card{
+    background: linear-gradient(to right, rgb(54, 209, 220), rgb(91, 134, 229));
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    //padding: 44px 56px;
+    mat-card{
+        max-width: 620px;
+    }
+}
+
+.content{
+    text-align: center;
+    box-sizing: inherit;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 300;
+    margin-top: 30px;
+    line-height: 30px;
+    button{
+        margin-bottom: 15px;
+        height: 48px;
+        width: 30%;
+        font-size: 16px;
+    }
+    p{
+        font-size: 16px;
+        color: rgba(0,0, 0, 0.54);
+        line-height: 25px;  
+    }
+    h2{
+        font-weight: 600;
+        font-family: 'Times New Roman', Times, serif;
+        //line-height: 32px;
+    }
+}
