@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Создание cтатя для проект {{data.project.name}}</h1>
+<div [formGroup]="form" mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <mat-form-field>
+        <input matInput placeholder="Название" formControlName="name">
+        <mat-error *ngIf="controlHasErrors('name')">
+            Название должно иметь длину от 5 до 15 символов
+        </mat-error>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Отмена</button>
+    <button mat-button (click)="submit()" [disabled]="form.invalid" cdkFocusInitial>Создать</button>
+</div>

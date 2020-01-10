@@ -12,6 +12,9 @@ export class HierarchyService {
   createProject(project: any) {
     return this.http.post<Project>('http://localhost:5000/api/projects', project);
   }
+  createArticle(article: any) {
+    return this.http.post<Project>('http://localhost:5000/api/Articles', article);
+  }
   ProjectSetBag(projectBag: any) {
     return this.http.post<Project>('http://localhost:5000/api/Projects/setBag', projectBag);
   }
