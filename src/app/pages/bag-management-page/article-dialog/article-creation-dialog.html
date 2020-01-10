@@ -1,11 +1,11 @@
 <div>
-    <h1 mat-dialog-title> Создание проекта </h1>
+    <h1 mat-dialog-title> Добавление статей </h1>
     <ng-template *ngIf="articles.length == 0">not articles</ng-template>
-    <div >
-        <mat-selection-list #list  class="scrollbar"  [(ngModel)]="selectedObj" (ngModelChange)="onNgModelChange($event)">
+    <div>
+        <mat-selection-list #list class="scrollbar" [(ngModel)]="selectedObj" (ngModelChange)="onNgModelChange($event)">
             <mat-list-option *ngFor="let article of articles | filter: searchArticles" [value]="article">
 
-                <span  mat-line style="font-size: 15px; font-weight: 500; margin-bottom: 1%;">
+                <span mat-line style="font-size: 15px; font-weight: 500; margin-bottom: 1%;">
                     {{ article.name }}
                 </span>
                 <span mat-line>Портфель:
@@ -17,7 +17,7 @@
             </mat-list-option>
         </mat-selection-list>
     </div>
-    
+
 
     <div style="display:flex; justify-content:flex-start;" *ngIf="articles.length > 0">
         <mat-form-field style="display: block; justify-content: center; font-size: 14px; margin: auto;">

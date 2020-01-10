@@ -18,7 +18,10 @@ export class BagsManagementService {
     return this.http.get<Bag[]>('http://localhost:5000/api/bags');
   }
 
-  
+  getMyBags() {
+    return this.http.get<Bag[]>('http://localhost:5000/api/bags/myBags');
+  }
+
   createBag(data: any) {
     return this.http.post<Bag>('http://localhost:5000/api/bags', data);
   }

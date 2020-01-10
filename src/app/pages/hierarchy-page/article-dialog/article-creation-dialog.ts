@@ -5,10 +5,10 @@ import { Bag } from 'src/app/model';
 import { BagsManagementService } from 'src/app/shared/services/bags-service';
 
 @Component({
-    selector: 'project-creation-dialog',
-    templateUrl: 'project-creation-dialog.html',
+    selector: 'article-creation-dialog',
+    templateUrl: 'article-creation-dialog.html',
 })
-export class ProjectCreationDialog implements OnInit {
+export class ArticleCreationDialog implements OnInit {
     form: FormGroup;
     bags: Bag[];
 
@@ -25,7 +25,7 @@ export class ProjectCreationDialog implements OnInit {
                     Validators.maxLength(20)
                 ]
             ),
-            clientId: new FormControl(this.data.client.id)
+            ProjectId: new FormControl(this.data.project.id)
             // bagId: new FormControl(null, Validators.required),
         });
         /*this.bagService.getBags().subscribe(bags => {
@@ -39,7 +39,7 @@ export class ProjectCreationDialog implements OnInit {
     }
 
     constructor(
-        public dialogRef: MatDialogRef<ProjectCreationDialog>,
+        public dialogRef: MatDialogRef<ArticleCreationDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private fb: FormBuilder,
         // private bagService: BagsManagementService
@@ -47,6 +47,11 @@ export class ProjectCreationDialog implements OnInit {
 
 
     }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+      }
+    
 
     submit(): void {
         this.dialogRef.close(this.form.value);

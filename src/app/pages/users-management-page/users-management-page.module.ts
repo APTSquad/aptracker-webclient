@@ -7,6 +7,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { TextMaskModule } from 'angular2-text-mask';
 import { UsersManagementService } from 'src/app/shared/services/users-service';
 import { UsersManagementPageComponent } from './users-management-page';
+import { FilterPipe, FilterPipeModule } from 'src/app/shared/pipes/filter.pipe';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { UsersManagementPageComponent } from './users-management-page';
         MatProgressBarModule,
         SelectionDialogModule,
         NgxMaskModule.forRoot(),
-        TextMaskModule
+        TextMaskModule,
+        FilterPipeModule
     ],
     providers: [UsersManagementService],
     exports: [UsersManagementPageComponent],

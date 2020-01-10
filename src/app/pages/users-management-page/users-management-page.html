@@ -5,7 +5,7 @@
         <div class="aptracker-users-search">
             <mat-form-field *ngIf="!isLoadingUsers">
                 <mat-label>Поиск</mat-label>
-                <input matInput placeholder="Имя, адрес...">
+                <input matInput placeholder="Имя, адрес..." [(ngModel)]="searchUser">
             </mat-form-field>
         </div>
 
@@ -16,8 +16,8 @@
     <mat-progress-bar *ngIf="isLoadingUsers" mode="query" style="width: 100%">
     </mat-progress-bar>
     <mat-list>
-        <mat-list-item *ngFor="let user of users" matRipple [class.active-user]="user == selectedUser"
-            (click)="onUserSelected(user)">
+        <mat-list-item *ngFor="let user of users | filter: searchUser" matRipple
+            [class.active-user]="user == selectedUser" (click)="onUserSelected(user)">
             <h4 mat-line>{{user.name}}</h4>
 
             <div mat-line>E-mail: {{user.email}}</div>

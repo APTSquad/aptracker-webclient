@@ -14,6 +14,8 @@ import { ClientCreationDialog } from './client-dialog/client-creation-dialog';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ProjectCreationDialog } from './project-dialog/project-creation-dialog';
+import { ArticleCreationDialog } from './article-dialog/article-creation-dialog';
+
 import { Project } from 'src/app/model';
 
 @Component({
@@ -146,6 +148,24 @@ export class HierarchyPageComponent implements OnInit {
       .subscribe(result => {
         this.hierarchyService.createClient(result).subscribe(res => {
           this.clients.push(res);
+        });
+      });
+  }
+
+  onArticleDialog(): void {
+    const project = this.selectedProject;
+    const dialogRef = this.dialog.open(ArticleCreationDialog, {
+      width: '450px',
+      data: {
+        project
+      }
+    });
+
+    dialogRef.afterClosed()
+      .filter(result => result != null)
+      .subscribe(result => {
+        this.hierarchyService.createArticle(result).subscribe(res => {
+          this.selectedProject.articles.push(res);
         });
       });
   }

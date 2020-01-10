@@ -26,9 +26,9 @@ export class BagsManagementPageComponent implements OnInit {
   bags: Bag[];
   private sub: Subscription;
   isLoading: boolean;
-
-  id:number;
-  private subBag:any;
+  searchBag: any;
+  id: number;
+  private subBag: any;
 
   // tslint:disable-next-line:max-line-length
   constructor(private bagService: BagsManagementService, private userService: UsersManagementService, private dialog: MatDialog, private fb: FormBuilder) {

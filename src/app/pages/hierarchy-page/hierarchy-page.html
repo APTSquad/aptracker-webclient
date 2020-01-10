@@ -44,7 +44,7 @@
                     <mat-form-field class="input-size">
                         <input matInput placeholder="Название" formControlName="name">
                     </mat-form-field>
-                    <mat-form-field class="input-size">
+                    <!-- <mat-form-field class="input-size">
                         <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
                             [matAutocomplete]="auto">
                         <mat-autocomplete #auto="matAutocomplete">
@@ -52,7 +52,7 @@
                                 {{option}}
                             </mat-option>
                         </mat-autocomplete>
-                    </mat-form-field>
+                    </mat-form-field> -->
                 </form>
                 <span>
                     <p>Some client info</p>
@@ -101,7 +101,7 @@
                     <mat-form-field class="input-size">
                         <input matInput placeholder="Название" formControlName="name">
                     </mat-form-field>
-                    <mat-form-field class="input-size">
+                    <!-- <mat-form-field class="input-size">
                         <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
                             [matAutocomplete]="auto">
                         <mat-autocomplete #auto="matAutocomplete">
@@ -109,7 +109,7 @@
                                 {{option}}
                             </mat-option>
                         </mat-autocomplete>
-                    </mat-form-field>
+                    </mat-form-field> -->
                 </form>
                 <span>
                     <p>Some project info</p>
@@ -123,7 +123,7 @@
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
                 <button mat-icon-button (click)=showInput() *ngIf="!isShowinput"> <mat-icon>search</mat-icon></button> -->
-                    <button mat-icon-button color="primary">
+                    <button mat-icon-button color="primary" (click)="onArticleDialog()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
@@ -131,7 +131,7 @@
                 <mat-action-list class="scrollbar" dense>
                     <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li">
                         <span mat-line class="header-li"> {{ article.name }} </span>
-                        <span mat-line>Портфель: {{ article.bag.name }}
+                        <span mat-line>Портфель: {{ article.bag ? article.bag.name : 'не задан' }}
                         </span>
                         <!-- <span mat-line>  profile: {{ client.profile }} </span> -->
                         <mat-divider></mat-divider>

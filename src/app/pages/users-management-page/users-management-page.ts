@@ -20,6 +20,7 @@ export class UsersManagementPageComponent implements OnInit {
   users: User[];
   isLoading: boolean = false;
   isLoadingUsers: boolean = true;
+  searchUser: any;
 
   constructor(private userService: UsersManagementService, private fb: FormBuilder, private bagService: BagsManagementService) {
 
