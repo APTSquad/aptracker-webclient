@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { MAT_DATE_LOCALE, DateAdapter, NativeDateAdapter} from '@angular/material/core';
 import { Component, OnInit, NgModule, Input, ViewEncapsulation} from '@angular/core';
 
@@ -9,8 +8,8 @@ import {
   MatInputModule,
   MatNativeDateModule
 } from '@angular/material';
-import {FormControl, ReactiveFormsModule, FormsModule} from '@angular/forms';
-import { DateService, DateI, DateType } from './dateService';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { DateService } from './dateService';
 import { CustomDates } from 'src/app/model/CustomDates';
 
 
@@ -85,26 +84,20 @@ export class CustomDatesComponent extends NativeDateAdapter{
     this.dateClass = (d: Date) => {
       let requirefill = false;
       let filled = false;
+      let itWeekends = false;
 
       for (let dte in this._datesArray) {
-         //let item = new Date(this._datesArray[dte].date);
-        // console.log( 'this.datesArray: ' + item.getFullYear() + '--' + item.getDate() + '--' + item.getMonth());
 
         if (this._datesArray[dte].state == 0 || this._datesArray[dte].state == 2) {
-            console.log('if of requiredFill');
             let item = new Date(this._datesArray[dte].date);
           requirefill = (
             item.getFullYear() === d.getFullYear()
             && item.getDate() === d.getDate()
             && item.getMonth() === d.getMonth());
-          console.log('requiredFill: '+ requirefill);
           if (requirefill) {
             return 'requireFill-custom-date-class';
           }
-        }else{
-          console.log('dataclass undefined');
         }
-
 
         if (this._datesArray[dte].state == 1) {
           let item = new Date(this._datesArray[dte].date);
@@ -112,19 +105,24 @@ export class CustomDatesComponent extends NativeDateAdapter{
             item.getFullYear() === d.getFullYear()
             && item.getDate() === d.getDate()
             && item.getMonth() === d.getMonth());
-            if(filled){
-              return 'filled-custom-date-class'
+            if (filled) {
+              return 'filled-custom-date-class';
             }
-           //return filled ? 'filled-custom-date-class' : undefined;
         }
+
+        if (this._datesArray[dte].state == 3) {
+          let item = new Date(this._datesArray[dte].date);
+          itWeekends = (
+            item.getFullYear() === d.getFullYear()
+            && item.getDate() === d.getDate()
+            && item.getMonth() === d.getMonth());
+            if (itWeekends) {
+              return 'itWeekends-custom-date-class';
+            }
+        }
+
+
       }
-      // if (this._datesArray[1].state == 0) {
-      //   filled = this._datesArray[1].date.some((item: Date) =>
-      //     item.getFullYear() === d.getFullYear()
-      //     && item.getDate() === d.getDate()
-      //     && item.getMonth() === d.getMonth());
-      //   return filled ? 'filled-custom-date-class' : undefined;
-      // }
 
       return;
     };
