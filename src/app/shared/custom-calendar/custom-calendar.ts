@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { MAT_DATE_LOCALE, DateAdapter, NativeDateAdapter} from '@angular/material/core';
 import { Component, OnInit, NgModule, Input, ViewEncapsulation} from '@angular/core';
 
@@ -10,6 +11,7 @@ import {
 } from '@angular/material';
 import {FormControl, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { DateService, DateI, DateType } from './dateService';
+import { CustomDates } from 'src/app/model/CustomDates';
 
 
 
@@ -25,11 +27,16 @@ export class CustomCalendarComponent implements OnInit {
   constructor(private date: DateService) { }
 
   // Array of dates that (required fill and filled dates)
-  dates = this.date.dData;
+ // dates = this.date.dData;
 
-
+  dates: CustomDates[];
 
   ngOnInit() {
+    this.date.getDatesById(3).subscribe(data => {
+      this.dates = data;
+      console.log('dates: ' + this.dates[0].date);
+    });
+
   }
 
 }
@@ -45,8 +52,7 @@ export class CustomDatesComponent extends NativeDateAdapter{
    date: DateService;
   // constructor( ) { }
 
- // private _datesArray: Array<Date[]>;
-  private _datesArray: Array<DateI>;
+  private _datesArray: Array<CustomDates>;
 
 
   // days that's not require fill
@@ -63,8 +69,8 @@ export class CustomDatesComponent extends NativeDateAdapter{
   maxDate = new Date(2020, 0, 1);
 
   @Input()
-  get datesArray(): Array<DateI> {return this._datesArray; }
-  set datesArray(d: Array<DateI>) {
+  get datesArray(): Array<CustomDates> {return this._datesArray; }
+  set datesArray(d: Array<CustomDates>) {
     this._datesArray = d;
 
     this._setupClassFunction();
@@ -72,6 +78,7 @@ export class CustomDatesComponent extends NativeDateAdapter{
 
 
   dateClass: (d: Date) => any;
+  cdate = this._datesArray;
 
   private _setupClassFunction() {
 
@@ -79,35 +86,46 @@ export class CustomDatesComponent extends NativeDateAdapter{
       let requirefill = false;
       let filled = false;
 
-      if (this._datesArray[0].type == DateType.REQUIRED) {
-        requirefill = this._datesArray[0].date.some((item: Date) =>
-          item.getFullYear() === d.getFullYear()
-          && item.getDate() === d.getDate()
-          && item.getMonth() === d.getMonth());
-        if (requirefill) {
-          return 'requireFill-custom-date-class';
-        }
-        // return filled ? 'filled-custom-date-class' : undefined;
-      }
+      for (let dte in this._datesArray) {
+         //let item = new Date(this._datesArray[dte].date);
+        // console.log( 'this.datesArray: ' + item.getFullYear() + '--' + item.getDate() + '--' + item.getMonth());
 
-      if (this._datesArray[1].type == DateType.REPORTED) {
-        filled = this._datesArray[1].date.some((item: Date) =>
-          item.getFullYear() === d.getFullYear()
-          && item.getDate() === d.getDate()
-          && item.getMonth() === d.getMonth());
-        return filled ? 'filled-custom-date-class' : undefined;
+        if (this._datesArray[dte].state == 0 || this._datesArray[dte].state == 2) {
+            console.log('if of requiredFill');
+            let item = new Date(this._datesArray[dte].date);
+          requirefill = (
+            item.getFullYear() === d.getFullYear()
+            && item.getDate() === d.getDate()
+            && item.getMonth() === d.getMonth());
+          console.log('requiredFill: '+ requirefill);
+          if (requirefill) {
+            return 'requireFill-custom-date-class';
+          }
+        }else{
+          console.log('dataclass undefined');
+        }
+
+
+        if (this._datesArray[dte].state == 1) {
+          let item = new Date(this._datesArray[dte].date);
+          filled = (
+            item.getFullYear() === d.getFullYear()
+            && item.getDate() === d.getDate()
+            && item.getMonth() === d.getMonth());
+           return filled ? 'filled-custom-date-class' : undefined;
+        }
       }
+      // if (this._datesArray[1].state == 0) {
+      //   filled = this._datesArray[1].date.some((item: Date) =>
+      //     item.getFullYear() === d.getFullYear()
+      //     && item.getDate() === d.getDate()
+      //     && item.getMonth() === d.getMonth());
+      //   return filled ? 'filled-custom-date-class' : undefined;
+      // }
 
       return;
     };
   }
-
-
-  // filterWeekendDates = (d: Date): boolean => {
-  //   const day = d.getDay();
-  //   // Prevent Saturday and Sunday from being selected.
-  //   return day !== 0 && day !== 6;
-  // }
 
 
   getFirstDayOfWeek(): number {

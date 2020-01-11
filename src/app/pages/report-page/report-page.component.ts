@@ -147,7 +147,7 @@ export class ReportPageComponent implements OnInit {
       'userId': 6,
       'articles': []
     };
-    let articles = [];
+    let articles: any;
     // const controls = this.form.controls;
     // /** Проверяем форму на валидность */
     // if (this.form.invalid) {
