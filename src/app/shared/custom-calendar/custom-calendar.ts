@@ -112,7 +112,10 @@ export class CustomDatesComponent extends NativeDateAdapter{
             item.getFullYear() === d.getFullYear()
             && item.getDate() === d.getDate()
             && item.getMonth() === d.getMonth());
-           return filled ? 'filled-custom-date-class' : undefined;
+            if(filled){
+              return 'filled-custom-date-class'
+            }
+           //return filled ? 'filled-custom-date-class' : undefined;
         }
       }
       // if (this._datesArray[1].state == 0) {
