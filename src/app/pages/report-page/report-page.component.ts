@@ -43,8 +43,8 @@ export class ReportPageComponent implements OnInit {
   }
 
   constructor(public dialog: MatDialog,
-              private fb: FormBuilder,
-              private rs: ReportFormService) {
+    private fb: FormBuilder,
+    private rs: ReportFormService) {
     console.log('foormss', this.form);
   }
 
@@ -161,8 +161,13 @@ export class ReportPageComponent implements OnInit {
     console.log(this.form.value);
     this.form.value.commonArticles.forEach((article: any) => {
       if (article.isChecked) {
-        let time = Number(article.time) / 10;
-        console.log('time', time);
+        let time;
+        console.log('time', article.time);
+        if (article.time.length < 2) {
+          time = Number(article.time);
+        } else {
+          time = Number(article.time) / 10;
+        }
         articles.push({
           'articleId': article.id,
           'hoursConsumption': time
@@ -175,7 +180,14 @@ export class ReportPageComponent implements OnInit {
           if (project.isChecked) {
             project.articles.forEach((article: any) => {
               if (article.isChecked) {
-                let time = Number(article.time) / 10;
+                let time;
+                console.log('time', article.time);
+                if (article.time.length < 2) {
+                  time = Number(article.time);
+                } else {
+                  time = Number(article.time) / 10;
+                }
+
                 articles.push({
                   'articleId': article.id,
                   'hoursConsumption': time
