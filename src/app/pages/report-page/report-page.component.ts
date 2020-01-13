@@ -40,9 +40,9 @@ export class ReportPageComponent implements OnInit {
   date = Date.now();
 
   constructor(public dialog: MatDialog,
-              private fb: FormBuilder,
-              private rs: ReportFormService,
-              private cdRef: ChangeDetectorRef) {}
+    private fb: FormBuilder,
+    private rs: ReportFormService,
+    private cdRef: ChangeDetectorRef) { }
 
   changeDate() {
 
@@ -86,7 +86,7 @@ export class ReportPageComponent implements OnInit {
   }
 
   selectClient() {
-    let clients = this.clients.value.filter(client => {
+    let clients = this.clients.value.filter((client: any) => {
       return client.isChecked == false;
     })
     const dialogRef = this.dialog.open(AddClientsDialog, {
@@ -227,7 +227,7 @@ export class ReportPageComponent implements OnInit {
     this.form.controls.clients.controls[index]
       .controls.projects.controls.forEach((project: any) => {
         project.controls.isChecked.setValue(true);
-    });
+      });
   }
 
   showArticles(cIndex: number, pIndex: number) {
@@ -236,7 +236,7 @@ export class ReportPageComponent implements OnInit {
       .controls.projects.controls[pIndex]
       .controls.articles.controls.forEach((article: any) => {
         article.controls.isChecked.setValue(true);
-    });
+      });
   }
 
 }
