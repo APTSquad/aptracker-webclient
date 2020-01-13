@@ -1,0 +1,64 @@
+<div class="aptracker-primary-header-articles mat-elevation-z3">
+    <div class="aptracker-primary-header-label"
+        style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
+        <h1>Управление общими статьями</h1>
+        <div class="aptracker-users-search">
+            <mat-form-field *ngIf="!isLoadingArticles">
+                <mat-label>Поиск</mat-label>
+                <input matInput placeholder="Поиск" [(ngModel)]="searchQuery">
+            </mat-form-field>
+        </div>
+
+    </div>
+</div>
+<div class="example-sidenav-content" style="position: absolute; top: 90px; bottom: 0px; left:0; right: 300px;">
+    <mat-progress-bar *ngIf="isLoadingArticles" mode="query" style="width: 100%">
+    </mat-progress-bar>
+    <mat-list>
+        <mat-list-item *ngFor="let article of articles | filter: searchQuery" matRipple
+            [class.active-user]="article == selected" (click)="onArticleSelected(article)">
+            <h4 mat-line>{{article.name}}</h4>
+
+            <div mat-line *ngIf="article.isActive">Активна</div>
+            <div mat-line *ngIf="!article.isActive">Неактивна</div>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+
+
+<mat-drawer-container class="example-container mat-elevation-z2"
+    style="position: fixed; top: 56px; z-index: 10; right: 0; bottom: 0; width: 300px;">
+
+    <mat-drawer #drawer class="example-sidenav mat-elevation-z2" mode="side" opened="true" position="end"
+        style="width: 300px;">
+
+        <div [formGroup]="form" class="user-info" *ngIf="selected != null">
+            Статья {{selected.name}}
+            <br>
+            <p>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Название статьи</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-error *ngIf="controlHasErrors('name')">
+                        Длина имени должна составлять от 4 до 15 символов
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-checkbox formControlName="isActive">Активна</mat-checkbox>
+            </p>
+        </div>
+        <mat-progress-bar *ngIf="isLoading" mode="query">
+        </mat-progress-bar>
+        <div class="select-info" *ngIf="selected == null"
+            style="display: flex; flex-direction: column; align-items: stretch; justify-content: center; width: 100%; height: 100%; text-align: center;">
+
+            <div>Выберите статью из списка</div>
+
+        </div>
+    </mat-drawer>
+    <button mat-fab style="position: fixed; bottom: 25px; right: 325px; z-index: 9999;" (click)="createArticleClick()">
+        <mat-icon>add</mat-icon>
+    </button>
+</mat-drawer-container>

@@ -24,6 +24,7 @@ import { BagManagementPageModule } from './pages/bag-management-page/bag-managem
 import { HierarchyPageModule } from './pages/hierarchy-page/hierarchy-page.module';
 import { ReportPageModule } from './pages/report-page/report-page.module';
 import { BagReportPageModule } from './pages/bag-report-page/bag-report-page.module';
+import { CommonArticlesPageModule } from './pages/common-articles-page/common-articles-page.module';
 
 
 export function loggerCallback(logLevel: any, message: any, piiEnabled: any) {
@@ -62,7 +63,8 @@ export function loggerCallback(logLevel: any, message: any, piiEnabled: any) {
     BagManagementPageModule,
     HierarchyDialogModule,
     HttpClientModule,
-    BagReportPageModule
+    BagReportPageModule,
+    CommonArticlesPageModule
   ],
   providers: [HttpClient,
     {

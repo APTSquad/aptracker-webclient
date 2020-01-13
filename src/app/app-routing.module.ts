@@ -8,6 +8,7 @@ import { BagsManagementPageComponent } from './pages/bags-management-page/bags-m
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { BagmanagementComponent } from './pages/bag-management-page/bag-management';
 import { BagReportPageComponent } from './pages/bag-report-page/bag-report-page.component';
+import { CommonArticlesPageComponent } from './pages/common-articles-page/common-articles-page';
 
 const routes: Routes = [
   { path: '', redirectTo: '/report', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'bag-management/:id', component: BagmanagementComponent },
   { path: 'bag-report', component: BagReportPageComponent },
+  { path: 'common-articles', component: CommonArticlesPageComponent },
 
 ];
 

@@ -10,8 +10,6 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { UsersManagementService } from 'src/app/shared/services/users-service';
 
-
-
 @Component({
   selector: 'app-bags-management-page',
   templateUrl: './bags-management-page.html',

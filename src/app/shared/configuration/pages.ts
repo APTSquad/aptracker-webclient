@@ -14,6 +14,7 @@ export const PAGE_HIERARCHY = 'HIERARCHY';
 export const PAGE_MANAGER_REPORTS = 'MANAGER_REPORTS';
 export const PAGE_BAGS = 'BAGS';
 export const PAGE_BAG_REPORT = 'BAG_REPORT';
+export const PAGE_COMMON_ARTICLES = 'COMMON_ARTICLES';
 
 export const NAV_LINKS: { [key: string]: NavLinkInfo } = {
   [PAGE_REPORT]: {
@@ -34,12 +35,14 @@ export const NAV_LINKS: { [key: string]: NavLinkInfo } = {
   [PAGE_BAG_REPORT]: {
     name: 'Отчет по портфелю', location: '/bag-report'
   },
-
+  [PAGE_COMMON_ARTICLES]: {
+    name: 'Общие статьи', location: '/common-articles'
+  },
 };
 
 export const NAV_SECTIONS: { [key: string]: Array<string> } = {
   [ROLE_DEVELOPER]: [PAGE_REPORT],
   [ROLE_MANAGER]: [PAGE_REPORT, PAGE_MANAGER_REPORTS],
-  [ROLE_ADMIN]: [PAGE_REPORT, PAGE_HIERARCHY, PAGE_USERS, PAGE_BAGS, PAGE_BAG_REPORT],
+  [ROLE_ADMIN]: [PAGE_REPORT, PAGE_HIERARCHY, PAGE_USERS, PAGE_BAGS, PAGE_COMMON_ARTICLES, PAGE_BAG_REPORT],
   [ROLE_UNAUTHORIZED]: []
 };
