@@ -4,7 +4,9 @@ import {
   ViewEncapsulation,
   ViewChildren,
   QueryList,
-  ElementRef
+  ElementRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
@@ -18,16 +20,33 @@ import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calend
 
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-report-page',
   templateUrl: './report-page.component.html',
   styleUrls: ['./report-page.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ReportPageComponent implements OnInit {
+  customPatterns = {
+    '0': { pattern: new RegExp('\[0-9\]') },
+    '9': { pattern: new RegExp('\[05\]') }
+  };
   form: FormGroup = this.fb.group({
     commonArticles: this.fb.array([]),
     clients: this.fb.array([])
   });
+  percent: number = 0;
+  hoursRequired: number = 8;
+  date = Date.now();
+
+  constructor(public dialog: MatDialog,
+              private fb: FormBuilder,
+              private rs: ReportFormService,
+              private cdRef : ChangeDetectorRef) {}
+
+  changeDate() {
+
+  }
 
   get commonArticles(): FormArray { return this.form.get('commonArticles') as FormArray; }
   get clients(): FormArray { return this.form.get('clients') as FormArray; }
@@ -42,18 +61,6 @@ export class ReportPageComponent implements OnInit {
       .controls[clientIndex].get('projects')).controls[projIndex].get('articles')).controls;
   }
 
-  constructor(public dialog: MatDialog,
-    private fb: FormBuilder,
-    private rs: ReportFormService) {
-    console.log('foormss', this.form);
-  }
-
-  customPatterns = {
-    '0': { pattern: new RegExp('\[0-9\]') },
-    '9': { pattern: new RegExp('\[05\]') }
-  };
-  percent: number = 0;
-  time: number = 8;
   @ViewChildren('expenseTime') expenseTime: QueryList<ElementRef>;
   input() {
     this.percent = this
@@ -63,7 +70,7 @@ export class ReportPageComponent implements OnInit {
         return x + parseFloat(y.nativeElement.value);
       }, 0);
 
-    this.percent = this.percent * 100 / this.time;
+    this.percent = this.percent * 100 / this.hoursRequired;
     console.log(this.percent);
     console.log('form after input', this.form);
   }
@@ -129,6 +136,7 @@ export class ReportPageComponent implements OnInit {
       this.getClients(data.clients).forEach(client => {
         this.clients.push(client);
       });
+      console.log('-----KEK-----', this.form);
     });
   }
 
@@ -206,7 +214,27 @@ export class ReportPageComponent implements OnInit {
       console.log('dddd', d);
     });
   }
-}
 
+  showProjects(index: number) {
+    console.log(this.form.value.clients[index]);
+    this.form.value.clients[index]
+      .projects.forEach((project: { isChecked: boolean; }) => {
+        project.isChecked = true;
+    });
+    console.log(this.form.value.clients[index]);
+  }
+
+  showArticles(cIndex: number, pIndex: number) {
+    console.log(this.form.value.clients[cIndex].projects[pIndex]);
+    this.form.value.clients[cIndex]
+      .projects[pIndex].articles.forEach((article: { isChecked: boolean; }) => {
+        // console.log(article)
+        article.isChecked = true;
+        // console.log(article)
+    });
+    console.log(this.form.value.clients[cIndex].projects[pIndex]);
+  }
+
+}
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};

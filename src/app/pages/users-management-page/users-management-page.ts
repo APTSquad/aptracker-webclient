@@ -75,7 +75,7 @@ export class UsersManagementPageComponent implements OnInit {
 
     this.sub = this.form.valueChanges.pipe(debounceTime(500)).pipe(distinctUntilChanged())
       .subscribe(val => {
-        console.log(val)
+        console.log(val);
         if (this.form.status == 'VALID') {
           const name = val.name;
           const rate = Number(val.rate) / 100;

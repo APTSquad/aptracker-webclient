@@ -18,6 +18,13 @@ export class ReportFormService {
     });
   }
 
+  getDayInfo() {
+    return this.http.post('https://localhost:5001/api/Report/getDayInfo', {
+      'userId': 6,
+      'date': '2020-01-10T20:24:33.740Z'
+    });
+  }
+
   getReport() {
     return this.http.post('https://localhost:5001/api/Report/getReport', {
       'userId': 6,
@@ -26,7 +33,7 @@ export class ReportFormService {
   }
 
   saveReport(report: any) {
-    console.log('saveReportBody', report)
+    console.log('saveReportBody', report);
 
     return this.http.post('https://localhost:5001/api/Report/saveReport', report);
   }

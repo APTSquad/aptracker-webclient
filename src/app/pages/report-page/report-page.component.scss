@@ -29,7 +29,7 @@ app-report-page .mat-list-item {
     line-height: 32px;
 }
 
-app-report-page .mat-list-base .mat-list-item, 
+app-report-page .mat-list-base .mat-list-item,
 app-report-page .mat-list-base .mat-list-option {
     height: min-content;
 }
@@ -55,7 +55,7 @@ app-report-page .container .mat-form-field-wrapper {
 app-report-page .add-section {
     display:flex;
     justify-content: center;
-    
+
     button {
         margin-left: 10px;
         bottom: 4px;
@@ -68,13 +68,13 @@ app-report-page .add-section {
     left: 0;
     right: 0;
     height: 90px;
-  
+
     background-color: white;
-  
+
     z-index: 2;
     padding-left: 20px;
     padding-right: 20px;
-  
+
     .aptracker-primary-header-label {
         h1 {
             font-weight: 300;
@@ -83,7 +83,7 @@ app-report-page .add-section {
             padding: 28px 8px;
             font-size: 20px;
         }
-    }    
+    }
 }
 
 app-report-page mat-progress-bar {
@@ -103,3 +103,21 @@ app-report-page mat-progress-bar {
 .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
     color: rgba(0, 0, 0, 0.12) !important;
 }
+
+app-report-page .mat-list-item-content {
+  padding: 0 0 0 16px !important;
+}
+
+app-report-page .textButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
