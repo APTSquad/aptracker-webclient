@@ -20,7 +20,7 @@ import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calend
 
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-report-page',
   templateUrl: './report-page.component.html',
   styleUrls: ['./report-page.component.scss'],
@@ -42,7 +42,7 @@ export class ReportPageComponent implements OnInit {
   constructor(public dialog: MatDialog,
               private fb: FormBuilder,
               private rs: ReportFormService,
-              private cdRef : ChangeDetectorRef) {}
+              private cdRef: ChangeDetectorRef) {}
 
   changeDate() {
 
@@ -216,23 +216,20 @@ export class ReportPageComponent implements OnInit {
   }
 
   showProjects(index: number) {
-    console.log(this.form.value.clients[index]);
-    this.form.value.clients[index]
-      .projects.forEach((project: { isChecked: boolean; }) => {
-        project.isChecked = true;
+    // @ts-ignore
+    this.form.controls.clients.controls[index]
+      .controls.projects.controls.forEach((project: any) => {
+        project.controls.isChecked.setValue(true);
     });
-    console.log(this.form.value.clients[index]);
   }
 
   showArticles(cIndex: number, pIndex: number) {
-    console.log(this.form.value.clients[cIndex].projects[pIndex]);
-    this.form.value.clients[cIndex]
-      .projects[pIndex].articles.forEach((article: { isChecked: boolean; }) => {
-        // console.log(article)
-        article.isChecked = true;
-        // console.log(article)
+    // @ts-ignore
+    this.form.controls.clients.controls[cIndex]
+      .controls.projects.controls[pIndex]
+      .controls.articles.controls.forEach((article: any) => {
+        article.controls.isChecked.setValue(true);
     });
-    console.log(this.form.value.clients[cIndex].projects[pIndex]);
   }
 
 }

@@ -68,12 +68,11 @@
                       <ng-container
                       *ngFor="let article of getArticlesFor(cIndex, pIndex);
                       let aIndex=index">
-<!--                        <ng-container [class.hidden]="article.value.isChecked">-->
-                        <ng-container *ngIf="!article.value.isChecked">
+                        <ng-container *ngIf="article.value.isChecked">
                           <ng-container [formGroupName]="aIndex">
                             <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
                               <span fxFlex="80%" style="word-wrap:break-word;">
-                                {{article.value.name}} {{article.value.isChecked}}
+                                {{article.value.name}}
                               </span>
 
                               <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
