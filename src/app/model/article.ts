@@ -6,4 +6,6 @@ export interface Article {
     name: string;
     project?: Project;
     bag?: Bag;
+    isCommon?: boolean;
+    isActive?: boolean;
 }

@@ -1,0 +1,15 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+    <h1 mat-dialog-title>Создать общую статью</h1>
+    <div mat-dialog-content>
+        <p>
+            <mat-form-field>
+                <mat-label>Название</mat-label>
+                <input matInput formControlName="name" placeholder="Название статьи">
+            </mat-form-field>
+        </p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button type="submit" cdkFocusInitial>Создать</button>
+        <button mat-button type="button" [mat-dialog-close]="null">Отмена</button>
+    </div>
+</form>
