@@ -1,6 +1,4 @@
 <h2 style="font-size: 16px;">Добавление клиента</h2>
-<ng-select [items]="data.items"
-           [(ngModel)]="selectedClient"
-           bindLabel="name">
+<ng-select [items]="data.items" appendTo="body" [(ngModel)]="selectedClient" bindLabel="name">
 </ng-select>
-<button (click)="add()">Добавить</button>
+<button mat-button (click)="add()">Добавить</button>
