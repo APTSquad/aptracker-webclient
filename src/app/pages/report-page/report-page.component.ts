@@ -13,8 +13,8 @@ import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@ang
 import { Subscription } from 'rxjs';
 import { IConfig } from 'ngx-mask';
 import { HierarchyDialogComponent } from 'src/app/shared/hierarchy-dialog/hierarchy-dialog';
+import { AddClientsDialog } from './report-dialog/add-clients-dialog';
 import { ReportFormService } from 'src/app/shared/services/report-form-service';
-import { Client, Project } from '../../model';
 
 import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calendar';
 
@@ -86,17 +86,24 @@ export class ReportPageComponent implements OnInit {
   }
 
   selectClient() {
-    const dialogRef = this.dialog.open(HierarchyDialogComponent, {
+    let clients = this.clients.value.filter(client => {
+      return client.isChecked == false;
+    })
+    const dialogRef = this.dialog.open(AddClientsDialog, {
       width: '450px',
       data: {
         header: 'Заголовок',
-        items: [{ name: 'Вариант 1' }, { name: 'Вариант 2' }]
+        items: clients
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+      // console.log('The dialog was closed');
+      // console.log(result);
+      let index = this.clients.value.indexOf(result);
+      if (index >= 0)
+        // @ts-ignore
+        this.clients.controls[index].controls.isChecked.setValue(true);
     });
   }
 
