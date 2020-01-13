@@ -1,8 +1,7 @@
-
 <mat-progress-bar *ngIf="isLoadingBags" mode="query" style="width: 100%">
 </mat-progress-bar>
 
-<div  *ngIf="!isLoadingBags" class="absolute-wrapper">
+<div *ngIf="!isLoadingBags" class="absolute-wrapper">
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly stretch" class="container" fxFill>
         <!--clients-->
         <div fxFlex="32">
@@ -62,7 +61,7 @@
 
                 <div class="search-add-section">
                     <mat-form-field class="input-size" *ngIf="isShowinput">
-                        <input matInput type="text" placeholder="Filter" [(ngModel)]="searchProject">
+                        <input matInput type="text" placeholder="Поиск" [(ngModel)]="searchProject">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
                     <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
