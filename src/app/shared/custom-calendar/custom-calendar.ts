@@ -1,16 +1,17 @@
-import { MAT_DATE_LOCALE, DateAdapter, NativeDateAdapter} from '@angular/material/core';
-import { Component, OnInit, NgModule, Input, ViewEncapsulation} from '@angular/core';
+import { MAT_DATE_LOCALE, DateAdapter, NativeDateAdapter } from '@angular/material/core';
+import { Component, OnInit, NgModule, Input, ViewEncapsulation, ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule, MatDatepicker, MatDatepickerInput } from '@angular/material/datepicker';
 import {
   MatFormFieldModule,
   MatInputModule,
   MatNativeDateModule
 } from '@angular/material';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { DateService } from './dateService';
 import { CustomDates } from 'src/app/model/CustomDates';
+import { BehaviorSubject } from 'rxjs';
 
 
 
@@ -19,14 +20,24 @@ import { CustomDates } from 'src/app/model/CustomDates';
   selector: 'app-custom-calendar',
   templateUrl: './custom-calendar.html'
 })
-export class CustomCalendarComponent implements OnInit {
+export class CustomCalendarComponent implements OnInit, AfterViewInit {
+  @Output() dateChanged: EventEmitter<any> = new EventEmitter();
+  ngAfterViewInit(): void {
+  }
+  //@ViewChild('custDates', { static: false }) custDates: CustomDatesComponent;
 
+  @Input()
+  dateFormControl: FormControl;
+
+  onDateChange(data: any) {
+    this.dateChanged.emit(data);
+  }
 
 
   constructor(private date: DateService) { }
 
   // Array of dates that (required fill and filled dates)
- // dates = this.date.dData;
+  // dates = this.date.dData;
 
   dates: CustomDates[];
 
@@ -47,15 +58,29 @@ export class CustomCalendarComponent implements OnInit {
   encapsulation: ViewEncapsulation.None,
 })
 // tslint:disable-next-line:one-line
-export class CustomDatesComponent extends NativeDateAdapter{
-   date: DateService;
+export class CustomDatesComponent extends NativeDateAdapter implements AfterViewInit {
+  ngAfterViewInit(): void {
+
+    //this.datePicker.dateChange.subscribe((x: any) => {
+    //  console.log('date change!!!', x);
+    //});
+  }
+  private date$ = new BehaviorSubject<Date | null>(null);
+  //@Output() dateChanged: EventEmitter<any> = new EventEmitter();
+  date: DateService;
+
+  @Input()
+  dateFormControl: FormControl;
+
+
   // constructor( ) { }
+
 
   private _datesArray: Array<CustomDates>;
 
 
   // days that's not require fill
-    tomorrow = new Date();
+  tomorrow = new Date();
 
 
   // get chose date
@@ -68,7 +93,7 @@ export class CustomDatesComponent extends NativeDateAdapter{
   maxDate = new Date(2020, 0, 1);
 
   @Input()
-  get datesArray(): Array<CustomDates> {return this._datesArray; }
+  get datesArray(): Array<CustomDates> { return this._datesArray; }
   set datesArray(d: Array<CustomDates>) {
     this._datesArray = d;
 
@@ -89,7 +114,7 @@ export class CustomDatesComponent extends NativeDateAdapter{
       for (let dte in this._datesArray) {
 
         if (this._datesArray[dte].state == 0 || this._datesArray[dte].state == 2) {
-            let item = new Date(this._datesArray[dte].date);
+          let item = new Date(this._datesArray[dte].date);
           requirefill = (
             item.getFullYear() === d.getFullYear()
             && item.getDate() === d.getDate()
@@ -105,9 +130,9 @@ export class CustomDatesComponent extends NativeDateAdapter{
             item.getFullYear() === d.getFullYear()
             && item.getDate() === d.getDate()
             && item.getMonth() === d.getMonth());
-            if (filled) {
-              return 'filled-custom-date-class';
-            }
+          if (filled) {
+            return 'filled-custom-date-class';
+          }
         }
 
         if (this._datesArray[dte].state == 3) {
@@ -116,9 +141,9 @@ export class CustomDatesComponent extends NativeDateAdapter{
             item.getFullYear() === d.getFullYear()
             && item.getDate() === d.getDate()
             && item.getMonth() === d.getMonth());
-            if (itWeekends) {
-              return 'itWeekends-custom-date-class';
-            }
+          if (itWeekends) {
+            return 'itWeekends-custom-date-class';
+          }
         }
 
 
@@ -128,16 +153,18 @@ export class CustomDatesComponent extends NativeDateAdapter{
     };
   }
 
+  //@ViewChild('picker', { static: false }) picker1: MatDatepicker<Date>;
+  //@ViewChild('pickerInput', { static: false }) picker2: any;
 
   getFirstDayOfWeek(): number {
     return 1;
   }
 }
 
-@NgModule ({
+@NgModule({
 
   imports: [
-    CommonModule ,
+    CommonModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
@@ -148,10 +175,10 @@ export class CustomDatesComponent extends NativeDateAdapter{
 
   exports: [CustomCalendarComponent],
   providers: [DateService,
-  // The locale would typically be provided on the root module of your application. We do it at
+    // The locale would typically be provided on the root module of your application. We do it at
     // the component level here, due to limitations of our example generation script.
-    {provide: MAT_DATE_LOCALE, useValue: 'ru'},
-    {provide: DateAdapter, useClass:  CustomDatesComponent }
+    { provide: MAT_DATE_LOCALE, useValue: 'ru' },
+    { provide: DateAdapter, useClass: CustomDatesComponent }
   ],
   declarations: [CustomCalendarComponent, CustomDatesComponent],
 })

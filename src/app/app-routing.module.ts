@@ -12,6 +12,7 @@ import { CommonArticlesPageComponent } from './pages/common-articles-page/common
 
 const routes: Routes = [
   { path: '', redirectTo: '/report', pathMatch: 'full' },
+  { path: 'auth', component: LoginPageComponent },
   { path: 'report', component: ReportPageComponent },
   { path: 'hierarchy', component: HierarchyPageComponent },
   { path: 'bags', component: BagsManagementPageComponent },

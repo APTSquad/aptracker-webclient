@@ -6,7 +6,10 @@ import {
   QueryList,
   ElementRef,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
@@ -16,7 +19,7 @@ import { HierarchyDialogComponent } from 'src/app/shared/hierarchy-dialog/hierar
 import { AddClientsDialog } from './report-dialog/add-clients-dialog';
 import { ReportFormService } from 'src/app/shared/services/report-form-service';
 
-import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calendar';
+import { CustomCalendarModule, CustomCalendarComponent } from '../../shared/custom-calendar/custom-calendar';
 
 
 @Component({
@@ -26,7 +29,18 @@ import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calend
   styleUrls: ['./report-page.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ReportPageComponent implements OnInit {
+export class ReportPageComponent implements OnInit, AfterViewInit, OnDestroy {
+  ngOnDestroy(): void {
+    if (this.dateSub) {
+      this.dateSub.unsubscribe();
+    }
+  }
+  dateSub: Subscription;
+  dateFormControl: FormControl = new FormControl(null);
+  @ViewChild('calendar', { static: false }) calendar: CustomCalendarComponent;
+  ngAfterViewInit(): void {
+    // this.calendar.setDate(new Date());
+  }
   customPatterns = {
     '0': { pattern: new RegExp('\[0-9\]') },
     '9': { pattern: new RegExp('\[05\]') }
@@ -42,7 +56,9 @@ export class ReportPageComponent implements OnInit {
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
     private rs: ReportFormService,
-    private cdRef: ChangeDetectorRef) { }
+    private cdRef: ChangeDetectorRef) {
+
+  }
 
   changeDate() {
 
@@ -88,7 +104,7 @@ export class ReportPageComponent implements OnInit {
   selectClient() {
     let clients = this.clients.value.filter((client: any) => {
       return client.isChecked == false;
-    })
+    });
     const dialogRef = this.dialog.open(AddClientsDialog, {
       width: '450px',
       data: {
@@ -101,9 +117,10 @@ export class ReportPageComponent implements OnInit {
       // console.log('The dialog was closed');
       // console.log(result);
       let index = this.clients.value.indexOf(result);
-      if (index >= 0)
+      if (index >= 0) {
         // @ts-ignore
         this.clients.controls[index].controls.isChecked.setValue(true);
+      }
     });
   }
 
@@ -145,6 +162,14 @@ export class ReportPageComponent implements OnInit {
       });
       console.log('-----KEK-----', this.form);
     });
+
+
+    this.dateSub = this.dateFormControl.valueChanges.subscribe((x: any) => {
+      console.log('date changed: ', x);
+    });
+
+    const d = new Date();
+    this.dateFormControl.setValue(d);
   }
 
   onSubmit() {
