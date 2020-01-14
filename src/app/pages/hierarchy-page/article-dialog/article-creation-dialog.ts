@@ -12,6 +12,7 @@ export class ArticleCreationDialog implements OnInit {
     form: FormGroup;
     bags: Bag[];
 
+
     controlHasErrors(controlName: string): boolean {
         return Boolean(this.form.controls[controlName].errors);
     }
@@ -24,19 +25,16 @@ export class ArticleCreationDialog implements OnInit {
                     Validators.minLength(5),
                     Validators.maxLength(20)
                 ]
+
             ),
             ProjectId: new FormControl(this.data.project.id)
             // bagId: new FormControl(null, Validators.required),
         });
-        /*this.bagService.getBags().subscribe(bags => {
-            this.bags = bags;
-        });*/
+        this.form.controls.name.setValue(this.data.articleName);
 
-        // this.form.valueChanges.subscribe(value => {
-        //     console.log('value', value);
-        //     console.log('state', this.form.status);
-        // });
     }
+
+
 
     constructor(
         public dialogRef: MatDialogRef<ArticleCreationDialog>,
@@ -51,7 +49,7 @@ export class ArticleCreationDialog implements OnInit {
     onNoClick(): void {
         this.dialogRef.close();
       }
-    
+
 
     submit(): void {
         this.dialogRef.close(this.form.value);

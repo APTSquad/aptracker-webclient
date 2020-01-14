@@ -129,10 +129,25 @@
                 </div>
 
                 <mat-action-list class="scrollbar" dense>
-                    <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li">
+                    <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li"
+                    >
+
                         <span mat-line class="header-li"> {{ article.name }} </span>
                         <span mat-line>Портфель: {{ article.bag ? article.bag.name : 'не задан' }}
                         </span>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onArticleSelected(article)" >
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="onEditArticleDialog()">
+                              <mat-icon>edit</mat-icon>
+                              <span>Edit</span>
+                            </button>
+                            <button mat-menu-item (click)="transferArticleDialog()">
+                              <mat-icon>swap_horiz</mat-icon>
+                              <span>Transfer</span>
+                            </button>
+                        </mat-menu>
                         <!-- <span mat-line>  profile: {{ client.profile }} </span> -->
                         <mat-divider></mat-divider>
                     </button>

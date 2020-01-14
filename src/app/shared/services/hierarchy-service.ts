@@ -12,6 +12,9 @@ export class HierarchyService {
   createProject(project: any) {
     return this.http.post<Project>('http://localhost:5000/api/projects', project);
   }
+  modifyArticle(article: any) {
+    return this.http.put<Project>('http://localhost:5000/api/Articles', article);
+  }
   createArticle(article: any) {
     return this.http.post<Project>('http://localhost:5000/api/Articles', article);
   }
@@ -27,6 +30,9 @@ export class HierarchyService {
 
   transferProject(data: any) {
     return this.http.post<any>('http://localhost:5000/api/projects/transfer', data);
+  }
+  transferArticle(data: any) {
+    return this.http.post<any>('http://localhost:5000/api/articles/transfer', data);
   }
 
   constructor(private http: HttpClient) { }

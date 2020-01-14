@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 import { ProjectCreationDialog } from './project-dialog/project-creation-dialog';
 import { ArticleCreationDialog } from './article-dialog/article-creation-dialog';
 
-import { Project } from 'src/app/model';
+import { Project, Article } from 'src/app/model';
 import { TransferDialog } from './transfer-dialog/transfer-dialog';
 
 @Component({
@@ -27,9 +27,11 @@ import { TransferDialog } from './transfer-dialog/transfer-dialog';
 })
 export class HierarchyPageComponent implements OnInit {
   clients: Client[];
+  projects: Project[];
   myControl = new FormControl();
   selectedClient: any = null;
   selectedProject: any = null;
+  selectedArticle: any = null;
   isShowinput = false;
   searchText: string;
   searchProject: string;
@@ -42,6 +44,7 @@ export class HierarchyPageComponent implements OnInit {
   projectForm: FormGroup;
   editingClient: any;
   editingProject: any;
+  editingArticle: any;
 
 
   constructor(private hierarchyService: HierarchyService,
@@ -82,6 +85,31 @@ export class HierarchyPageComponent implements OnInit {
             .filter((x: any) => x.id != this.selectedProject.id);
           this.selectedClient = this.clients.find(x => x.id == result.selectedId);
           this.selectedClient.projects.push(this.selectedProject);
+        });
+
+      });
+  }
+
+
+  transferArticleDialog() {
+    this.projects = this.selectedClient.projects;
+    const filteredProjects = this.projects.filter((x: any) => x != this.selectedProject);
+    const dialogRef = this.dialog.open(TransferDialog, {
+      data: {
+        title: `Перенос статью ${this.selectedArticle.name} другому проекту`,
+        items: filteredProjects
+      }
+    });
+
+    dialogRef.afterClosed()
+      .filter(result => result != null)
+      .subscribe(result => {
+        const req = { destinationId: result.selectedId, itemId: this.selectedArticle.id };
+        this.hierarchyService.transferArticle(req).subscribe(_ => {
+          this.selectedProject.articles = this.selectedProject.articles
+            .filter((x: any) => x.id != this.selectedArticle.id); 
+          this.selectedProject = this.projects.find(x => x.id == result.selectedId);
+          this.selectedProject.articles.push(this.selectedArticle);
         });
 
       });
@@ -149,11 +177,7 @@ export class HierarchyPageComponent implements OnInit {
         this.editingProject = this.selectedProject;
         this.hierarchyService.modifyProject({ id: project.id, name: data.name })
           .subscribe((res: any) => {
-            // const found = this.clients.find(x => x.id == res.id);
-            // found!.name = res.name;
-            // this.selectedProject.name = res.name;
             this.editingProject.name = res.name;
-            // this.selectedProject.name = res.name;
           });
       });
 
@@ -175,10 +199,12 @@ export class HierarchyPageComponent implements OnInit {
 
   onArticleDialog(): void {
     const project = this.selectedProject;
+    const createMode = true; // not edit mode (false)
     const dialogRef = this.dialog.open(ArticleCreationDialog, {
       width: '450px',
       data: {
-        project
+        project,
+        createMode
       }
     });
 
@@ -188,6 +214,37 @@ export class HierarchyPageComponent implements OnInit {
         this.hierarchyService.createArticle(result).subscribe(res => {
           this.selectedProject.articles.push(res);
         });
+      });
+
+  }
+
+  onArticleSelected(article: Article) {
+    this.selectedArticle = article;
+    console.log('selected article: ' + this.selectedArticle);
+  }
+  onEditArticleDialog(): void {
+    const project = this.selectedProject;
+    const editMode = true;
+    const articleName = this.selectedArticle.name;
+    const dialogRef = this.dialog.open(ArticleCreationDialog, {
+      width: '450px',
+      data: {
+        project,
+        editMode,
+        articleName
+      }
+    });
+
+    dialogRef.afterClosed()
+      .filter(result => result != null)
+      .pipe(debounceTime(500))
+      .pipe(distinctUntilChanged())
+      .subscribe((result) => {
+        this.editingArticle = this.selectedArticle;
+        this.hierarchyService.modifyArticle({ id: this.selectedArticle.id, name: result.name })
+          .subscribe((res: any) => {
+            this.editingArticle.name = res.name;
+          });
       });
   }
 }
