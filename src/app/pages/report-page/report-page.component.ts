@@ -5,21 +5,15 @@ import {
   ViewChildren,
   QueryList,
   ElementRef,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
-  AfterViewInit,
-  ViewChild,
   OnDestroy
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IConfig } from 'ngx-mask';
-import { HierarchyDialogComponent } from 'src/app/shared/hierarchy-dialog/hierarchy-dialog';
 import { AddClientsDialog } from './report-dialog/add-clients-dialog';
 import { ReportFormService } from 'src/app/shared/services/report-form-service';
-
-import { CustomCalendarModule, CustomCalendarComponent } from '../../shared/custom-calendar/custom-calendar';
 
 
 @Component({
@@ -29,7 +23,7 @@ import { CustomCalendarModule, CustomCalendarComponent } from '../../shared/cust
   styleUrls: ['./report-page.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ReportPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ReportPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.dateSub) {
       this.dateSub.unsubscribe();
@@ -37,10 +31,7 @@ export class ReportPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   dateSub: Subscription;
   dateFormControl: FormControl = new FormControl(null);
-  @ViewChild('calendar', { static: false }) calendar: CustomCalendarComponent;
-  ngAfterViewInit(): void {
-    // this.calendar.setDate(new Date());
-  }
+
   customPatterns = {
     '0': { pattern: new RegExp('\[0-9\]') },
     '9': { pattern: new RegExp('\[05\]') }
@@ -55,12 +46,7 @@ export class ReportPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
-    private rs: ReportFormService,
-    private cdRef: ChangeDetectorRef) {
-
-  }
-
-  changeDate() {
+    private rs: ReportFormService) {
 
   }
 
@@ -164,12 +150,15 @@ export class ReportPageComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
 
-    this.dateSub = this.dateFormControl.valueChanges.subscribe((x: any) => {
-      console.log('date changed: ', x);
-    });
+    this.dateSub = this.dateFormControl.valueChanges.subscribe(this.dateChangeCallback);
 
-    const d = new Date();
-    this.dateFormControl.setValue(d);
+    // set initial date so callback will be called
+    this.dateFormControl.setValue(new Date());
+  }
+
+  // callback for date change
+  dateChangeCallback(date: Date) {
+    console.log('date changed: ', date);
   }
 
   onSubmit() {

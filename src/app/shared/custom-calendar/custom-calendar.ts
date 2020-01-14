@@ -14,8 +14,6 @@ import { CustomDates } from 'src/app/model/CustomDates';
 import { BehaviorSubject } from 'rxjs';
 
 
-
-
 @Component({
   selector: 'app-custom-calendar',
   templateUrl: './custom-calendar.html'
@@ -24,7 +22,6 @@ export class CustomCalendarComponent implements OnInit, AfterViewInit {
   @Output() dateChanged: EventEmitter<any> = new EventEmitter();
   ngAfterViewInit(): void {
   }
-  //@ViewChild('custDates', { static: false }) custDates: CustomDatesComponent;
 
   @Input()
   dateFormControl: FormControl;
@@ -57,23 +54,12 @@ export class CustomCalendarComponent implements OnInit, AfterViewInit {
   styleUrls: ['./custom-calendar.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-// tslint:disable-next-line:one-line
-export class CustomDatesComponent extends NativeDateAdapter implements AfterViewInit {
-  ngAfterViewInit(): void {
+export class CustomDatesComponent extends NativeDateAdapter {
 
-    //this.datePicker.dateChange.subscribe((x: any) => {
-    //  console.log('date change!!!', x);
-    //});
-  }
-  private date$ = new BehaviorSubject<Date | null>(null);
-  //@Output() dateChanged: EventEmitter<any> = new EventEmitter();
   date: DateService;
 
   @Input()
   dateFormControl: FormControl;
-
-
-  // constructor( ) { }
 
 
   private _datesArray: Array<CustomDates>;
@@ -152,9 +138,6 @@ export class CustomDatesComponent extends NativeDateAdapter implements AfterView
       return;
     };
   }
-
-  //@ViewChild('picker', { static: false }) picker1: MatDatepicker<Date>;
-  //@ViewChild('pickerInput', { static: false }) picker2: any;
 
   getFirstDayOfWeek(): number {
     return 1;
