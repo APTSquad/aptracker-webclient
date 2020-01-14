@@ -25,6 +25,10 @@ export class HierarchyService {
     return this.http.post<Client>('http://localhost:5000/api/clients', client);
   }
 
+  transferProject(data: any) {
+    return this.http.post<any>('http://localhost:5000/api/projects/transfer', data);
+  }
+
   constructor(private http: HttpClient) { }
 
   getHierarchy() {

@@ -12,6 +12,7 @@ import { ClientCreationDialog } from './client-dialog/client-creation-dialog';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProjectCreationDialog } from './project-dialog/project-creation-dialog';
 import { ArticleCreationDialog } from './article-dialog/article-creation-dialog';
+import { TransferDialog } from './transfer-dialog/transfer-dialog';
 
 @NgModule({
     imports: [
@@ -35,13 +36,14 @@ import { ArticleCreationDialog } from './article-dialog/article-creation-dialog'
         ReactiveFormsModule,
         MatDialogModule,
         NgSelectModule,
-        FilterPipeModule
+        FilterPipeModule,
+
 
     ],
     exports: [HierarchyPageComponent],
     providers: [HierarchyService],
     // tslint:disable-next-line:max-line-length
-    declarations: [HierarchyPageComponent, HierarchyDialog, ClientCreationDialog, ProjectCreationDialog, ArticleCreationDialog],
-    entryComponents: [HierarchyDialog, ClientCreationDialog, ProjectCreationDialog, ArticleCreationDialog]
+    declarations: [HierarchyPageComponent, HierarchyDialog, ClientCreationDialog, ProjectCreationDialog, ArticleCreationDialog, TransferDialog],
+    entryComponents: [HierarchyDialog, ClientCreationDialog, ProjectCreationDialog, ArticleCreationDialog, TransferDialog]
 })
 export class HierarchyPageModule { }

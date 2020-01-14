@@ -54,7 +54,7 @@
                     </mat-form-field> -->
                 </form>
                 <span>
-                    <p>Some client info</p>
+                    <p>Проектов: {{selectedClient.projects.length}}</p>
                     <h5 align="center">Проекты</h5>
                     <mat-divider></mat-divider>
                 </span>
@@ -110,8 +110,9 @@
                         </mat-autocomplete>
                     </mat-form-field> -->
                 </form>
+                <p>Статей: {{selectedProject.articles.length}}</p>
+                <button mat-button (click)="transferProjectDialog()">Перенести</button>
                 <span>
-                    <p>Some project info</p>
                     <h5 align="center">Статьи</h5>
                     <mat-divider></mat-divider>
                 </span>

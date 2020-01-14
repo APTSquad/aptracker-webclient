@@ -17,6 +17,7 @@ import { ProjectCreationDialog } from './project-dialog/project-creation-dialog'
 import { ArticleCreationDialog } from './article-dialog/article-creation-dialog';
 
 import { Project } from 'src/app/model';
+import { TransferDialog } from './transfer-dialog/transfer-dialog';
 
 @Component({
   selector: 'app-hierarchy-page',
@@ -64,6 +65,29 @@ export class HierarchyPageComponent implements OnInit {
       this.isLoadingBags = false;
     });
 
+  }
+
+  transferProjectDialog() {
+    const dialogRef = this.dialog.open(TransferDialog, {
+      data: {
+        title: `Перенос проекта ${this.selectedProject.name} другому клиенту`,
+        items: this.clients
+      }
+    });
+
+    dialogRef.afterClosed()
+      .filter(result => result != null)
+      .subscribe(result => {
+        console.log(result);
+        const req = { destinationId: result.selectedId, itemId: this.selectedProject.id };
+        this.hierarchyService.transferProject(req).subscribe(_ => {
+          this.selectedClient.projects = this.selectedClient.projects
+            .filter((x: any) => x.id != this.selectedProject.id);
+          this.selectedClient = this.clients.find(x => x.id == result.selectedId);
+          this.selectedClient.projects.push(this.selectedProject);
+        });
+
+      });
   }
 
   onClientSelected(client: Client) {

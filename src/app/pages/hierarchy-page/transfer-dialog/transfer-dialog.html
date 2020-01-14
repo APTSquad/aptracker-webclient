@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div [formGroup]="form" mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <ng-select [items]="data.items" dropdownPosition="auto" appendTo="body" bindValue="id" bindLabel="name"
+        placeholder="Поиск" [virtualScroll]="true" formControlName="selectedId">
+    </ng-select>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="null">Отмена</button>
+    <button mat-button (click)="submit()" [disabled]="form.invalid" cdkFocusInitial>Перенести</button>
+</div>
