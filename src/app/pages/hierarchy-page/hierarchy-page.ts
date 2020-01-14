@@ -27,19 +27,14 @@ import { TransferDialog } from './transfer-dialog/transfer-dialog';
 })
 export class HierarchyPageComponent implements OnInit {
   clients: Client[];
-  pepa: string;
   myControl = new FormControl();
-  options: string[] = ['123', '345', '123214'];
   selectedClient: any = null;
   selectedProject: any = null;
   isShowinput = false;
-  dialogType: HierarchyDialogType;
-  name: string;
   searchText: string;
   searchProject: string;
   searchClient: string;
   isLoadingBags: boolean = true;
-
 
   clientForm: FormGroup;
   clientSub: Subscription;
@@ -48,8 +43,10 @@ export class HierarchyPageComponent implements OnInit {
   editingClient: any;
   editingProject: any;
 
-  // tslint:disable-next-line:max-line-length
-  constructor(private hierarchyService: HierarchyService, public dialog: MatDialog, private fb: FormBuilder) {
+
+  constructor(private hierarchyService: HierarchyService,
+    public dialog: MatDialog,
+    private fb: FormBuilder) {
     this.clientForm = fb.group({
       name: new FormControl('')
     });
@@ -68,17 +65,17 @@ export class HierarchyPageComponent implements OnInit {
   }
 
   transferProjectDialog() {
+    const filteredClients = this.clients.filter(x => x != this.selectedClient);
     const dialogRef = this.dialog.open(TransferDialog, {
       data: {
         title: `Перенос проекта ${this.selectedProject.name} другому клиенту`,
-        items: this.clients
+        items: filteredClients
       }
     });
 
     dialogRef.afterClosed()
       .filter(result => result != null)
       .subscribe(result => {
-        console.log(result);
         const req = { destinationId: result.selectedId, itemId: this.selectedProject.id };
         this.hierarchyService.transferProject(req).subscribe(_ => {
           this.selectedClient.projects = this.selectedClient.projects
