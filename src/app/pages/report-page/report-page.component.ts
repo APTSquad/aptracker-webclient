@@ -182,35 +182,6 @@ export class ReportPageComponent implements OnInit, OnDestroy {
       this.getClients(dayInfo.data.clients).forEach(client => {
         this.clients.push(client);
       });
-
-
-
-      // let newArticles = this.fb.array(this.getArticles(dayInfo.data.common));
-      // console.log('hehehehhe', this.form);
-      // this.form.setControl('commonArticles', newArticles);
-      // let newClients = this.fb.array(this.getClients(dayInfo.data.clients));
-      // this.form.setControl('clients', newClients);
-
-
-
-      switch (dayInfo.reportState) {
-        //  editable
-        case 0:
-          // @ts-ignore
-          // this.form.controls.commonArticles.controls.forEach((article: any) => {
-          //   console.log(this.form);
-          //   console.log(article.controls.time.value);
-          //   article.controls.time.setValue('0');
-          // });
-          console.log('editable');
-          break;
-        case 1:
-          console.log('fixed');
-          break;
-        case 2:
-          console.log('empty');
-          break;
-      }
     });
   }
 
