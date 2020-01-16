@@ -11,18 +11,12 @@ export class ReportFormService {
     return this.http.get('https://localhost:5001/api/Report/getDays/5');
   }
 
-  getTemplate() {
-    return this.http.post<Report>('https://localhost:5001/api/Report/getTemplate', {
-      'userId': 6,
-      'date': '2020-01-10T15:20:46.412Z'
-    });
+  getTemplate(body: GetBody) {
+    return this.http.post<Report>('https://localhost:5001/api/Report/getTemplate', body);
   }
 
-  getDayInfo() {
-    return this.http.post('https://localhost:5001/api/Report/getDayInfo', {
-      'userId': 6,
-      'date': '2020-01-10T20:24:33.740Z'
-    });
+  getDayInfo(body: GetBody) {
+    return this.http.post<DayInfo>('https://localhost:5001/api/Report/getDayInfo', body);
   }
 
   getReport() {
@@ -34,7 +28,6 @@ export class ReportFormService {
 
   saveReport(report: any) {
     console.log('saveReportBody', report);
-
     return this.http.post('https://localhost:5001/api/Report/saveReport', report);
   }
 }
@@ -42,4 +35,15 @@ export class ReportFormService {
 export interface Report {
   common: [];
   clients: [];
+}
+
+export interface DayInfo {
+  'reportState': number;
+  'hoursRequired': number;
+  'data': Report;
+}
+
+export interface GetBody {
+  'userId': number;
+  'date': string;
 }
