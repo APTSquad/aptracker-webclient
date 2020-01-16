@@ -17,9 +17,16 @@
     text-align: center;">
     {{percent}}%
   </span>
-  <button (click)="selectClient()" mat-fab style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
-    <mat-icon>add</mat-icon>
-  </button>
+
+  <ng-container *ngIf="reportState != 1">
+    <button (click)="parseArticlesForm()" mat-fab>
+      <mat-icon>add</mat-icon>
+    </button>
+    <button (click)="selectClient()" mat-fab style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-container>
+
 
   <form [formGroup]="form" (submit)="onSubmit()">
     <button type="submit"></button>

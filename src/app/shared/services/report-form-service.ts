@@ -43,7 +43,40 @@ export interface DayInfo {
   'data': Report;
 }
 
+export interface ArticleToSave {
+  'articleId': number,
+  'hoursConsumption': number;
+}
+
+export interface ReportToSave {
+  'date': string;
+  'userId': number;
+  'reportState': number;
+  'articles': ArticleToSave[];
+}
+
 export interface GetBody {
   'userId': number;
   'date': string;
+}
+
+export interface Article {
+  name: string;
+  isChecked: boolean;
+  id: number;
+  time: string;
+}
+
+export interface Project {
+  name: string;
+  isChecked: boolean;
+  id: number;
+  articles: Project[];
+}
+
+export interface Client {
+  name: string;
+  isChecked: boolean;
+  id: number;
+  projects: Project[];
 }

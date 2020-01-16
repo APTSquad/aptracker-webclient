@@ -13,7 +13,12 @@ import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@ang
 import { Subscription } from 'rxjs';
 import { IConfig } from 'ngx-mask';
 import { AddClientsDialog } from './report-dialog/add-clients-dialog';
-import { ReportFormService } from 'src/app/shared/services/report-form-service';
+import {
+  Article,
+  ArticleToSave, Client, Project,
+  ReportFormService,
+} from 'src/app/shared/services/report-form-service';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 
 @Component({
@@ -33,9 +38,6 @@ export class ReportPageComponent implements OnInit, OnDestroy {
   dateSub: Subscription;
   dateFormControl: FormControl = new FormControl(null);
 
-  // HARDCODE HERE
-  userId: number = 6;
-
   customPatterns = {
     '0': { pattern: new RegExp('\[0-9\]') },
     '9': { pattern: new RegExp('\[05\]') }
@@ -45,13 +47,14 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     clients: this.fb.array([])
   });
   percent: number = 0;
+  // HARDCODE HERE
+  userId: number = 6;
   hoursRequired: number = 8;
+  reportState: number;
 
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
-    private rs: ReportFormService) {
-
-  }
+    private rs: ReportFormService) {  }
 
   get commonArticles(): FormArray { return this.form.get('commonArticles') as FormArray; }
   get clients(): FormArray { return this.form.get('clients') as FormArray; }
@@ -136,21 +139,14 @@ export class ReportPageComponent implements OnInit, OnDestroy {
   }
 
   getArticles(articles: any[]) {
-    return articles.map(article => {
-      let time: string;
-      if (article.hoursConsumption == undefined
-        || article.hoursConsumption == null || article.hoursConsumption == 0) {
-        time = '';
-      } else {
-        time = article.hoursConsumption;
-      }
-      return this.fb.group({
-        name: article.name,
-        isChecked: article.isChecked,
-        id: article.id,
-        time: [time, [Validators.required, Validators.minLength(3)]]
-      });
-    });
+    return articles.map(article => this.fb.group({
+      name: article.name,
+      isChecked: article.isChecked,
+      id: article.id,
+      time: [
+        article.hoursConsumption ? article.hoursConsumption : '',
+        [Validators.required, Validators.minLength(3)]]
+    }));
   }
 
   ngOnInit() {
@@ -172,6 +168,7 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
     this.rs.getDayInfo(body).subscribe(dayInfo => {
       console.log('dayInfo', dayInfo);
+      this.reportState = dayInfo.reportState;
       this.hoursRequired = dayInfo.hoursRequired;
 
       this.commonArticles.clear();
@@ -185,6 +182,37 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  parseArticle(article: Article): ArticleToSave {
+    let time = Number(article.time);
+    if (article.time.length < 2) {
+      time /= 10;
+    }
+    return { 'articleId': article.id, hoursConsumption: time };
+  }
+
+  parseArticlesForm() {
+    let articles: ArticleToSave[] = [];
+    this.form.value.commonArticles.forEach((article: any) => {
+      articles.push(this.parseArticle(article));
+    });
+    this.form.value.clients.forEach((client: any) => {
+      if (client.isChecked) {
+        client.projects.forEach((project: any) => {
+          if (project.isChecked) {
+            project.articles.forEach((article: any) => {
+              if (article.isChecked) {
+                articles.push(this.parseArticle(article));
+              }
+            });
+          }
+        });
+      }
+    });
+    console.log('value', this.form.value);
+    console.log('parseArticlesForm', articles);
+    return articles;
+  }
+
   onSubmit() {
     /**
      * TODO:
@@ -193,13 +221,6 @@ export class ReportPageComponent implements OnInit, OnDestroy {
      * типы
      * 0.1 при автокомплите
      */
-    let currentDate = new Date();
-    let result = {
-      'date': currentDate.toISOString(),
-      'userId': 6,
-      'articles': []
-    };
-    let articles: any;
     // const controls = this.form.controls;
     // /** Проверяем форму на валидность */
     // if (this.form.invalid) {
@@ -209,50 +230,14 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     //   /** Прерываем выполнение метода*/
     //   return;
     // }
-    /** Обработка данных формы */
+    let result = {
+      date: this.dateISO,
+      userId: this.userId,
+      reportState: this.reportState,
+      articles: this.parseArticlesForm()
+    };
     console.log(this.form.value);
-    this.form.value.commonArticles.forEach((article: any) => {
-      if (article.isChecked) {
-        let time;
-        console.log('time', article.time);
-        if (article.time.length < 2) {
-          time = Number(article.time);
-        } else {
-          time = Number(article.time) / 10;
-        }
-        articles.push({
-          'articleId': article.id,
-          'hoursConsumption': time
-        });
-      }
-    });
-    this.form.value.clients.forEach((client: any) => {
-      if (client.isChecked) {
-        client.projects.forEach((project: any) => {
-          if (project.isChecked) {
-            project.articles.forEach((article: any) => {
-              if (article.isChecked) {
-                let time;
-                console.log('time', article.time);
-                if (article.time.length < 2) {
-                  time = Number(article.time);
-                } else {
-                  time = Number(article.time) / 10;
-                }
 
-                articles.push({
-                  'articleId': article.id,
-                  'hoursConsumption': time
-                });
-              }
-            });
-          }
-        });
-      }
-    });
-    console.log('articles', articles);
-    // temporary((((
-    result.articles = articles;
     console.log('result', result);
     this.rs.saveReport(result).subscribe(d => {
       console.log('dddd', d);
@@ -276,6 +261,7 @@ export class ReportPageComponent implements OnInit, OnDestroy {
         article.controls.isChecked.setValue(true);
       });
   }
+
 
 }
 
