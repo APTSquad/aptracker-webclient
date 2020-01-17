@@ -262,8 +262,7 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     if (this.IsValid()) {
       console.log('valid');
       // this.submit(1);
-    }
-    else {
+    } else {
       alert('form invalid');
     }
   }
@@ -290,7 +289,7 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     let commonIsValid = this.form.controls.commonArticles.controls.every((article: any) => {
       return article.valid || article.value.time == '';
     });
-    if(!commonIsValid) return false;
+    if (!commonIsValid) { return false; }
     console.log('commonIsValid', commonIsValid);
 
     let result = this.form.controls.clients.controls.every((client: any) => {
