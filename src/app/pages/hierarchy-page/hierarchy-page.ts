@@ -65,6 +65,11 @@ export class HierarchyPageComponent implements OnInit {
       this.isLoadingBags = false;
     });
 
+    this.hierarchyService.getProjects().subscribe(data => {
+      this.projects = data;
+      // this.isLoadingBags = false;
+    });
+
   }
 
   transferProjectDialog() {
@@ -92,8 +97,7 @@ export class HierarchyPageComponent implements OnInit {
 
 
   transferArticleDialog() {
-    this.projects = this.selectedClient.projects;
-    const filteredProjects = this.projects.filter((x: any) => x != this.selectedProject);
+    const filteredProjects = this.projects.filter(x => x.id != this.selectedProject.id);
     const dialogRef = this.dialog.open(TransferDialog, {
       data: {
         title: `Перенос статью ${this.selectedArticle.name} другому проекту`,
@@ -106,9 +110,16 @@ export class HierarchyPageComponent implements OnInit {
       .subscribe(result => {
         const req = { destinationId: result.selectedId, itemId: this.selectedArticle.id };
         this.hierarchyService.transferArticle(req).subscribe(_ => {
+
           this.selectedProject.articles = this.selectedProject.articles
-            .filter((x: any) => x.id != this.selectedArticle.id); 
-          this.selectedProject = this.projects.find(x => x.id == result.selectedId);
+            .filter((x: any) => x.id != this.selectedArticle.id);
+
+          this.selectedClient = this.clients.find(el =>
+            el.projects.find(x => x.id == result.selectedId)
+          );
+          this.selectedProject = this.selectedClient.projects
+            .find((x: any) => x.id == result.selectedId);
+
           this.selectedProject.articles.push(this.selectedArticle);
         });
 
@@ -215,7 +226,6 @@ export class HierarchyPageComponent implements OnInit {
           this.selectedProject.articles.push(res);
         });
       });
-
   }
 
   onArticleSelected(article: Article) {

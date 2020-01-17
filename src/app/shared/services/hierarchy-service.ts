@@ -40,4 +40,8 @@ export class HierarchyService {
   getHierarchy() {
     return this.http.get<Client[]>('http://localhost:5000/api/hierarchy');
   }
+
+  getProjects() {
+    return this.http.get<Project[]>('http://localhost:5000/api/projects');
+  }
 }
