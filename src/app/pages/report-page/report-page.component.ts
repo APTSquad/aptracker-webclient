@@ -36,8 +36,6 @@ export class ReportPageComponent implements OnInit, OnDestroy {
   dateSub: Subscription;
   dateFormControl: FormControl = new FormControl(null);
 
-  heck: FormGroup;
-
   customPatterns = {
     '0': { pattern: new RegExp('\[0-9\]') },
     '9': { pattern: new RegExp('\[05\]') },
@@ -87,8 +85,8 @@ export class ReportPageComponent implements OnInit, OnDestroy {
   }
 
   finish(event: any) {
-    console.log(this.form.value);
-    console.log(event.target.controls);
+    // console.log(this.form.value);
+    // console.log(event.target.controls);
     let len = event.target.value.length;
     if (len == 0) { return; }
 
@@ -159,18 +157,12 @@ export class ReportPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.heck = new FormGroup({
-      'heh': new FormControl()
-    });
-
     this.dateSub = this.dateFormControl.valueChanges.subscribe((date) => {
       this.dateChangeCallback(date);
     });
 
     // set initial date so callback will be called
     this.dateFormControl.setValue(new Date());
-
-    console.log(this.form);
   }
 
   // callback for date change
@@ -194,6 +186,13 @@ export class ReportPageComponent implements OnInit, OnDestroy {
       this.getClients(dayInfo.data.clients).forEach(client => {
         this.clients.push(client);
       });
+
+      //блокируем ввод если отчет зафиксирован
+      console.log(dayInfo)
+      console.log('STATE', this.reportState);
+      if(this.reportState == 1) {
+        this.form.disable();
+      }
 
       // пересчитываем проценты
       this.percent = 0;
@@ -250,16 +249,17 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     let result = {
       date: this.dateISO,
       userId: this.userId,
-      reportState: this.reportState,
+      reportState: reportState,
       articles: this.parseArticlesForm()
     };
+    console.log('result', result);
     this.rs.saveReport(result).subscribe();
   }
 
   onSubmit() {
     if (this.IsValid()) {
       console.log('valid');
-      // this.submit(1);
+      this.submit(1);
     } else {
       alert('form invalid');
     }
