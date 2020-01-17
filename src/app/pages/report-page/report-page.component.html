@@ -1,6 +1,6 @@
 <div class="aptracker-primary-header-report mat-elevation-z3">
   <div class="aptracker-primary-header-label"
-      style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
+    style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
     <h1>Ежедневный отчет</h1>
     <button mat-raised-button color="accent">Завершить заполнение</button>
   </div>
@@ -8,17 +8,25 @@
 <mat-progress-bar mode="determinate" value="{{percent}}"></mat-progress-bar>
 
 <main>
-    <div class="custom-calendar">
-        <app-custom-calendar></app-custom-calendar>
-    </div>
+  <div class="custom-calendar">
+    <app-custom-calendar #calendar [dateFormControl]="dateFormControl">
+    </app-custom-calendar>
+  </div>
   <span style="display: block;
     margin-left: auto; margin-right: auto;
     text-align: center;">
     {{percent}}%
   </span>
-  <button (click)="selectClient()" mat-fab style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
+
+  <ng-container *ngIf="reportState != 1">
+    <button (click)="parseArticlesForm()" mat-fab>
       <mat-icon>add</mat-icon>
-  </button>
+    </button>
+    <button (click)="selectClient()" mat-fab style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-container>
+
 
   <form [formGroup]="form" (submit)="onSubmit()">
     <button type="submit"></button>
@@ -29,12 +37,10 @@
             <span fxFlex="80%" style="word-wrap:break-word;">
               {{article.value.name}}
             </span>
-            <mat-form-field fxFlex="20%" style="width: 100px;"
-              class="expense-form" appearance="outline" floatLabel="never">
-              <input formControlName="time" type="text" matInput #expenseTime maxlength="3"
-                (focusout)="finish($event)" (input)="input()"
-                [patterns]="customPatterns" mask="00.9"
-                placeholder="0.0"/>
+            <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
+              floatLabel="never">
+              <input formControlName="time" type="text" matInput #expenseTime maxlength="3" (focusout)="finish($event)"
+                (input)="input()" [patterns]="customPatterns" mask="00.9" placeholder="0.0" />
             </mat-form-field>
           </div>
           <!--
@@ -49,35 +55,36 @@
         <ng-container *ngIf="client.value.isChecked">
           <mat-list-item>
             {{client.value.name}}
-            <span (click)="showProjects(cIndex)" style="margin-left: auto;" class="textButton">показать другие проекты</span>
+            <span (click)="showProjects(cIndex)" style="margin-left: auto;" class="textButton">показать другие
+              проекты</span>
           </mat-list-item>
           <ng-container [formGroupName]="cIndex">
             <mat-list formArrayName="projects" class="nested-list">
-              <ng-container
-              *ngFor="let project of getProjectsFor(cIndex);
+              <ng-container *ngFor="let project of getProjectsFor(cIndex);
               let pIndex=index">
                 <ng-container *ngIf="project.value.isChecked">
                   <mat-list-item>
                     {{project.value.name}}
-                    <span (click)="showArticles(cIndex, pIndex)" style="margin-left: auto;" class="textButton">показать все статьи</span>
+                    <span (click)="showArticles(cIndex, pIndex)" style="margin-left: auto;" class="textButton">показать
+                      все статьи</span>
                   </mat-list-item>
                   <ng-container [formGroupName]="pIndex">
                     <mat-list formArrayName="articles" class="nested-list">
-                      <ng-container
-                      *ngFor="let article of getArticlesFor(cIndex, pIndex);
+                      <ng-container *ngFor="let article of getArticlesFor(cIndex, pIndex);
                       let aIndex=index">
                         <ng-container *ngIf="article.value.isChecked">
                           <ng-container [formGroupName]="aIndex">
-                            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="left">
+                            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+                              fxLayoutAlign="left">
                               <span fxFlex="80%" style="word-wrap:break-word;">
                                 {{article.value.name}}
                               </span>
 
-                              <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
-                                        floatLabel="never">
-                                <input name="article" formControlName="time" type="text" matInput #expenseTime maxlength="3"
-                                   (focusout)="finish($event)" (input)="input()" [patterns]="customPatterns"  mask="0.9"
-                                   placeholder="0.0"/>
+                              <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form"
+                                appearance="outline" floatLabel="never">
+                                <input name="article" formControlName="time" type="text" matInput #expenseTime
+                                  maxlength="3" (focusout)="finish($event)" (input)="input()"
+                                  [patterns]="customPatterns" mask="0.9" placeholder="0.0" />
                               </mat-form-field>
                             </div>
                           </ng-container>

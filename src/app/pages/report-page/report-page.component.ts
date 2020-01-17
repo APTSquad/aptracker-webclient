@@ -5,18 +5,20 @@ import {
   ViewChildren,
   QueryList,
   ElementRef,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IConfig } from 'ngx-mask';
-import { HierarchyDialogComponent } from 'src/app/shared/hierarchy-dialog/hierarchy-dialog';
 import { AddClientsDialog } from './report-dialog/add-clients-dialog';
-import { ReportFormService } from 'src/app/shared/services/report-form-service';
-
-import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calendar';
+import {
+  Article,
+  ArticleToSave, Client, Project,
+  ReportFormService,
+} from 'src/app/shared/services/report-form-service';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 
 @Component({
@@ -26,7 +28,16 @@ import { CustomCalendarModule } from '../../shared/custom-calendar/custom-calend
   styleUrls: ['./report-page.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ReportPageComponent implements OnInit {
+
+export class ReportPageComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    if (this.dateSub) {
+      this.dateSub.unsubscribe();
+    }
+  }
+  dateSub: Subscription;
+  dateFormControl: FormControl = new FormControl(null);
+
   customPatterns = {
     '0': { pattern: new RegExp('\[0-9\]') },
     '9': { pattern: new RegExp('\[05\]') }
@@ -36,20 +47,21 @@ export class ReportPageComponent implements OnInit {
     clients: this.fb.array([])
   });
   percent: number = 0;
+  // HARDCODE HERE
+  userId: number = 6;
   hoursRequired: number = 8;
-  date = Date.now();
+  reportState: number;
 
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
-    private rs: ReportFormService,
-    private cdRef: ChangeDetectorRef) { }
-
-  changeDate() {
-
-  }
+    private rs: ReportFormService) {  }
 
   get commonArticles(): FormArray { return this.form.get('commonArticles') as FormArray; }
   get clients(): FormArray { return this.form.get('clients') as FormArray; }
+  get dateISO(): string {
+    let tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
+    return (new Date(this.dateFormControl.value - tzoffset)).toISOString().slice(0, -1);
+  }
 
   getProjectsFor(index: number) {
     return (<FormArray>(<FormArray>this.form.get('clients')).controls[index]
@@ -88,7 +100,7 @@ export class ReportPageComponent implements OnInit {
   selectClient() {
     let clients = this.clients.value.filter((client: any) => {
       return client.isChecked == false;
-    })
+    });
     const dialogRef = this.dialog.open(AddClientsDialog, {
       width: '450px',
       data: {
@@ -101,9 +113,10 @@ export class ReportPageComponent implements OnInit {
       // console.log('The dialog was closed');
       // console.log(result);
       let index = this.clients.value.indexOf(result);
-      if (index >= 0)
+      if (index >= 0) {
         // @ts-ignore
         this.clients.controls[index].controls.isChecked.setValue(true);
+      }
     });
   }
 
@@ -130,21 +143,74 @@ export class ReportPageComponent implements OnInit {
       name: article.name,
       isChecked: article.isChecked,
       id: article.id,
-      time: ['', [Validators.required, Validators.minLength(3)]]
+      time: [
+        article.hoursConsumption ? article.hoursConsumption : '',
+        [Validators.required, Validators.minLength(3)]]
     }));
   }
 
   ngOnInit() {
-    this.rs.getTemplate().subscribe(data => {
-      console.log('-------------------', data);
-      this.getArticles(data.common).forEach(article => {
+    this.dateSub = this.dateFormControl.valueChanges.subscribe((date) => {
+      this.dateChangeCallback(date);
+    });
+
+    // set initial date so callback will be called
+    this.dateFormControl.setValue(new Date());
+  }
+
+  // callback for date change
+  dateChangeCallback(date: Date) {
+    console.log('date changed: ', date);
+    let body = {
+      'userId': this.userId,
+      'date': this.dateISO
+    };
+
+    this.rs.getDayInfo(body).subscribe(dayInfo => {
+      console.log('dayInfo', dayInfo);
+      this.reportState = dayInfo.reportState;
+      this.hoursRequired = dayInfo.hoursRequired;
+
+      this.commonArticles.clear();
+      this.getArticles(dayInfo.data.common).forEach(article => {
         this.commonArticles.push(article);
       });
-      this.getClients(data.clients).forEach(client => {
+      this.clients.clear();
+      this.getClients(dayInfo.data.clients).forEach(client => {
         this.clients.push(client);
       });
-      console.log('-----KEK-----', this.form);
     });
+  }
+
+  parseArticle(article: Article): ArticleToSave {
+    let time = Number(article.time);
+    if (article.time.length < 2) {
+      time /= 10;
+    }
+    return { 'articleId': article.id, hoursConsumption: time };
+  }
+
+  parseArticlesForm() {
+    let articles: ArticleToSave[] = [];
+    this.form.value.commonArticles.forEach((article: any) => {
+      articles.push(this.parseArticle(article));
+    });
+    this.form.value.clients.forEach((client: any) => {
+      if (client.isChecked) {
+        client.projects.forEach((project: any) => {
+          if (project.isChecked) {
+            project.articles.forEach((article: any) => {
+              if (article.isChecked) {
+                articles.push(this.parseArticle(article));
+              }
+            });
+          }
+        });
+      }
+    });
+    console.log('value', this.form.value);
+    console.log('parseArticlesForm', articles);
+    return articles;
   }
 
   onSubmit() {
@@ -155,14 +221,6 @@ export class ReportPageComponent implements OnInit {
      * типы
      * 0.1 при автокомплите
      */
-    let currentDate = new Date();
-    console.log('HEYO');
-    let result = {
-      'date': currentDate.toISOString(),
-      'userId': 6,
-      'articles': []
-    };
-    let articles: any;
     // const controls = this.form.controls;
     // /** Проверяем форму на валидность */
     // if (this.form.invalid) {
@@ -172,50 +230,14 @@ export class ReportPageComponent implements OnInit {
     //   /** Прерываем выполнение метода*/
     //   return;
     // }
-    /** Обработка данных формы */
+    let result = {
+      date: this.dateISO,
+      userId: this.userId,
+      reportState: this.reportState,
+      articles: this.parseArticlesForm()
+    };
     console.log(this.form.value);
-    this.form.value.commonArticles.forEach((article: any) => {
-      if (article.isChecked) {
-        let time;
-        console.log('time', article.time);
-        if (article.time.length < 2) {
-          time = Number(article.time);
-        } else {
-          time = Number(article.time) / 10;
-        }
-        articles.push({
-          'articleId': article.id,
-          'hoursConsumption': time
-        });
-      }
-    });
-    this.form.value.clients.forEach((client: any) => {
-      if (client.isChecked) {
-        client.projects.forEach((project: any) => {
-          if (project.isChecked) {
-            project.articles.forEach((article: any) => {
-              if (article.isChecked) {
-                let time;
-                console.log('time', article.time);
-                if (article.time.length < 2) {
-                  time = Number(article.time);
-                } else {
-                  time = Number(article.time) / 10;
-                }
 
-                articles.push({
-                  'articleId': article.id,
-                  'hoursConsumption': time
-                });
-              }
-            });
-          }
-        });
-      }
-    });
-    console.log('articles', articles);
-    // temporary((((
-    result.articles = articles;
     console.log('result', result);
     this.rs.saveReport(result).subscribe(d => {
       console.log('dddd', d);
@@ -223,6 +245,7 @@ export class ReportPageComponent implements OnInit {
   }
 
   showProjects(index: number) {
+    console.log(this.dateISO);
     // @ts-ignore
     this.form.controls.clients.controls[index]
       .controls.projects.controls.forEach((project: any) => {
@@ -238,6 +261,7 @@ export class ReportPageComponent implements OnInit {
         article.controls.isChecked.setValue(true);
       });
   }
+
 
 }
 
