@@ -30,7 +30,6 @@
                     Добавить клиента
                 </button>
             </mat-card>
-            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
 
         <div fxFlex="32" *ngIf="selectedClient != null">
@@ -38,128 +37,118 @@
                 <mat-card-header>
                     <mat-card-title>Клиент</mat-card-title>
                 </mat-card-header>
-                <!--  -->
-                <form [formGroup]="clientForm" class="input-client">
+
+                <form [formGroup]="clientForm" [ngClass]="selectedClient.projects.length == 0 ? 'empty-form' : 'input-client' ">
                     <mat-form-field class="input-size">
                         <input matInput placeholder="Название" formControlName="name">
                     </mat-form-field>
-                    <!-- <mat-form-field class="input-size">
-                        <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
-                            [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let option of options" [value]="option">
-                                {{option}}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field> -->
                 </form>
-                <span>
-                    <p>Проектов: {{selectedClient.projects.length}}</p>
-                    <h5 align="center">Проекты</h5>
-                    <mat-divider></mat-divider>
+
+                <span *ngIf="selectedClient.projects.length != 0; else elseBlock">
+                   
+                    <span>
+                        <p>Проектов: {{selectedClient.projects.length}}</p>
+                        <h5 align="center">Проекты</h5>
+                        <mat-divider></mat-divider>
+                    </span>
+                    
+                    <div class="search-add-section">
+                        <mat-form-field class="input-size" *ngIf="isShowinput">
+                            <input matInput type="text" placeholder="Поиск" [(ngModel)]="searchProject">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                        <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="onProjectDialog()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+    
+                    <mat-list class="scrollbar" dense>
+                        <mat-list-item matRipple *ngFor="let project of selectedClient.projects | filter: searchProject"
+                            (click)="onProjectSelected(project)" [class.selected-item]="project == selectedProject">
+                            <span mat-line class="header-li"> {{ project.name }} </span>
+                            <span mat-line>Портфель:
+                                {{project.bag ? project.bag.name : 'не задан'}}</span>
+                            <mat-divider></mat-divider>
+                        </mat-list-item>
+    
+                    </mat-list>
                 </span>
 
-                <div class="search-add-section">
-                    <mat-form-field class="input-size" *ngIf="isShowinput">
-                        <input matInput type="text" placeholder="Поиск" [(ngModel)]="searchProject">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                    <button mat-icon-button (click)=showInput() *ngIf="!isShowinput">
-                        <mat-icon>search</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" (click)="onProjectDialog()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </div>
-
-                <mat-list class="scrollbar" dense>
-                    <mat-list-item matRipple *ngFor="let project of selectedClient.projects | filter: searchProject"
-                        (click)="onProjectSelected(project)" [class.selected-item]="project == selectedProject">
-                        <span mat-line class="header-li"> {{ project.name }} </span>
-                        <span mat-line>Портфель:
-                            {{project.bag ? project.bag.name : 'не задан'}}</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-
-                </mat-list>
-
                 <br>
-                <!-- <button mat-stroked-button color="primary">
-                Add client
-            </button> -->
+                <ng-template #elseBlock >
+                    
+                    <p class="empty">Нет проектов для клиента {{selectedClient.name}}</p>
+                    <button mat-button color="primary" (click)="onProjectDialog()" class="empty-add-button">
+                        Добавить проектa
+                    </button>
+                  
+                </ng-template>
+
+               
             </mat-card>
-            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
         <div fxFlex="32" *ngIf="selectedProject != null">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>Проект</mat-card-title>
                 </mat-card-header>
-                <!--  -->
-                <form [formGroup]="projectForm" class="input-client">
+
+                <form [formGroup]="projectForm" [ngClass]="selectedProject.articles.length == 0 ? 'empty-form' : 'input-client' ">
                     <mat-form-field class="input-size">
                         <input matInput placeholder="Название" formControlName="name">
                     </mat-form-field>
-                    <!-- <mat-form-field class="input-size">
-                        <input type="text" placeholder="Портфель" aria-label="Number" matInput [formControl]="myControl"
-                            [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let option of options" [value]="option">
-                                {{option}}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field> -->
                 </form>
-                <p>Статей: {{selectedProject.articles.length}}</p>
-                <button mat-button (click)="transferProjectDialog()">Перенести</button>
-                <span>
-                    <h5 align="center">Статьи</h5>
-                    <mat-divider></mat-divider>
-                </span>
-
-                <div class="add-section">
-                    <!-- <mat-form-field id="input-size" *ngIf="isShowinput">
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
-                    <mat-icon matSuffix>search</mat-icon>
-                </mat-form-field>
-                <button mat-icon-button (click)=showInput() *ngIf="!isShowinput"> <mat-icon>search</mat-icon></button> -->
-                    <button mat-icon-button color="primary" (click)="onArticleDialog()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </div>
-
-                <mat-action-list class="scrollbar" dense>
-                    <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li"
-                    >
-
-                        <span mat-line class="header-li"> {{ article.name }} </span>
-                        <span mat-line>Портфель: {{ article.bag ? article.bag.name : 'не задан' }}
-                        </span>
-                        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onArticleSelected(article)" >
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="onEditArticleDialog()">
-                              <mat-icon>edit</mat-icon>
-                              <span>Edit</span>
-                            </button>
-                            <button mat-menu-item (click)="transferArticleDialog()">
-                              <mat-icon>swap_horiz</mat-icon>
-                              <span>Transfer</span>
-                            </button>
-                        </mat-menu>
-                        <!-- <span mat-line>  profile: {{ client.profile }} </span> -->
+                <span *ngIf="selectedProject.articles.length != 0; else elseBlock">
+                    <p>Статей: {{selectedProject.articles.length}}</p>
+                    <button mat-button (click)="transferProjectDialog()">Перенести</button>
+                    <span>
+                        <h5 align="center">Статьи</h5>
                         <mat-divider></mat-divider>
-                    </button>
+                    </span>
 
-                </mat-action-list>
+                    <div class="add-section">
+                        <button mat-icon-button color="primary" (click)="onArticleDialog()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
 
+                    <mat-action-list class="scrollbar" dense>
+                        <button mat-list-item *ngFor="let article of selectedProject.articles" id="active-li"
+                        >
+
+                            <span mat-line class="header-li"> {{ article.name }} </span>
+                            <span mat-line>Портфель: {{ article.bag ? article.bag.name : 'не задан' }}
+                            </span>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onArticleSelected(article)" >
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="onEditArticleDialog()">
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit</span>
+                                </button>
+                                <button mat-menu-item (click)="transferArticleDialog()">
+                                <mat-icon>swap_horiz</mat-icon>
+                                <span>Transfer</span>
+                                </button>
+                            </mat-menu>
+                            <mat-divider></mat-divider>
+                        </button>
+
+                    </mat-action-list>
+                </span>                
                 <br>
-                <!-- <button mat-stroked-button color="primary">
-                Add client
-            </button> -->
+
+                <ng-template #elseBlock >
+                    <p class="empty">Для проекта {{selectedProject.name}} нет статьи</p>
+                    <button mat-button color="primary" (click)="onArticleDialog()" class="empty-add-button">
+                        Добавить статью
+                    </button>
+                </ng-template>
             </mat-card>
-            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
         </div>
 
     </div>
