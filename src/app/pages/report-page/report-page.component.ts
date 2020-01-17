@@ -42,6 +42,15 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     '0': { pattern: new RegExp('\[0-9\]') },
     '9': { pattern: new RegExp('\[05\]') }
   };
+
+  mask = (rawValue: string) => {
+    // if(rawValue.length <= 10 ){
+    //   return [ /your mask for cpf/ ]
+    // } else {
+    //   return ['/[0-9]./']
+    // }
+  }
+
   form: FormGroup = this.fb.group({
     commonArticles: this.fb.array([]),
     clients: this.fb.array([])
@@ -75,26 +84,26 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
   @ViewChildren('expenseTime') expenseTime: QueryList<ElementRef>;
   input() {
-    this.percent = this
-      .expenseTime
-      .filter(t => t.nativeElement.value)
-      .reduce((x, y) => {
-        return x + parseFloat(y.nativeElement.value);
-      }, 0);
-
-    this.percent = this.percent * 100 / this.hoursRequired;
-    console.log(this.percent);
-    console.log('form after input', this.form);
+    // this.percent = this
+    //   .expenseTime
+    //   .filter(t => t.nativeElement.value)
+    //   .reduce((x, y) => {
+    //     return x + parseFloat(y.nativeElement.value);
+    //   }, 0);
+    //
+    // this.percent = this.percent * 100 / this.hoursRequired;
+    // console.log(this.percent);
+    // console.log('form after input', this.form);
   }
 
   finish(event: any) {
-    let addable = '';
-    if (event.target.value.length == 1) {
-      addable = '.0';
-    } else if (event.target.value.length == 2) {
-      addable = '0';
-    }
-    event.target.value += addable;
+    // let addable = '';
+    // if (event.target.value.length == 1) {
+    //   addable = '.0';
+    // } else if (event.target.value.length == 2) {
+    //   addable = '0';
+    // }
+    // event.target.value += addable;
   }
 
   selectClient() {
@@ -110,8 +119,6 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
-      // console.log(result);
       let index = this.clients.value.indexOf(result);
       if (index >= 0) {
         // @ts-ignore
@@ -156,6 +163,8 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
     // set initial date so callback will be called
     this.dateFormControl.setValue(new Date());
+
+    console.log(this.form);
   }
 
   // callback for date change
@@ -213,7 +222,8 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     return articles;
   }
 
-  onSubmit() {
+  submit(reportState: number) {
+    console.log(this.form);
     /**
      * TODO:
      * Дата
@@ -244,6 +254,20 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  changeDetect() {
+    console.log('kek');
+  }
+
+  onSubmit() {
+    if (this.IsValid()) {
+      console.log('valid');
+      // this.submit(1);
+    }
+    else {
+      alert('form invalid');
+    }
+  }
+
   showProjects(index: number) {
     console.log(this.dateISO);
     // @ts-ignore
@@ -262,6 +286,31 @@ export class ReportPageComponent implements OnInit, OnDestroy {
       });
   }
 
+  IsValid() {
+    let commonIsValid = this.form.controls.commonArticles.controls.every((article: any) => {
+      return article.valid || article.value.time == '';
+    });
+    if(!commonIsValid) return false;
+    console.log('commonIsValid', commonIsValid);
+
+    let result = this.form.controls.clients.controls.every((client: any) => {
+      if (client.value.isChecked) {
+        return client.controls.projects.controls.every((project: any) => {
+          if (project.value.isChecked) {
+            return project.controls.articles.controls.every((article: any) => {
+              if (article.value.isChecked) {
+                return article.valid || article.value.time == '';
+              }
+              return true;
+            });
+          }
+          return true;
+        });
+      }
+      return true;
+    });
+    return result;
+  }
 
 }
 

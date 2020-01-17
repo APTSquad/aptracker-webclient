@@ -2,7 +2,12 @@
   <div class="aptracker-primary-header-label"
     style="display: flex; justify-content: space-between; align-items: center; height: 100%;">
     <h1>Ежедневный отчет</h1>
-    <button mat-raised-button color="accent">Завершить заполнение</button>
+
+    <button mat-raised-button color="accent"
+      (click)="onSubmit()">
+<!--      [disabled]="!IsValid()"-->
+      Завершить заполнение
+    </button>
   </div>
 </div>
 <mat-progress-bar mode="determinate" value="{{percent}}"></mat-progress-bar>
@@ -19,17 +24,15 @@
   </span>
 
   <ng-container *ngIf="reportState != 1">
-    <button (click)="parseArticlesForm()" mat-fab>
-      <mat-icon>add</mat-icon>
-    </button>
     <button (click)="selectClient()" mat-fab style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
       <mat-icon>add</mat-icon>
     </button>
   </ng-container>
 
 
-  <form [formGroup]="form" (submit)="onSubmit()">
-    <button type="submit"></button>
+  <form [formGroup]="form" (submit)="submit(1)">
+<!--    <button mat-raised-button color="accent">Завершить заполнение</button>-->
+<!--    <button type="submit"></button>-->
     <mat-list formArrayName="commonArticles" class="main-list" style="padding: 0">
       <ng-container *ngFor="let article of commonArticles.controls; let articleIndex=index">
         <ng-container [formGroupName]="articleIndex">
@@ -39,14 +42,15 @@
             </span>
             <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
               floatLabel="never">
-              <input formControlName="time" type="text" matInput #expenseTime maxlength="3" (focusout)="finish($event)"
-                (input)="input()" [patterns]="customPatterns" mask="00.9" placeholder="0.0" />
+              <input formControlName="time" type="text" matInput #expenseTime
+                     (focusout)="finish($event)" (change)="submit(0)"
+                     (input)="input()"  placeholder="0.0" />
+<!--              [patterns]="customPatterns" mask="00.9"-->
             </mat-form-field>
           </div>
-          <!--
           <span *ngIf="article.controls.time.errors?.required">
             Name is required.
-          </span>-->
+          </span>
         </ng-container>
       </ng-container>
     </mat-list>
@@ -83,8 +87,10 @@
                               <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form"
                                 appearance="outline" floatLabel="never">
                                 <input name="article" formControlName="time" type="text" matInput #expenseTime
-                                  maxlength="3" (focusout)="finish($event)" (input)="input()"
-                                  [patterns]="customPatterns" mask="0.9" placeholder="0.0" />
+                                       (focusout)="finish($event)" (change)="submit(0)"
+                                       (input)="input()"
+                                   placeholder="0.0" />
+<!--                                [patterns]="customPatterns" mask="0.9"-->
                               </mat-form-field>
                             </div>
                           </ng-container>
