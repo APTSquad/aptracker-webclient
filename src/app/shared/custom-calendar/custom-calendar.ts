@@ -36,13 +36,10 @@ export class CustomCalendarComponent implements OnInit, AfterViewInit {
   // Array of dates that (required fill and filled dates)
   // dates = this.date.dData;
 
+  @Input()
   dates: CustomDates[];
 
   ngOnInit() {
-    this.date.getDatesById(3).subscribe(data => {
-      this.dates = data;
-      console.log('dates: ' + this.dates[0].date);
-    });
 
   }
 
@@ -99,7 +96,7 @@ export class CustomDatesComponent extends NativeDateAdapter {
 
       for (let dte in this._datesArray) {
 
-        if (this._datesArray[dte].state == 0 || this._datesArray[dte].state == 2) {
+        if (/*this._datesArray[dte].state == 0 || */this._datesArray[dte].state == 2) {
           let item = new Date(this._datesArray[dte].date);
           requirefill = (
             item.getFullYear() === d.getFullYear()

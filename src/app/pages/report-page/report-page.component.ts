@@ -17,6 +17,7 @@ import {
   ArticleToSave,
   ReportFormService,
 } from 'src/app/shared/services/report-form-service';
+import { DateService } from 'src/app/shared/custom-calendar/dateService';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class ReportPageComponent implements OnInit, OnDestroy {
     }
   }
   dateSub: Subscription;
+  dates: any;
   dateFormControl: FormControl = new FormControl(null);
 
   customPatterns = {
@@ -53,7 +55,7 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
-    private rs: ReportFormService) {  }
+    private rs: ReportFormService, private date: DateService) { }
 
   get commonArticles(): FormArray { return this.form.get('commonArticles') as FormArray; }
   get clients(): FormArray { return this.form.get('clients') as FormArray; }
@@ -152,7 +154,7 @@ export class ReportPageComponent implements OnInit, OnDestroy {
       time: [
         article.hoursConsumption ? article.hoursConsumption.toString(10) : '',
         [Validators.required]]
-    //  , Validators.minLength(3)
+      //  , Validators.minLength(3)
     }));
   }
 
@@ -163,6 +165,10 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
     // set initial date so callback will be called
     this.dateFormControl.setValue(new Date());
+
+    this.date.getDatesById(0).subscribe(data => {
+      this.dates = data;
+    });
   }
 
   // callback for date change
@@ -190,7 +196,7 @@ export class ReportPageComponent implements OnInit, OnDestroy {
       //блокируем ввод если отчет зафиксирован
       console.log(dayInfo)
       console.log('STATE', this.reportState);
-      if(this.reportState == 1) {
+      if (this.reportState == 1) {
         this.form.disable();
       }
 
@@ -253,7 +259,11 @@ export class ReportPageComponent implements OnInit, OnDestroy {
       articles: this.parseArticlesForm()
     };
     console.log('result', result);
-    this.rs.saveReport(result).subscribe();
+    this.rs.saveReport(result).subscribe((_) => {
+      this.date.getDatesById(0).subscribe(data => {
+        this.dates = data;
+      });
+    });
   }
 
   onSubmit() {
