@@ -1,6 +1,6 @@
 
 .card{
-    background: linear-gradient(to right, rgb(54, 209, 220), rgb(91, 134, 229));
+    //background: linear-gradient(to right, rgb(54, 209, 220), rgb(91, 134, 229));
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -11,6 +11,7 @@
         max-width: 620px;
     }
 }
+
 
 .content{
     text-align: center;
