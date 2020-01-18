@@ -6,8 +6,7 @@
       <button (click)="selectClient()" mat-fab style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
         <mat-icon>add</mat-icon>
       </button>
-      <button mat-raised-button color="accent"
-              (click)="onSubmit()">
+      <button mat-raised-button color="accent" (click)="onSubmit()">
         Завершить заполнение
       </button>
     </ng-container>
@@ -21,6 +20,7 @@
     text-align: center;">
     {{percent}}%
   </span>
+  <br>
   <div class="custom-calendar">
     <app-custom-calendar #calendar [dateFormControl]="dateFormControl">
     </app-custom-calendar>
@@ -36,11 +36,9 @@
             </span>
             <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form" appearance="outline"
               floatLabel="never">
-              <input formControlName="time" type="text" matInput #expenseTime
-                     (focusout)="finish($event)" (change)="submit(0)"
-                     (input)="input()"  placeholder="0.0" mask="0*.9" [dropSpecialCharacters]="false"
-                     [patterns]="customPatterns"
-              />
+              <input formControlName="time" type="text" matInput #expenseTime (focusout)="finish($event)"
+                (change)="submit(0)" (input)="input()" placeholder="0.0" mask="0*.9" [dropSpecialCharacters]="false"
+                [patterns]="customPatterns" />
 
             </mat-form-field>
           </div>
@@ -80,10 +78,8 @@
                               <mat-form-field fxFlex="20%" style="width: 100px;" class="expense-form"
                                 appearance="outline" floatLabel="never">
                                 <input name="article" formControlName="time" type="text" matInput #expenseTime
-                                       (focusout)="finish($event)" (change)="submit(0)"
-                                       (input)="input()"  mask="0*.9" [dropSpecialCharacters]="false"
-                                       [patterns]="customPatterns"
-                                       placeholder="0.0" />
+                                  (focusout)="finish($event)" (change)="submit(0)" (input)="input()" mask="0*.9"
+                                  [dropSpecialCharacters]="false" [patterns]="customPatterns" placeholder="0.0" />
 
                               </mat-form-field>
                             </div>

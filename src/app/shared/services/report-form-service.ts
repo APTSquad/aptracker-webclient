@@ -1,33 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Bag} from '../../model';
+import { Bag } from '../../model';
 
 @Injectable()
 export class ReportFormService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getDays() {
-    return this.http.get('https://localhost:5001/api/Report/getDays/5');
+    return this.http.get('http://localhost:5000/api/Report/getDays/5');
   }
 
   getTemplate(body: GetBody) {
-    return this.http.post<Report>('https://localhost:5001/api/Report/getTemplate', body);
+    return this.http.post<Report>('http://localhost:5000/api/Report/getTemplate', body);
   }
 
   getDayInfo(body: GetBody) {
-    return this.http.post<DayInfo>('https://localhost:5001/api/Report/getDayInfo', body);
+    return this.http.post<DayInfo>('http://localhost:5000/api/Report/getDayInfo', body);
   }
 
   getReport() {
-    return this.http.post('https://localhost:5001/api/Report/getReport', {
+    return this.http.post('http://localhost:5000/api/Report/getReport', {
       'userId': 6,
       'date': '2020-01-09T18:54:33.998Z'
     });
   }
 
   saveReport(report: any) {
-    return this.http.post('https://localhost:5001/api/Report/saveReport', report);
+    return this.http.post('http://localhost:5000/api/Report/saveReport', report);
   }
 }
 

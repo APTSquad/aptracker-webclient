@@ -13,7 +13,7 @@ import { LogLevel } from 'msal';
 import { MatButtonModule } from '@angular/material';
 import { HierarchyDialogModule } from './shared/hierarchy-dialog/hierarchy-dialog';
 // tslint:disable-next-line:max-line-length
-export const protectedResourceMap: [string, string[]][] = [['http://localhost:5000/api', ['api://f2fee166-e82f-4861-a752-83a1c561115d/access_as_user', 'offline_access']], ['https://graph.microsoft.com/v1.0/me', ['user.read']]];
+export const protectedResourceMap: [string, string[]][] = [['http://localhost:5000/', ['api://f2fee166-e82f-4861-a752-83a1c561115d/access_as_user', 'offline_access']], ['https://graph.microsoft.com/v1.0/me', ['user.read']]];
 
 import { LoggingInterceptor } from './shared/http/http-logging.interceptor'
 import { NavBarModule } from './shared/navbar/navbar.module';
