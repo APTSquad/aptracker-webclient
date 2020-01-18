@@ -27,7 +27,6 @@ export class ReportFormService {
   }
 
   saveReport(report: any) {
-    console.log('saveReportBody', report);
     return this.http.post('https://localhost:5001/api/Report/saveReport', report);
   }
 }

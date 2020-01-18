@@ -12,13 +12,15 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask';
-import { options , ReportPageComponent } from './report-page.component';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { ReportPageComponent } from './report-page.component';
 import { CustomCalendarModule } from 'src/app/shared/custom-calendar/custom-calendar';
 import { AddClientsDialog } from './report-dialog/add-clients-dialog';
 import { ReportFormService } from 'src/app/shared/services/report-form-service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule ( {
   'imports': [

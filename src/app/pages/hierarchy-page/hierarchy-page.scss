@@ -28,6 +28,7 @@
      box-sizing:border-box;
      display:flex;
      flex-direction:column;
+    
  }
 
 
@@ -102,6 +103,31 @@ span {
  
 }
 
+.empty-form{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    bottom: 42%;
+}
+
+// .empty-add-button{
+//     position: relative;
+//     display: flex;
+//     justify-content: center;
+//     bottom: 40%;
+// }
+
+.empty{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    bottom: 45%;
+   
+    font-size: 18px;
+    color: rgba(0,0, 0, 0.64);
+    
+}
+
 button .mat-icon{
     font-size: 25px;
     font-weight: bolder;
@@ -124,3 +150,4 @@ button .mat-icon{
     left: 0;
 
 }
+

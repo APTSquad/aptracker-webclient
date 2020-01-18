@@ -11,14 +11,12 @@ import {
 import { MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { IConfig } from 'ngx-mask';
 import { AddClientsDialog } from './report-dialog/add-clients-dialog';
 import {
   Article,
-  ArticleToSave, Client, Project,
+  ArticleToSave,
   ReportFormService,
 } from 'src/app/shared/services/report-form-service';
-import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 
 @Component({
@@ -40,16 +38,8 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
   customPatterns = {
     '0': { pattern: new RegExp('\[0-9\]') },
-    '9': { pattern: new RegExp('\[05\]') }
+    '9': { pattern: new RegExp('\[05\]') },
   };
-
-  mask = (rawValue: string) => {
-    // if(rawValue.length <= 10 ){
-    //   return [ /your mask for cpf/ ]
-    // } else {
-    //   return ['/[0-9]./']
-    // }
-  }
 
   form: FormGroup = this.fb.group({
     commonArticles: this.fb.array([]),
@@ -84,26 +74,35 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
   @ViewChildren('expenseTime') expenseTime: QueryList<ElementRef>;
   input() {
-    // this.percent = this
-    //   .expenseTime
-    //   .filter(t => t.nativeElement.value)
-    //   .reduce((x, y) => {
-    //     return x + parseFloat(y.nativeElement.value);
-    //   }, 0);
-    //
-    // this.percent = this.percent * 100 / this.hoursRequired;
-    // console.log(this.percent);
-    // console.log('form after input', this.form);
+    this.percent = this
+      .expenseTime
+      .filter(t => t.nativeElement.value)
+      .reduce((x, y) => {
+        return x + parseFloat(y.nativeElement.value);
+      }, 0);
+
+    this.percent = this.percent * 100 / this.hoursRequired;
   }
 
   finish(event: any) {
-    // let addable = '';
-    // if (event.target.value.length == 1) {
-    //   addable = '.0';
-    // } else if (event.target.value.length == 2) {
-    //   addable = '0';
-    // }
-    // event.target.value += addable;
+    // console.log(this.form.value);
+    // console.log(event.target.controls);
+    let len = event.target.value.length;
+    if (len == 0) { return; }
+
+    let addable = '';
+    let pointIndex = event.target.value.indexOf('.');
+    // если точка есть
+    if (pointIndex != -1) {
+      // точка - последний символ
+      if (pointIndex + 1 == len) {
+        addable = '0';
+      }
+    } else {
+      addable = '.0';
+    }
+    event.target.value += addable;
+    console.log(this.form.value);
   }
 
   selectClient() {
@@ -151,8 +150,9 @@ export class ReportPageComponent implements OnInit, OnDestroy {
       isChecked: article.isChecked,
       id: article.id,
       time: [
-        article.hoursConsumption ? article.hoursConsumption : '',
-        [Validators.required, Validators.minLength(3)]]
+        article.hoursConsumption ? article.hoursConsumption.toString(10) : '',
+        [Validators.required]]
+    //  , Validators.minLength(3)
     }));
   }
 
@@ -163,8 +163,6 @@ export class ReportPageComponent implements OnInit, OnDestroy {
 
     // set initial date so callback will be called
     this.dateFormControl.setValue(new Date());
-
-    console.log(this.form);
   }
 
   // callback for date change
@@ -188,14 +186,41 @@ export class ReportPageComponent implements OnInit, OnDestroy {
       this.getClients(dayInfo.data.clients).forEach(client => {
         this.clients.push(client);
       });
+
+      //блокируем ввод если отчет зафиксирован
+      console.log(dayInfo)
+      console.log('STATE', this.reportState);
+      if(this.reportState == 1) {
+        this.form.disable();
+      }
+
+      // пересчитываем проценты
+      this.percent = 0;
+      dayInfo.data.common.forEach((article: any) => {
+        if (article.hoursConsumption) {
+          this.percent += article.hoursConsumption;
+        }
+      });
+      dayInfo.data.clients.forEach((client: any) => {
+        client.projects.forEach((project: any) => {
+          project.articles.forEach((article: any) => {
+            if (article.hoursConsumption) {
+              this.percent += article.hoursConsumption;
+            }
+          });
+        });
+      });
+      this.percent = this.percent * 100 / this.hoursRequired;
     });
   }
 
   parseArticle(article: Article): ArticleToSave {
+    console.log(article.time);
     let time = Number(article.time);
-    if (article.time.length < 2) {
-      time /= 10;
-    }
+    let pointIndex = article.time.indexOf('.');
+    // if(pointIndex != -1) {
+    //   time /= 10;
+    // }
     return { 'articleId': article.id, hoursConsumption: time };
   }
 
@@ -217,53 +242,25 @@ export class ReportPageComponent implements OnInit, OnDestroy {
         });
       }
     });
-    console.log('value', this.form.value);
-    console.log('parseArticlesForm', articles);
     return articles;
   }
 
   submit(reportState: number) {
-    console.log(this.form);
-    /**
-     * TODO:
-     * Дата
-     * отрефакторить
-     * типы
-     * 0.1 при автокомплите
-     */
-    // const controls = this.form.controls;
-    // /** Проверяем форму на валидность */
-    // if (this.form.invalid) {
-    //   /** Если форма не валидна, то помечаем все контролы как touched*/
-    //   Object.keys(controls)
-    //     .forEach(controlName => controls[controlName].markAsTouched());
-    //   /** Прерываем выполнение метода*/
-    //   return;
-    // }
     let result = {
       date: this.dateISO,
       userId: this.userId,
-      reportState: this.reportState,
+      reportState: reportState,
       articles: this.parseArticlesForm()
     };
-    console.log(this.form.value);
-
     console.log('result', result);
-    this.rs.saveReport(result).subscribe(d => {
-      console.log('dddd', d);
-    });
-  }
-
-  changeDetect() {
-    console.log('kek');
+    this.rs.saveReport(result).subscribe();
   }
 
   onSubmit() {
     if (this.IsValid()) {
       console.log('valid');
-      // this.submit(1);
-    }
-    else {
+      this.submit(1);
+    } else {
       alert('form invalid');
     }
   }
@@ -287,12 +284,12 @@ export class ReportPageComponent implements OnInit, OnDestroy {
   }
 
   IsValid() {
+    // @ts-ignore
     let commonIsValid = this.form.controls.commonArticles.controls.every((article: any) => {
       return article.valid || article.value.time == '';
     });
-    if(!commonIsValid) return false;
-    console.log('commonIsValid', commonIsValid);
-
+    if (!commonIsValid) { return false; }
+    // @ts-ignore
     let result = this.form.controls.clients.controls.every((client: any) => {
       if (client.value.isChecked) {
         return client.controls.projects.controls.every((project: any) => {
@@ -313,5 +310,3 @@ export class ReportPageComponent implements OnInit, OnDestroy {
   }
 
 }
-
-export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
